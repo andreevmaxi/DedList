@@ -1,0 +1,19 @@
+#include <cstdio>
+#include "MListForwardOriented.h"
+
+int main()
+{
+    MList_t test;
+
+    test.PushBack(10);
+    test.PushBack(20);
+    test.PushBack(30);
+    test.PushBack(40);
+    test.InsertAfter(3, 50);
+    printf("%d\n", test.elem(3));
+    //int n = 6;
+    //int* mass = (int*) calloc(n, sizeof(int));
+    for(int i = 0; i < 15; ++i)
+        
+    return 0;
+}
