@@ -473,43 +473,46 @@ bool MList_t::SortList()
         std::string DTime;
         std::string NewPath;
 
+        time_t now = std::chrono::system_clock::to_time_t ( std::chrono::system_clock::now() );
         if(err == 6)
             {
-            time_t now = std::chrono::system_clock::to_time_t ( std::chrono::system_clock::now() );
             DTime = "debug";
-            DTime += "_";
-            DTime += LName;
-            DTime += "_";
-            DTime += ctime(&now);
-            DTime += ".dot";
-            DTime.erase(DTime.find('\n'), 1);
-            int tmp = DTime.find(' ');
-            while(tmp != std::string::npos)
-                {
-                //DTime.erase(DTime.find(' '), 1);
-                DTime[DTime.find(' ')] = '_';
-                tmp = DTime.find(' ');
-                }
-            tmp = DTime.find(':');
-            while(tmp != std::string::npos)
-                {
-                //DTime.erase(DTime.find(':'), 1);
-                DTime[DTime.find(':')] = '_';
-                tmp = DTime.find(':');
-                }
-
-
-            DTime.erase(DTime.find(".dot"));
-            std::string MKDIR = "mkdir " + DTime;
-            std::system(MKDIR.c_str());
-            NewPath = DTime;
-            NewPath += "\\";
-            DTime += ".dot";
-            NewPath += DTime;
-
-            LDot = fopen(NewPath.c_str(), "w");
-            assert(LDot != NULL);
+            } else
+            {
+            DTime = "crit_err_";
+            DTime += (err + '0');
             }
+        DTime += "_";
+        DTime += LName;
+        DTime += "_";
+        DTime += ctime(&now);
+        DTime += ".dot";
+        DTime.erase(DTime.find('\n'), 1);
+        int tmp = DTime.find(' ');
+        while(tmp != std::string::npos)
+            {
+            //DTime.erase(DTime.find(' '), 1);
+            DTime[DTime.find(' ')] = '_';
+            tmp = DTime.find(' ');
+            }
+        tmp = DTime.find(':');
+        while(tmp != std::string::npos)
+            {
+            //DTime.erase(DTime.find(':'), 1);
+            DTime[DTime.find(':')] = '_';
+            tmp = DTime.find(':');
+            }
+        assert(LDot != NULL);
+
+        DTime.erase(DTime.find(".dot"));
+        std::string MKDIR = "mkdir " + DTime;
+        std::system(MKDIR.c_str());
+        NewPath = DTime;
+        NewPath += "\\";
+        DTime += ".dot";
+        NewPath += DTime;
+
+        LDot = fopen(NewPath.c_str(), "w");
         fprintf(LDot, "digraph G{\n");
         int* NowElem = head;
         int NowPos = 0;
@@ -542,7 +545,15 @@ bool MList_t::SortList()
         printf("\n%s\n", DotDoDot.c_str());
         std::system(DotDoDot.c_str());
 
-        NewPath.replace(NewPath.rfind("debug"), 5, "LMems");
+        if(err == 6)
+            {
+            NewPath.replace(NewPath.rfind("debug"), 5, "LMems");
+            } else
+            {
+            std::string CritStr = "crit_err_";
+            CritStr += (err + '0');
+            NewPath.replace(NewPath.rfind(CritStr), sizeof(CritStr), "LMems");
+            }
         NewPath += ".dot";
         LDot = fopen(NewPath.c_str(), "w");
         assert(LDot != NULL);

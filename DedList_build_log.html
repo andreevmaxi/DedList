@@ -4,8 +4,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
 <body>
 <tt>
-Build started on: <u>12-11-2019 at 02:26.12</u><br />
-Build ended on: <u>12-11-2019 at 02:26.14</u><p />
+Build started on: <u>12-11-2019 at 02:42.15</u><br />
+Build ended on: <u>12-11-2019 at 02:42.17</u><p />
 <b>-------------- Build: Debug in DedList (compiler: GNU GCC Compiler - Strict + Fast (SINGLE FILES ONLY))---------------</b><br />
 mingw32-g++.exe "C:\Users\Maksim\Documents\GitHub\DedList\main.cpp" -o bin\Debug\DedList.exe -mconsole  -Wall -fexceptions  -g  -Wshadow -Winit-self -Wredundant-decls -Wcast-align -Wundef -Wfloat-equal -Winline -Wunreachable-code -Wmissing-declarations -Wmissing-include-dirs -Wswitch-enum -Wswitch-default -Weffc++ -Wmain -Wextra -Wall -g -pipe -fexceptions -Wcast-qual -Wconversion -Wctor-dtor-privacy -Wempty-body -Wformat-security -Wformat=2 -Wignored-qualifiers -Wlogical-op -Wmissing-field-initializers -Wnon-virtual-dtor -Woverloaded-virtual -Wpointer-arith -Wsign-promo -Wstack-usage=8192 -Wstrict-aliasing -Wstrict-null-sentinel -Wtype-limits -Wwrite-strings -D_EJUDGE_CLIENT_SIDE -D_EJC -D__slowpoke -D_VORONEZH -D_DEBUG<br />
 In file included from C:\Users\Maksim\Documents\GitHub\DedList\main.cpp:2:0:<br />
@@ -63,31 +63,41 @@ C:\Users\Maksim\Documents\GitHub\DedList\MListForwardOriented.h:12:25: note: in 
      #define DEB( code ) code<br />
                          ^<br />
 C:\Users\Maksim\Documents\GitHub\DedList\MListForwardOriented.h: In member function 'void MList_t::LDUMP(int)':<br />
-<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListForwardOriented.h:487:39: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]</font><br />
-             while(tmp != std::string::npos)<br />
-                                       ^<br />
-<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListForwardOriented.h:494:39: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]</font><br />
-             while(tmp != std::string::npos)<br />
-                                       ^<br />
+<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListForwardOriented.h:483:27: warning: conversion to 'char' from 'int' may alter its value [-Wconversion]</font><br />
+             DTime += (err + '0');<br />
+                           ^<br />
+<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListForwardOriented.h:492:35: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]</font><br />
+         while(tmp != std::string::npos)<br />
+                                   ^<br />
+<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListForwardOriented.h:499:35: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]</font><br />
+         while(tmp != std::string::npos)<br />
+                                   ^<br />
 In file included from C:\Users\Maksim\Documents\GitHub\DedList\main.cpp:2:0:<br />
-<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListForwardOriented.h:521:182: warning: format '%d' expects argument of type 'int', but argument 4 has type 'int*' [-Wformat=]</font><br />
+<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListForwardOriented.h:524:182: warning: format '%d' expects argument of type 'int', but argument 4 has type 'int*' [-Wformat=]</font><br />
              fprintf(LDot, "%d [shape=record, label=\"ElemPointer:\n%d | {Position\n:%d | Data:\n%d | Next:\n%d}\"];\n", NowPos, NowElem, NowPos, *(data + (NowElem - next)), *NowElem);<br />
                                                                                                                                                                                       ^<br />
-<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListForwardOriented.h:522:192: warning: format '%d' expects argument of type 'int', but argument 4 has type 'int*' [-Wformat=]</font><br />
+<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListForwardOriented.h:525:192: warning: format '%d' expects argument of type 'int', but argument 4 has type 'int*' [-Wformat=]</font><br />
              fprintf(LDot, "%d [shape=record, label=\"ElemPointer:\n%d | {Position\n:%d | Data:\n%d | Next:\n%d}\"];\n", (NowPos + 1), (*NowElem + next), *(data + *NowElem), *(next + *NowElem));<br />
                                                                                                                                                                                                 ^<br />
-<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListForwardOriented.h:522:192: warning: format '%d' expects a matching 'int' argument [-Wformat=]</font><br />
-<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListForwardOriented.h:553:155: warning: format '%d' expects argument of type 'int', but argument 4 has type 'ListElem_t* {aka int*}' [-Wformat=]</font><br />
+<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListForwardOriented.h:525:192: warning: format '%d' expects a matching 'int' argument [-Wformat=]</font><br />
+<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListForwardOriented.h:554:29: warning: conversion to 'char' from 'int' may alter its value [-Wconversion]</font><br />
+             CritStr += (err + '0');<br />
+                             ^<br />
+<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListForwardOriented.h:564:155: warning: format '%d' expects argument of type 'int', but argument 4 has type 'ListElem_t* {aka int*}' [-Wformat=]</font><br />
          fprintf(LDot, "{Memory of list: %s} | {{DataPointer:\n%d | Data:\n%d | NextPointer:\n%d | Next:\n%d}", LName.c_str(), data, *(data), next, *(next));<br />
                                                                                                                                                            ^<br />
-<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListForwardOriented.h:553:155: warning: format '%d' expects argument of type 'int', but argument 6 has type 'int*' [-Wformat=]</font><br />
-<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListForwardOriented.h:556:138: warning: format '%d' expects argument of type 'int', but argument 3 has type 'ListElem_t* {aka int*}' [-Wformat=]</font><br />
+<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListForwardOriented.h:564:155: warning: format '%d' expects argument of type 'int', but argument 6 has type 'int*' [-Wformat=]</font><br />
+<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListForwardOriented.h:567:138: warning: format '%d' expects argument of type 'int', but argument 3 has type 'ListElem_t* {aka int*}' [-Wformat=]</font><br />
              fprintf(LDot, "| {DataPointer:\n%d | Data:\n%d | NextPointer:\n%d | Next:\n%d}", data + i, *(data + i), next + i, *(next + i));<br />
                                                                                                                                           ^<br />
-<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListForwardOriented.h:556:138: warning: format '%d' expects argument of type 'int', but argument 5 has type 'int*' [-Wformat=]</font><br />
+<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListForwardOriented.h:567:138: warning: format '%d' expects argument of type 'int', but argument 5 has type 'int*' [-Wformat=]</font><br />
+In file included from C:\Users\Maksim\Documents\GitHub\DedList\main.cpp:2:0:<br />
+<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListForwardOriented.h:505:29: warning: 'LDot' may be used uninitialized in this function [-Wmaybe-uninitialized]</font><br />
+         assert(LDot != NULL);<br />
+                             ^<br />
 Output size is 510,87 KB<br />
 <font color="#0000ff">Process terminated with status 0 (0 minutes, 1 seconds)</font><br />
-<font color="#0000ff">0 errors, 30 warnings (0 minutes, 1 seconds)</font><br />
+<font color="#0000ff">0 errors, 33 warnings (0 minutes, 1 seconds)</font><br />
 </tt>
 </body>
 </html>
