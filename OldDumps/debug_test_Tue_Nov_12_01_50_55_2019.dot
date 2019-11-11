@@ -1,0 +1,137 @@
+digraph G{
+{
+rankdir=LR;
+data [shape=record, rankdir=LR,label="{Memory of list: test} | {{DataPointer:
+9703440 | Data:
+50 | NextPointer:
+9703512 | Next:
+5}| {DataPointer:
+9703444 | Data:
+0 | NextPointer:
+9703516 | Next:
+-1}| {DataPointer:
+9703448 | Data:
+0 | NextPointer:
+9703520 | Next:
+-1}| {DataPointer:
+9703452 | Data:
+0 | NextPointer:
+9703524 | Next:
+-1}| {DataPointer:
+9703456 | Data:
+10 | NextPointer:
+9703528 | Next:
+0}| {DataPointer:
+9703460 | Data:
+20 | NextPointer:
+9703532 | Next:
+6}| {DataPointer:
+9703464 | Data:
+30 | NextPointer:
+9703536 | Next:
+7}| {DataPointer:
+9703468 | Data:
+40 | NextPointer:
+9703540 | Next:
+8}| {DataPointer:
+9703472 | Data:
+50 | NextPointer:
+9703544 | Next:
+1}| {DataPointer:
+9703476 | Data:
+0 | NextPointer:
+9703548 | Next:
+-1}| {DataPointer:
+9703480 | Data:
+0 | NextPointer:
+9703552 | Next:
+-1}| {DataPointer:
+9703484 | Data:
+0 | NextPointer:
+9703556 | Next:
+-1}| {DataPointer:
+9703488 | Data:
+0 | NextPointer:
+9703560 | Next:
+-1}| {DataPointer:
+9703492 | Data:
+0 | NextPointer:
+9703564 | Next:
+-1}| {DataPointer:
+9703496 | Data:
+0 | NextPointer:
+9703568 | Next:
+-1}}"];
+subgraph clusterlist {
+0 [shape=record, label="ElemPointer:
+9703528 | {Position
+:0 | Data:
+10 | Next:
+0}"];
+1 [shape=record, label="ElemPointer:
+9703512 | {Position
+:50 | Data:
+5 | Next:
+0}"];
+0->1
+1 [shape=record, label="ElemPointer:
+9703512 | {Position
+:1 | Data:
+50 | Next:
+5}"];
+2 [shape=record, label="ElemPointer:
+9703532 | {Position
+:20 | Data:
+6 | Next:
+5}"];
+1->2
+2 [shape=record, label="ElemPointer:
+9703532 | {Position
+:2 | Data:
+20 | Next:
+6}"];
+3 [shape=record, label="ElemPointer:
+9703536 | {Position
+:30 | Data:
+7 | Next:
+6}"];
+2->3
+3 [shape=record, label="ElemPointer:
+9703536 | {Position
+:3 | Data:
+30 | Next:
+7}"];
+4 [shape=record, label="ElemPointer:
+9703540 | {Position
+:40 | Data:
+8 | Next:
+7}"];
+3->4
+4 [shape=record, label="ElemPointer:
+9703540 | {Position
+:4 | Data:
+40 | Next:
+8}"];
+5 [shape=record, label="ElemPointer:
+9703544 | {Position
+:50 | Data:
+1 | Next:
+8}"];
+4->5
+5 [shape=record, label="ElemPointer:
+9703544 | {Position
+:5 | Data:
+50 | Next:
+1}"];
+6 [shape=record, label="ElemPointer:
+9703516 | {Position
+:0 | Data:
+-1 | Next:
+1}"];
+5->6
+label = "List with name: test"}
+}
+{
+rankdir=TB;
+edge[color=white]
+all->0}

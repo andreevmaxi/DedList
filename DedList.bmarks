@@ -2,9 +2,9 @@
 <BrowseTracker_layout_file>
 	<ActiveTarget name="Debug" />
 	<File name="MListForwardOriented.h" open="1" top="1" tabpos="1">
-		<Cursor position="4883" topLine="190" />
-		<BrowseMarks positions="6502" />
-		<Book_Marks positions="" />
+		<Cursor position="9015" topLine="367" />
+		<BrowseMarks positions="1074" />
+		<Book_Marks positions="994" />
 	</File>
 	<File name="main.cpp" open="1" top="0" tabpos="2">
 		<Cursor position="90" topLine="0" />

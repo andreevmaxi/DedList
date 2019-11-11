@@ -1,0 +1,134 @@
+digraph G{
+rankdir=LR;
+subgraph clusterlist {
+0 [shape=record, label="ElemPointer:
+7671912 | {Position
+:0 | Data:
+10 | Next:
+0}"];
+1 [shape=record, label="ElemPointer:
+7671896 | {Position
+:50 | Data:
+5 | Next:
+0}"];
+0->1
+1 [shape=record, label="ElemPointer:
+7671896 | {Position
+:1 | Data:
+50 | Next:
+5}"];
+2 [shape=record, label="ElemPointer:
+7671916 | {Position
+:20 | Data:
+6 | Next:
+5}"];
+1->2
+2 [shape=record, label="ElemPointer:
+7671916 | {Position
+:2 | Data:
+20 | Next:
+6}"];
+3 [shape=record, label="ElemPointer:
+7671920 | {Position
+:30 | Data:
+7 | Next:
+6}"];
+2->3
+3 [shape=record, label="ElemPointer:
+7671920 | {Position
+:3 | Data:
+30 | Next:
+7}"];
+4 [shape=record, label="ElemPointer:
+7671924 | {Position
+:40 | Data:
+8 | Next:
+7}"];
+3->4
+4 [shape=record, label="ElemPointer:
+7671924 | {Position
+:4 | Data:
+40 | Next:
+8}"];
+5 [shape=record, label="ElemPointer:
+7671928 | {Position
+:50 | Data:
+1 | Next:
+8}"];
+4->5
+5 [shape=record, label="ElemPointer:
+7671928 | {Position
+:5 | Data:
+50 | Next:
+1}"];
+6 [shape=record, label="ElemPointer:
+7671900 | {Position
+:0 | Data:
+-1 | Next:
+1}"];
+5->6
+label = "List with name: test"}
+subgraph clusterofmemory {
+data [shape=record, label="{DataPointer:
+7671824 | Data:
+50 | NextPointer:
+7671896 | Next:
+5}| {DataPointer:
+7671828 | Data:
+0 | NextPointer:
+7671900 | Next:
+-1}| {DataPointer:
+7671832 | Data:
+0 | NextPointer:
+7671904 | Next:
+-1}| {DataPointer:
+7671836 | Data:
+0 | NextPointer:
+7671908 | Next:
+-1}| {DataPointer:
+7671840 | Data:
+10 | NextPointer:
+7671912 | Next:
+0}| {DataPointer:
+7671844 | Data:
+20 | NextPointer:
+7671916 | Next:
+6}| {DataPointer:
+7671848 | Data:
+30 | NextPointer:
+7671920 | Next:
+7}| {DataPointer:
+7671852 | Data:
+40 | NextPointer:
+7671924 | Next:
+8}| {DataPointer:
+7671856 | Data:
+50 | NextPointer:
+7671928 | Next:
+1}| {DataPointer:
+7671860 | Data:
+0 | NextPointer:
+7671932 | Next:
+-1}| {DataPointer:
+7671864 | Data:
+0 | NextPointer:
+7671936 | Next:
+-1}| {DataPointer:
+7671868 | Data:
+0 | NextPointer:
+7671940 | Next:
+-1}| {DataPointer:
+7671872 | Data:
+0 | NextPointer:
+7671944 | Next:
+-1}| {DataPointer:
+7671876 | Data:
+0 | NextPointer:
+7671948 | Next:
+-1}| {DataPointer:
+7671880 | Data:
+0 | NextPointer:
+7671952 | Next:
+-1}"];
+label = "memory of list: test"}
+}

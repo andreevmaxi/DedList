@@ -1,0 +1,63 @@
+digraph G{
+data [shape=record,label="{Memory of list: test} | {{DataPointer:
+6950928 | Data:
+50 | NextPointer:
+6951000 | Next:
+5}| {DataPointer:
+6950932 | Data:
+0 | NextPointer:
+6951004 | Next:
+-1}| {DataPointer:
+6950936 | Data:
+0 | NextPointer:
+6951008 | Next:
+-1}| {DataPointer:
+6950940 | Data:
+0 | NextPointer:
+6951012 | Next:
+-1}| {DataPointer:
+6950944 | Data:
+10 | NextPointer:
+6951016 | Next:
+0}| {DataPointer:
+6950948 | Data:
+20 | NextPointer:
+6951020 | Next:
+6}| {DataPointer:
+6950952 | Data:
+30 | NextPointer:
+6951024 | Next:
+7}| {DataPointer:
+6950956 | Data:
+40 | NextPointer:
+6951028 | Next:
+8}| {DataPointer:
+6950960 | Data:
+50 | NextPointer:
+6951032 | Next:
+1}| {DataPointer:
+6950964 | Data:
+0 | NextPointer:
+6951036 | Next:
+-1}| {DataPointer:
+6950968 | Data:
+0 | NextPointer:
+6951040 | Next:
+-1}| {DataPointer:
+6950972 | Data:
+0 | NextPointer:
+6951044 | Next:
+-1}| {DataPointer:
+6950976 | Data:
+0 | NextPointer:
+6951048 | Next:
+-1}| {DataPointer:
+6950980 | Data:
+0 | NextPointer:
+6951052 | Next:
+-1}| {DataPointer:
+6950984 | Data:
+0 | NextPointer:
+6951056 | Next:
+-1}}"];
+}

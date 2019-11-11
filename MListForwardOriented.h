@@ -1,10 +1,13 @@
 #include <algorithm>
+#include <chrono>
+#include <ctime>
 #include <cstdlib>
 #include <cassert>
 #include <string>
+#include <cstdlib>
 
 #ifdef _DEBUG
-    #define InitDEB( list ) MList_t list( #list )
+    #define DEBMList_t( list ) MList_t list( #list )
 
     #define DEB( code ) code
 #else
@@ -13,20 +16,22 @@
     #define InitDEB( list )
 #endif
 
-
 typedef int ListElem_t;
 
 const int BeginNumOfMember = 15;
 
+const std::string DotPath = "\"C:\\Program Files (x86)\\Graphviz2.38\\bin\\dot.exe\"";
+
 struct MList_t
     {
+    DEB(int LCanary);
     ListElem_t* data;
     int* next;
     int* head;
     int* tail;        // to do fast "push back"
     bool sorted;      // 1 when data is equal to array
     int LSize;
-    DEB(string LName);
+    DEB(std::string LName);
 
     bool PushBack(ListElem_t PushingElem);
 
@@ -40,12 +45,22 @@ struct MList_t
 
     bool ArrOfElems(ListElem_t* RetArr, int* PosOfElems, int SizeOfArrs);
 
+    DEB(bool Verify());
+
+    DEB(void LDUMP(int err));
+
     #ifdef _DEBUG
-    MList_t( string name );
+    MList_t( std::string name );
     #else
     MList_t();
     #endif
     ~MList_t();
+
+    DEB(int RCanary);
+
+    DEB(unsigned long long MAXHash());
+
+    DEB(unsigned long long LHash);
     };
 
 bool LResize(ListElem_t data, int* next, int* LSize);
@@ -54,7 +69,7 @@ int* SearchingEmpty(ListElem_t data, int* next, int* LSize);
 
 
 #ifdef _DEBUG
-MList_t::MList_t( string name )
+MList_t::MList_t( std::string name )
     {
     data   = (ListElem_t*) calloc (BeginNumOfMember, sizeof(ListElem_t));
     next   = (int*) calloc (BeginNumOfMember, sizeof(int));
@@ -64,8 +79,10 @@ MList_t::MList_t( string name )
     assert(data);
     assert(next);
     assert(head);
-    assert(tail);// than it needs to be if (...) {errnum = 124124125125; DUMP}
+    assert(tail);// than it needs to be if (...) {errnum = 124124125125; LDUMP}
 
+    LCanary = -230 - 230 * 256 - 230 * 256 * 256 - 230 * 256 * 256 * 256;
+    RCanary = -230 - 230 * 256 - 230 * 256 * 256 - 230 * 256 * 256 * 256;
     sorted = 1;
     LSize  = BeginNumOfMember;
     LName = name;
@@ -74,7 +91,7 @@ MList_t::MList_t( string name )
         {
         *(next + i) = -1;
         }
-
+    LHash = MList_t::MAXHash();
     return;
     }
 #else
@@ -88,7 +105,7 @@ MList_t::MList_t()
     assert(data != NULL);
     assert(next != NULL);
     assert(head != NULL);
-    assert(tail != NULL);// than it needs to be if (...) {errnum = 124124125125; DUMP}
+    assert(tail != NULL);// than it needs to be if (...) {errnum = 124124125125; LDUMP}
 
     sorted = 1;
     LSize  = BeginNumOfMember;
@@ -117,7 +134,6 @@ bool LResize(ListElem_t* data, int* next, int* LSize)
         {
         *(next + i) = -1;
         }
-
     return 1;
     }
 
@@ -153,6 +169,8 @@ bool MList_t::PushBack(ListElem_t PushingElem)
             *tail = tail - next + 1;
             ++tail;
             }
+
+        DEB(LHash = MList_t::MAXHash());
         return 1;
         }
     return 0;
@@ -217,6 +235,8 @@ bool MList_t::InsertAfter(ListElem_t PushingElem, int RawPos)
         *head = head + 1 - next;
         *(data + (head - next) )   = PushingElem;
 
+
+        DEB(LHash = MList_t::MAXHash());
         return 1;
         }
     sorted = 0;
@@ -225,6 +245,7 @@ bool MList_t::InsertAfter(ListElem_t PushingElem, int RawPos)
     *(next + Pos) = NewElem - next;
     *(data + (NewElem - next)) = PushingElem;
 
+    DEB(LHash = MList_t::MAXHash());
     return 1;
     }
 
@@ -250,6 +271,8 @@ bool MList_t::DeleteAfter(int Pos)
         *(next + Pos) = *DeletingElem;
         *DeletingElem = -1;
         }
+
+    DEB(LHash = MList_t::MAXHash());
     return 1;
     }
 
@@ -258,6 +281,8 @@ MList_t::~MList_t()
     free(data);
     free(next);
 
+
+    DEB(LHash = MList_t::MAXHash());
     LSize = -1; // it's like it's dead, like destructed you knawww
     return;
     }
@@ -327,6 +352,7 @@ bool MList_t::SortList()
         }
     int* NowElem = head;
     int  i = head - next;
+    head = TmpNext + i;
     while(*(NowElem) != -1)
         {
         *(TmpData + i) = *(data + (NowElem - next));
@@ -334,6 +360,7 @@ bool MList_t::SortList()
         NowElem = next + *NowElem;
         ++i;
         }
+    tail = TmpNext + i;
     ListElem_t* TmpD = data;
     int*        TmpN = next;
     next = TmpNext;
@@ -342,5 +369,204 @@ bool MList_t::SortList()
     free(TmpN);
 
     sorted = 1;
+
+
+    DEB(LHash = MList_t::MAXHash());
+
     return 1;
     }
+
+#ifdef _DEBUG
+    bool MList_t::Verify()
+        {
+        int err = 0;
+
+        if(LCanary != RCanary || LCanary != -230 - 230 * 256 - 230 * 256 * 256 - 230 * 256 * 256 * 256)
+            {
+            err = 5;
+            MList_t::LDUMP(err); // err 5 :: something went on list's memory!
+            }
+
+        if(LHash != MList_t::MAXHash())
+            {
+            err = 4;
+            MList_t::LDUMP(err); // err 4 :: list has been attacked!
+            }
+
+        int* NowElem = head;
+        int NowPos   = 0;
+        while (*NowElem != -1)
+            {
+            if(NowPos > LSize)
+                {
+                err = 1;
+                MList_t::LDUMP(err); // err 1 :: list is circled!!!
+                }
+            NowElem = *NowElem + next;
+            ++NowPos;
+            }
+        NowElem = head;
+        for(int i = 0; i < LSize; ++i)
+            {
+            if(*NowElem == -1)
+                {
+                ++NowPos;
+                }
+            NowElem = *NowElem + next;
+            }
+        if(NowPos - 1 < LSize)
+            {
+            err = 2;
+            MList_t::LDUMP(err); // err 2 :: list has gap!
+            }
+
+        if(NowPos - 1 > LSize)
+            {
+            err = 3;
+            MList_t::LDUMP(err); // err 3 :: list lost connection, how hz, but hz.
+            }
+
+        return 1; // if err 6 :: it's just printing the list
+        }
+#endif
+
+#ifdef _DEBUG
+    unsigned long long MList_t::MAXHash()
+        {
+        const unsigned long long MaxHashKey = 0x5BD1E995;
+
+        const int ByteShift = 10;
+
+        unsigned long long HashSum = 0;
+
+        // initializing HashSum
+
+        DEB(HashSum = MaxHashKey ^ LSize);
+
+        ListElem_t tmp = 0;
+
+        // adding all Data to hash
+
+        int* NowFByte = (int*)&LCanary;
+
+        while(NowFByte + 4 < (int*)&LHash)
+            {
+            DEB(tmp = *NowFByte);
+            DEB(tmp *= MaxHashKey);
+            DEB(tmp ^= tmp >> ByteShift);
+            DEB(tmp *= MaxHashKey);
+
+            DEB(HashSum *= MaxHashKey);
+            DEB(HashSum ^= tmp);
+            ++NowFByte;
+            }
+
+        return HashSum;
+        }
+
+#endif
+
+#ifdef _DEBUG
+    void MList_t::LDUMP(int err)
+        {
+        FILE* LDot;
+        std::string DTime;
+        std::string NewPath;
+
+        if(err == 6)
+            {
+            time_t now = std::chrono::system_clock::to_time_t ( std::chrono::system_clock::now() );
+            DTime = "debug";
+            DTime += "_";
+            DTime += LName;
+            DTime += "_";
+            DTime += ctime(&now);
+            DTime += ".dot";
+            DTime.erase(DTime.find('\n'), 1);
+            int tmp = DTime.find(' ');
+            while(tmp != std::string::npos)
+                {
+                //DTime.erase(DTime.find(' '), 1);
+                DTime[DTime.find(' ')] = '_';
+                tmp = DTime.find(' ');
+                }
+            tmp = DTime.find(':');
+            while(tmp != std::string::npos)
+                {
+                //DTime.erase(DTime.find(':'), 1);
+                DTime[DTime.find(':')] = '_';
+                tmp = DTime.find(':');
+                }
+
+
+            DTime.erase(DTime.find(".dot"));
+            std::string MKDIR = "mkdir " + DTime;
+            std::system(MKDIR.c_str());
+            NewPath = DTime;
+            NewPath += "\\";
+            DTime += ".dot";
+            NewPath += DTime;
+
+            LDot = fopen(NewPath.c_str(), "w");
+            assert(LDot != NULL);
+            }
+        fprintf(LDot, "digraph G{\n");
+        int* NowElem = head;
+        int NowPos = 0;
+        fprintf(LDot, "rankdir=LR;\n");
+
+        fprintf(LDot, "subgraph clusterlist {\n");
+        while(*NowElem != -1 && NowPos < LSize)
+            {
+            fprintf(LDot, "%d [shape=record, label=\"ElemPointer:\n%d | {Position\n:%d | Data:\n%d | Next:\n%d}\"];\n", NowPos, NowElem, NowPos, *(data + (NowElem - next)), *NowElem);
+            fprintf(LDot, "%d [shape=record, label=\"ElemPointer:\n%d | {Position\n:%d | Data:\n%d | Next:\n%d}\"];\n", (NowPos + 1), (*NowElem + next), *(data + *NowElem), *(next + *NowElem));
+            fprintf(LDot, "%d->%d\n", NowPos, (NowPos + 1));
+            NowElem = *NowElem + next;
+            ++NowPos;
+            }
+        fprintf(LDot, "label = \"List with name: %s\"}\n", LName.c_str());
+
+
+        fprintf(LDot, "}\n");
+        fclose(LDot);
+
+
+        std::string DotDoDot;
+        DotDoDot += DotPath;
+        DotDoDot += " -Tpng ";
+        DotDoDot += NewPath;
+        DotDoDot += " -o ";
+        NewPath.erase(NewPath.rfind(".dot"));
+        DotDoDot += NewPath;
+        DotDoDot += ".png";
+        printf("\n%s\n", DotDoDot.c_str());
+        std::system(DotDoDot.c_str());
+
+        NewPath.replace(NewPath.rfind("debug"), 5, "LMems");
+        NewPath += ".dot";
+        LDot = fopen(NewPath.c_str(), "w");
+        assert(LDot != NULL);
+
+
+        fprintf(LDot, "digraph G{\n");
+        fprintf(LDot, "data [shape=record,label=\"");
+        fprintf(LDot, "{Memory of list: %s} | {{DataPointer:\n%d | Data:\n%d | NextPointer:\n%d | Next:\n%d}", LName.c_str(), data, *(data), next, *(next));
+        for(int i = 1; i < LSize; ++i)
+            {
+            fprintf(LDot, "| {DataPointer:\n%d | Data:\n%d | NextPointer:\n%d | Next:\n%d}", data + i, *(data + i), next + i, *(next + i));
+            }
+        fprintf(LDot, "}\"];\n}\n");
+        fclose(LDot);
+        std::string DotDoData;
+        DotDoData += DotPath;
+        DotDoData += " -Tpng ";
+        DotDoData += NewPath;
+        DotDoData += " -o ";
+        NewPath.erase(NewPath.find(".dot"));
+        DotDoData += NewPath;
+        DotDoData += ".png";
+        printf("\n%s\n", DotDoData.c_str());
+        std::system(DotDoData.c_str());
+        return;
+        }
+#endif

@@ -3,7 +3,7 @@
 
 int main()
 {
-    MList_t test;
+    DEBMList_t(test);
 
     test.PushBack(10);
     test.PushBack(20);
@@ -34,6 +34,17 @@ int main()
     printf("%d %d\n", *(test.data + i), *(test.next + i));
     }
 
+    test.LDUMP(6);
+    printf("\n\n");
+    for(int i = 0; i < 15; ++i)
+        {
+        printf("%d %d\n", *(test.data + i), *(test.next + i));
+        }
+
+
+    printf("\n%d\n", test.head - test.next);
+
+
     test.SortList();
 
     printf("\n\n");
@@ -41,6 +52,8 @@ int main()
         {
         printf("%d %d\n", *(test.data + i), *(test.next + i));
         }
+    printf("\n%d\n", test.head - test.next);
+    printf("\n%d\n", test.tail - test.next);
 
 
     return 0;

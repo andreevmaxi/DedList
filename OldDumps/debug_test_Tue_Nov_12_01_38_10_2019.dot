@@ -1,0 +1,122 @@
+digraph G{
+rankdir=LR;
+data [shape=record, rankdir=LR,label="{ rank = same; {Memory of list: test} | {{DataPointer:
+12193808 | Data:
+50 | NextPointer:
+12193880 | Next:
+5}| {DataPointer:
+12193812 | Data:
+0 | NextPointer:
+12193884 | Next:
+-1}| {DataPointer:
+12193816 | Data:
+0 | NextPointer:
+12193888 | Next:
+-1}| {DataPointer:
+12193820 | Data:
+0 | NextPointer:
+12193892 | Next:
+-1}| {DataPointer:
+12193824 | Data:
+10 | NextPointer:
+12193896 | Next:
+0}| {DataPointer:
+12193828 | Data:
+20 | NextPointer:
+12193900 | Next:
+6}| {DataPointer:
+12193832 | Data:
+30 | NextPointer:
+12193904 | Next:
+7}| {DataPointer:
+12193836 | Data:
+40 | NextPointer:
+12193908 | Next:
+8}| {DataPointer:
+12193840 | Data:
+50 | NextPointer:
+12193912 | Next:
+1}| {DataPointer:
+12193844 | Data:
+0 | NextPointer:
+12193916 | Next:
+-1}| {DataPointer:
+12193848 | Data:
+0 | NextPointer:
+12193920 | Next:
+-1}| {DataPointer:
+12193852 | Data:
+0 | NextPointer:
+12193924 | Next:
+-1}| {DataPointer:
+12193856 | Data:
+0 | NextPointer:
+12193928 | Next:
+-1}| {DataPointer:
+12193860 | Data:
+0 | NextPointer:
+12193932 | Next:
+-1}| {DataPointer:
+12193864 | Data:
+0 | NextPointer:
+12193936 | Next:
+-1}}"];
+}
+subgraph clusterlist {
+{ rank = same; 0 [shape=record, label="ElemPointer:
+12193896 | {Position
+:0 | Data:
+10 | Next:
+0}"];1 [shape=record, label="ElemPointer:
+12193880 | {Position
+:50 | Data:
+5 | Next:
+0}"];1 [shape=record, label="ElemPointer:
+12193880 | {Position
+:1 | Data:
+50 | Next:
+5}"];2 [shape=record, label="ElemPointer:
+12193900 | {Position
+:20 | Data:
+6 | Next:
+5}"];2 [shape=record, label="ElemPointer:
+12193900 | {Position
+:2 | Data:
+20 | Next:
+6}"];3 [shape=record, label="ElemPointer:
+12193904 | {Position
+:30 | Data:
+7 | Next:
+6}"];3 [shape=record, label="ElemPointer:
+12193904 | {Position
+:3 | Data:
+30 | Next:
+7}"];4 [shape=record, label="ElemPointer:
+12193908 | {Position
+:40 | Data:
+8 | Next:
+7}"];4 [shape=record, label="ElemPointer:
+12193908 | {Position
+:4 | Data:
+40 | Next:
+8}"];5 [shape=record, label="ElemPointer:
+12193912 | {Position
+:50 | Data:
+1 | Next:
+8}"];5 [shape=record, label="ElemPointer:
+12193912 | {Position
+:5 | Data:
+50 | Next:
+1}"];6 [shape=record, label="ElemPointer:
+12193884 | {Position
+:0 | Data:
+-1 | Next:
+1}"];}
+0->1
+1->2
+2->3
+3->4
+4->5
+5->6
+label = "List with name: test"}
+}
