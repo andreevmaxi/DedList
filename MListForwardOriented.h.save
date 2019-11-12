@@ -16,6 +16,8 @@
     #define InitDEB( list )
 #endif
 
+const int NormCanary =
+
 typedef int ListElem_t;
 
 const int BeginNumOfMember = 15;
@@ -153,6 +155,7 @@ int* SearchingEmpty(ListElem_t* data, int* next, int* LSize)
 
 bool MList_t::PushBack(ListElem_t PushingElem)
     {
+    DEB(MList_t::Verify());
     if(*tail == -1)
         {
         *(data + (tail - next)) = PushingElem;
@@ -178,6 +181,7 @@ bool MList_t::PushBack(ListElem_t PushingElem)
 
 bool MList_t::InsertAfter(ListElem_t PushingElem, int RawPos)
     {
+    DEB(MList_t::Verify());
     int Pos;
     if(RawPos == -1)
         {
@@ -251,6 +255,7 @@ bool MList_t::InsertAfter(ListElem_t PushingElem, int RawPos)
 
 bool MList_t::DeleteAfter(int Pos)
     {
+    DEB(MList_t::Verify());
     int NowPos = 0;
     int* NowElem = head;
     while (NowPos != Pos && *NowElem != -1)
@@ -278,6 +283,7 @@ bool MList_t::DeleteAfter(int Pos)
 
 MList_t::~MList_t()
     {
+    DEB(MList_t::Verify());
     free(data);
     free(next);
 
@@ -289,6 +295,7 @@ MList_t::~MList_t()
 
 ListElem_t MList_t::elem(int Pos)
     {
+    DEB(MList_t::Verify());
     int NowPos = 0;
     int* NowElem = head;
     while (NowPos != Pos && *NowElem != -1)
@@ -302,6 +309,7 @@ ListElem_t MList_t::elem(int Pos)
 
 bool MList_t::ArrOfElems(ListElem_t* RetArr, int* PosOfElems, int SizeOfArrs)
     {
+    DEB(MList_t::Verify());
     std::sort(PosOfElems, (PosOfElems + SizeOfArrs) );
 
     if(sorted == 0)
@@ -343,6 +351,7 @@ bool MList_t::ArrOfElems(ListElem_t* RetArr, int* PosOfElems, int SizeOfArrs)
 
 bool MList_t::SortList()
     {
+    DEB(MList_t::Verify());
     ListElem_t* TmpData = (ListElem_t*) calloc(LSize, sizeof(ListElem_t));
     int*        TmpNext =        (int*) calloc(LSize, sizeof(int));
 
@@ -381,7 +390,7 @@ bool MList_t::SortList()
         {
         int err = 0;
 
-        if(LCanary != RCanary || LCanary != -230 - 230 * 256 - 230 * 256 * 256 - 230 * 256 * 256 * 256)
+        if(LCanary != RCanary || LCanary != NormCanary)
             {
             err = 5;
             MList_t::LDUMP(err); // err 5 :: something went on list's memory!
@@ -471,46 +480,48 @@ bool MList_t::SortList()
         {
         FILE* LDot;
         std::string DTime;
+        std::string NewPath;
 
+        time_t now = std::chrono::system_clock::to_time_t ( std::chrono::system_clock::now() );
         if(err == 6)
             {
-            time_t now = std::chrono::system_clock::to_time_t ( std::chrono::system_clock::now() );
             DTime = "debug";
-            DTime += "_";
-            DTime += LName;
-            DTime += "_";
-            DTime += ctime(&now);
-            DTime += ".dot";
-            DTime.erase(DTime.find('\n'), 1);
-            int tmp = DTime.find(' ');
-            while(tmp != std::string::npos)
-                {
-                //DTime.erase(DTime.find(' '), 1);
-                DTime[DTime.find(' ')] = '_';
-                tmp = DTime.find(' ');
-                }
-            tmp = DTime.find(':');
-            while(tmp != std::string::npos)
-                {
-                //DTime.erase(DTime.find(':'), 1);
-                DTime[DTime.find(':')] = '_';
-                tmp = DTime.find(':');
-                }
-
-
-            DTime.erase(DTime.find(".dot"));
-            std::string MKDIR = "mkdir " + DTime;
-            std::system(MKDIR.c_str());
-            std::string CDDIR = "cd " + DTime;
-            std::system(CDDIR.c_str());
-            std::string NewPath = DTime;
-            NewPath += "\";
-            DTime += ".dot";
-            NewPath += DTime;
-
-            LDot = fopen(NewPath.c_str(), "w");
-            assert(LDot != NULL);
+            } else
+            {
+            DTime = "crit_err_";
+            DTime += (err + '0');
             }
+        DTime += "_";
+        DTime += LName;
+        DTime += "_";
+        DTime += ctime(&now);
+        DTime += ".dot";
+        DTime.erase(DTime.find('\n'), 1);
+        int tmp = DTime.find(' ');
+        while(tmp != std::string::npos)
+            {
+            //DTime.erase(DTime.find(' '), 1);
+            DTime[DTime.find(' ')] = '_';
+            tmp = DTime.find(' ');
+            }
+        tmp = DTime.find(':');
+        while(tmp != std::string::npos)
+            {
+            //DTime.erase(DTime.find(':'), 1);
+            DTime[DTime.find(':')] = '_';
+            tmp = DTime.find(':');
+            }
+        assert(LDot != NULL);
+
+        DTime.erase(DTime.find(".dot"));
+        std::string MKDIR = "mkdir " + DTime;
+        std::system(MKDIR.c_str());
+        NewPath = DTime;
+        NewPath += "\\";
+        DTime += ".dot";
+        NewPath += DTime;
+
+        LDot = fopen(NewPath.c_str(), "w");
         fprintf(LDot, "digraph G{\n");
         int* NowElem = head;
         int NowPos = 0;
@@ -535,19 +546,25 @@ bool MList_t::SortList()
         std::string DotDoDot;
         DotDoDot += DotPath;
         DotDoDot += " -Tpng ";
-        DotDoDot += DTime;
+        DotDoDot += NewPath;
         DotDoDot += " -o ";
-        DTime.erase(DTime.find(".dot"));
-        DotDoDot += DTime;
+        NewPath.erase(NewPath.rfind(".dot"));
+        DotDoDot += NewPath;
         DotDoDot += ".png";
         printf("\n%s\n", DotDoDot.c_str());
         std::system(DotDoDot.c_str());
 
-        DTime.erase(DTime.find("debug"), 5);
-        DTime = "LMems" + DTime;
-        DTime.erase(DTime.find(".dot"));
-        std::NewPathData = 
-        LDot = fopen(DTime.c_str(), "w");
+        if(err == 6)
+            {
+            NewPath.replace(NewPath.rfind("debug"), 5, "LMems");
+            } else
+            {
+            std::string CritStr = "crit_err_";
+            CritStr += (err + '0');
+            NewPath.replace(NewPath.rfind(CritStr), sizeof(CritStr), "LMems");
+            }
+        NewPath += ".dot";
+        LDot = fopen(NewPath.c_str(), "w");
         assert(LDot != NULL);
 
 
@@ -559,20 +576,18 @@ bool MList_t::SortList()
             fprintf(LDot, "| {DataPointer:\n%d | Data:\n%d | NextPointer:\n%d | Next:\n%d}", data + i, *(data + i), next + i, *(next + i));
             }
         fprintf(LDot, "}\"];\n}\n");
+        fprintf(LDot, "Shild [shape=record,label=\" RCanary:\n%d | LCanary:\n%d | Hash:\n%d | NormalCanary:\n%d];\n", RCanary, LCanary, LHash, (-230 - 230 * 256 - 230 * 256 * 256 - 230 * 256 * 256 * 256));
         fclose(LDot);
         std::string DotDoData;
         DotDoData += DotPath;
         DotDoData += " -Tpng ";
-        DotDoData += DTime;
+        DotDoData += NewPath;
         DotDoData += " -o ";
-        DTime.erase(DTime.find(".dot"));
-        DotDoData += DTime;
+        NewPath.erase(NewPath.find(".dot"));
+        DotDoData += NewPath;
         DotDoData += ".png";
         printf("\n%s\n", DotDoData.c_str());
         std::system(DotDoData.c_str());
-
-
-        std::system("cd ..");
         return;
         }
 #endif

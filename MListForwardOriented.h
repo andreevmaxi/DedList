@@ -5,7 +5,8 @@
 #include <cassert>
 #include <string>
 #include <cstdlib>
-
+#include <windows.h>
+#include <stdio.h>
 #ifdef _DEBUG
     #define DEBMList_t( list ) MList_t list( #list )
 
@@ -15,6 +16,8 @@
 
     #define InitDEB( list )
 #endif
+
+const int NormCanary = -230 - 230 * 256 - 230 * 256 * 256 - 230 * 256 * 256 * 256;
 
 typedef int ListElem_t;
 
@@ -81,8 +84,8 @@ MList_t::MList_t( std::string name )
     assert(head);
     assert(tail);// than it needs to be if (...) {errnum = 124124125125; LDUMP}
 
-    LCanary = -230 - 230 * 256 - 230 * 256 * 256 - 230 * 256 * 256 * 256;
-    RCanary = -230 - 230 * 256 - 230 * 256 * 256 - 230 * 256 * 256 * 256;
+    LCanary = NormCanary;
+    RCanary = NormCanary;
     sorted = 1;
     LSize  = BeginNumOfMember;
     LName = name;
@@ -153,6 +156,7 @@ int* SearchingEmpty(ListElem_t* data, int* next, int* LSize)
 
 bool MList_t::PushBack(ListElem_t PushingElem)
     {
+    DEB(MList_t::Verify());
     if(*tail == -1)
         {
         *(data + (tail - next)) = PushingElem;
@@ -178,6 +182,7 @@ bool MList_t::PushBack(ListElem_t PushingElem)
 
 bool MList_t::InsertAfter(ListElem_t PushingElem, int RawPos)
     {
+    DEB(MList_t::Verify());
     int Pos;
     if(RawPos == -1)
         {
@@ -251,6 +256,7 @@ bool MList_t::InsertAfter(ListElem_t PushingElem, int RawPos)
 
 bool MList_t::DeleteAfter(int Pos)
     {
+    DEB(MList_t::Verify());
     int NowPos = 0;
     int* NowElem = head;
     while (NowPos != Pos && *NowElem != -1)
@@ -278,6 +284,7 @@ bool MList_t::DeleteAfter(int Pos)
 
 MList_t::~MList_t()
     {
+    DEB(MList_t::Verify());
     free(data);
     free(next);
 
@@ -289,6 +296,7 @@ MList_t::~MList_t()
 
 ListElem_t MList_t::elem(int Pos)
     {
+    DEB(MList_t::Verify());
     int NowPos = 0;
     int* NowElem = head;
     while (NowPos != Pos && *NowElem != -1)
@@ -302,6 +310,7 @@ ListElem_t MList_t::elem(int Pos)
 
 bool MList_t::ArrOfElems(ListElem_t* RetArr, int* PosOfElems, int SizeOfArrs)
     {
+    DEB(MList_t::Verify());
     std::sort(PosOfElems, (PosOfElems + SizeOfArrs) );
 
     if(sorted == 0)
@@ -343,6 +352,7 @@ bool MList_t::ArrOfElems(ListElem_t* RetArr, int* PosOfElems, int SizeOfArrs)
 
 bool MList_t::SortList()
     {
+    DEB(MList_t::Verify());
     ListElem_t* TmpData = (ListElem_t*) calloc(LSize, sizeof(ListElem_t));
     int*        TmpNext =        (int*) calloc(LSize, sizeof(int));
 
@@ -381,7 +391,7 @@ bool MList_t::SortList()
         {
         int err = 0;
 
-        if(LCanary != RCanary || LCanary != -230 - 230 * 256 - 230 * 256 * 256 - 230 * 256 * 256 * 256)
+        if(LCanary != RCanary || LCanary != NormCanary)
             {
             err = 5;
             MList_t::LDUMP(err); // err 5 :: something went on list's memory!
@@ -405,22 +415,24 @@ bool MList_t::SortList()
             NowElem = *NowElem + next;
             ++NowPos;
             }
-        NowElem = head;
+        NowElem = next;
+
         for(int i = 0; i < LSize; ++i)
             {
             if(*NowElem == -1)
                 {
                 ++NowPos;
                 }
-            NowElem = *NowElem + next;
+            ++NowElem;
             }
-        if(NowPos - 1 < LSize)
+        if(NowPos < LSize)
             {
+            printf("Np and LS: %d %d\n", NowPos, LSize);
             err = 2;
             MList_t::LDUMP(err); // err 2 :: list has gap!
             }
 
-        if(NowPos - 1 > LSize)
+        if(NowPos > LSize)
             {
             err = 3;
             MList_t::LDUMP(err); // err 3 :: list lost connection, how hz, but hz.
@@ -521,8 +533,8 @@ bool MList_t::SortList()
         fprintf(LDot, "subgraph clusterlist {\n");
         while(*NowElem != -1 && NowPos < LSize)
             {
-            fprintf(LDot, "%d [shape=record, label=\"ElemPointer:\n%d | {Position\n:%d | Data:\n%d | Next:\n%d}\"];\n", NowPos, NowElem, NowPos, *(data + (NowElem - next)), *NowElem);
-            fprintf(LDot, "%d [shape=record, label=\"ElemPointer:\n%d | {Position\n:%d | Data:\n%d | Next:\n%d}\"];\n", (NowPos + 1), (*NowElem + next), *(data + *NowElem), *(next + *NowElem));
+            fprintf(LDot, "%d [shape=record, label=\"ElemPointer:\\n%d | {Position\\n:%d | Data:\\n%d | Next:\\n%d}\"];\n", NowPos, NowElem, NowPos, *(data + (NowElem - next)), *NowElem);
+            fprintf(LDot, "%d [shape=record, label=\"ElemPointer:\\n%d | {Position\\n:%d | Data:\\n%d | Next:\\n%d}\"];\n", (NowPos + 1), (*NowElem + next), *(data + *NowElem), *(next + *NowElem));
             fprintf(LDot, "%d->%d\n", NowPos, (NowPos + 1));
             NowElem = *NowElem + next;
             ++NowPos;
@@ -542,7 +554,6 @@ bool MList_t::SortList()
         NewPath.erase(NewPath.rfind(".dot"));
         DotDoDot += NewPath;
         DotDoDot += ".png";
-        printf("\n%s\n", DotDoDot.c_str());
         std::system(DotDoDot.c_str());
 
         if(err == 6)
@@ -561,12 +572,14 @@ bool MList_t::SortList()
 
         fprintf(LDot, "digraph G{\n");
         fprintf(LDot, "data [shape=record,label=\"");
-        fprintf(LDot, "{Memory of list: %s} | {{DataPointer:\n%d | Data:\n%d | NextPointer:\n%d | Next:\n%d}", LName.c_str(), data, *(data), next, *(next));
+        fprintf(LDot, "{Memory of list: %s} | {{DataPointer:\\n%d | Data:\\n%d | NextPointer:\\n%d | Next:\n%d}\n", LName.c_str(), data, *(data), next, *(next));
         for(int i = 1; i < LSize; ++i)
             {
-            fprintf(LDot, "| {DataPointer:\n%d | Data:\n%d | NextPointer:\n%d | Next:\n%d}", data + i, *(data + i), next + i, *(next + i));
+            fprintf(LDot, "| {DataPointer:\\n%d | Data:\\n%d | NextPointer:\\n%d | Next:\\n%d}\n", data + i, *(data + i), next + i, *(next + i));
             }
-        fprintf(LDot, "}\"];\n}\n");
+        fprintf(LDot, "}\"];\n");
+        fprintf(LDot, "Shild [shape=record,label=\" RCanary:\\n%d | LCanary:\\n%d | Hash:\\n%lld | NormalCanary:\\n%d\"];\n", RCanary, LCanary, LHash, NormCanary);
+        fprintf(LDot, "Shild->data\n}\n");
         fclose(LDot);
         std::string DotDoData;
         DotDoData += DotPath;
@@ -576,8 +589,9 @@ bool MList_t::SortList()
         NewPath.erase(NewPath.find(".dot"));
         DotDoData += NewPath;
         DotDoData += ".png";
-        printf("\n%s\n", DotDoData.c_str());
         std::system(DotDoData.c_str());
+
+        //Sleep(1);
         return;
         }
 #endif
