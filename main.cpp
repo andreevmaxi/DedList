@@ -55,6 +55,22 @@ int main()
     printf("\n%d\n", test.head - test.next);
     printf("\n%d\n", test.tail - test.next);
 
-
+test.PushBack(10);
+    test.PushBack(20);
+    test.PushBack(30);
+    test.PushBack(40);
+    test.PushBack(10);
+    test.PushBack(20);
+    test.PushBack(30);
+    test.PushBack(40);
+    test.PushBack(10);
+    test.PushBack(20);
+    test.PushBack(30);
+    test.PushBack(40);
+    test.PushBack(10);
+    test.PushBack(20);
+    test.PushBack(30);
+    test.PushBack(40);
+    //TODO решить трабл какого чёрта ты ломаешься при resize
     return 0;
 }
