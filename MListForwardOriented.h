@@ -263,8 +263,8 @@ bool MList_t::InsertAfter(ListElem_t PushingElem, int RawPos)
                 }
             free(next);
             next = TmpArr2;
-            head = next + TmpHead;
-            tail = next + TmpTail;
+            head = next + TmpHead + (LSize/2);
+            tail = next + TmpTail + (LSize/2);
             }
         --head;
         *head = head + 1 - next;
@@ -327,14 +327,19 @@ MList_t::~MList_t()
 ListElem_t MList_t::elem(int Pos)
     {
     DEB(MList_t::Verify());
-    int NowPos = 0;
-    int* NowElem = head;
-    while (NowPos != Pos && *NowElem != -1)
+    if(sorted == 0)
         {
-        NowElem = next + (*NowElem);
-        ++NowPos;
-        }
+        int NowPos = 0;
+        int* NowElem = head;
+        while (NowPos != Pos && *NowElem != -1)
+            {
+            NowElem = next + (*NowElem);
+            ++NowPos;
+            }
+        }else
+        {
 
+        }
     return *(data + (NowElem - next));
     }
 
@@ -621,7 +626,7 @@ bool MList_t::SortList()
             fprintf(LDot, "| {DataPointer:\\n%d | Data:\\n%d | NextPointer:\\n%d | Next:\\n%d}\n", data + i, *(data + i), next + i, *(next + i));
             }
         fprintf(LDot, "}\"];\n");
-        fprintf(LDot, "Shild [shape=record,label=\" RCanary:\\n%d | LCanary:\\n%d | Hash:\\n%llu | NormalCanary:\\n%d | Sorted:\\n%d\"];\n", RCanary, LCanary, LHash, NormCanary, sorted);
+        fprintf(LDot, "Shild [shape=record,label=\" RCanary:\\n%d | LCanary:\\n%d | Hash:\\n%llu | NormalCanary:\\n%d | Sorted:\\n%d | head: \\n%d | tail: \\n%d \"];\n", RCanary, LCanary, LHash, NormCanary, sorted, head, tail);
         fprintf(LDot, "Shild->data\n}\n");
         fclose(LDot);
         std::string DotDoData;
