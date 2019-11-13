@@ -28,13 +28,23 @@ const std::string DotPath = "\"C:\\Program Files (x86)\\Graphviz2.38\\bin\\dot.e
 struct MList_t
     {
     DEB(int LCanary);
+    DEB(ListElem_t* LdataCanary);
     ListElem_t* data;
+    DEB(ListElem_t* RdataCanary);
+
+    DEB(int* LnextCanary);
     int* next;
+    DEB(int* RnextCanary);
+
     int* head;
     int* tail;        // to do fast "push back"
     bool sorted;      // 1 when data is equal to array
     int LSize;
     DEB(std::string LName);
+
+    bool LResize();
+
+    int* SearchingEmpty();
 
     bool PushBack(ListElem_t PushingElem);
 
@@ -66,16 +76,20 @@ struct MList_t
     DEB(unsigned long long LHash);
     };
 
-bool LResize(ListElem_t data, int* next, int* LSize);
-
-int* SearchingEmpty(ListElem_t data, int* next, int* LSize);
-
-
 #ifdef _DEBUG
 MList_t::MList_t( std::string name )
     {
-    data   = (ListElem_t*) calloc (BeginNumOfMember, sizeof(ListElem_t));
-    next   = (int*) calloc (BeginNumOfMember, sizeof(int));
+    LdataCanary   = (ListElem_t*) calloc (BeginNumOfMember + 2, sizeof(ListElem_t));
+    data = LdataCanary + 1;
+    RdataCanary   = LdataCanary + BeginNumOfMember + 1;
+    *LdataCanary = NormCanary;
+    *RdataCanary = NormCanary;
+    LnextCanary   = (int*) calloc (BeginNumOfMember, sizeof(int));
+    next = LnextCanary + 1;
+    RnextCanary   = LnextCanary + BeginNumOfMember + 1;
+    *LnextCanary = NormCanary;
+    *RnextCanary = NormCanary;
+
     head   = next + 4; // now we reserved 5 elems left from head
     tail   = next + 4;
 
@@ -122,36 +136,35 @@ MList_t::MList_t()
     }
 #endif
 
-bool LResize(ListElem_t* data, int* next, int* LSize)
+bool MList_t::LResize()
     {
-    assert(LSize != NULL);
 
-    *LSize *= 2;
-    next = (int*)        realloc(next, (*LSize));
-    data = (ListElem_t*) realloc(data, (*LSize));
+    LSize *= 2;
+    next = (int*)        realloc(next, (LSize));
+    data = (ListElem_t*) realloc(data, (LSize));
 
     assert(next != NULL);
     assert(data != NULL);
 
-    for(int i = (*LSize)/2; i < (*LSize); ++i)
+    for(int i = (LSize)/2; i < (LSize); ++i)
         {
         *(next + i) = -1;
         }
     return 1;
     }
 
-int* SearchingEmpty(ListElem_t* data, int* next, int* LSize)
+int* MList_t::SearchingEmpty()
     {
-    for(int i = 0; i < *LSize; ++i)
+    for(int i = 0; i < LSize; ++i)
         {
         if(*(next + i) == -1)
             {
             return (next + i);
             }
         }
-    LResize(data, next, LSize);
+    MList_t::LResize();
 
-    return (next + (*LSize)/2);
+    return (next + (LSize)/2);
     }
 
 bool MList_t::PushBack(ListElem_t PushingElem)
@@ -162,13 +175,13 @@ bool MList_t::PushBack(ListElem_t PushingElem)
         *(data + (tail - next)) = PushingElem;
         if(sorted == 0)
             {
-            *tail = SearchingEmpty(data, next, &LSize) - next;
+            *tail = MList_t::SearchingEmpty() - next;
             tail = *tail + next;
             } else
             {
             if(tail - next + 1 == LSize)
                 {
-                LResize(data, next, &LSize);
+                MList_t::LResize();
                 }
             *tail = tail - next + 1;
             ++tail;
@@ -245,7 +258,7 @@ bool MList_t::InsertAfter(ListElem_t PushingElem, int RawPos)
         return 1;
         }
     sorted = 0;
-    int* NewElem = SearchingEmpty(data, next, &LSize);
+    int* NewElem = MList_t::SearchingEmpty();
     *NewElem = *(next + Pos);
     *(next + Pos) = NewElem - next;
     *(data + (NewElem - next)) = PushingElem;
@@ -427,7 +440,7 @@ bool MList_t::SortList()
             }
         if(NowPos < LSize)
             {
-            printf("Np and LS: %d %d\n", NowPos, LSize);
+            //printf("Np and LS: %d %d\n", NowPos, LSize);
             err = 2;
             MList_t::LDUMP(err); // err 2 :: list has gap!
             }
@@ -438,7 +451,20 @@ bool MList_t::SortList()
             MList_t::LDUMP(err); // err 3 :: list lost connection, how hz, but hz.
             }
 
-        return 1; // if err 6 :: it's just printing the list
+
+        if(*LdataCanary != *RdataCanary || *LdataCanary != (ListElem_t)NormCanary)
+            {
+            err = 6;
+            MList_t::LDUMP(err); // err 6 :: something went on data's memory!
+            }
+
+        if(*LnextCanary != *RnextCanary || *LnextCanary != NormCanary)
+            {
+            err = 7;
+            MList_t::LDUMP(err); // err 7 :: something went on next's memory!
+            }
+
+        return 1; // if err 9 :: it's just printing the list
         }
 #endif
 
@@ -486,7 +512,7 @@ bool MList_t::SortList()
         std::string NewPath;
 
         time_t now = std::chrono::system_clock::to_time_t ( std::chrono::system_clock::now() );
-        if(err == 6)
+        if(err == 9)
             {
             DTime = "debug";
             } else
@@ -556,7 +582,7 @@ bool MList_t::SortList()
         DotDoDot += ".png";
         std::system(DotDoDot.c_str());
 
-        if(err == 6)
+        if(err == 9) // debug start of dump
             {
             NewPath.replace(NewPath.rfind("debug"), 5, "LMems");
             } else
@@ -572,13 +598,13 @@ bool MList_t::SortList()
 
         fprintf(LDot, "digraph G{\n");
         fprintf(LDot, "data [shape=record,label=\"");
-        fprintf(LDot, "{Memory of list: %s} | {{DataPointer:\\n%d | Data:\\n%d | NextPointer:\\n%d | Next:\n%d}\n", LName.c_str(), data, *(data), next, *(next));
+        fprintf(LDot, "{Memory of list: %s} | {{DataPointer:\\n%d | Data:\\n%d | NextPointer:\\n%d | Next:\\n%d}\n", LName.c_str(), data, *(data), next, *(next));
         for(int i = 1; i < LSize; ++i)
             {
             fprintf(LDot, "| {DataPointer:\\n%d | Data:\\n%d | NextPointer:\\n%d | Next:\\n%d}\n", data + i, *(data + i), next + i, *(next + i));
             }
         fprintf(LDot, "}\"];\n");
-        fprintf(LDot, "Shild [shape=record,label=\" RCanary:\\n%d | LCanary:\\n%d | Hash:\\n%lld | NormalCanary:\\n%d\"];\n", RCanary, LCanary, LHash, NormCanary);
+        fprintf(LDot, "Shild [shape=record,label=\" RCanary:\\n%d | LCanary:\\n%d | Hash:\\n%llu | NormalCanary:\\n%d | Sorted:\\n%d\"];\n", RCanary, LCanary, LHash, NormCanary, sorted);
         fprintf(LDot, "Shild->data\n}\n");
         fclose(LDot);
         std::string DotDoData;
@@ -591,7 +617,6 @@ bool MList_t::SortList()
         DotDoData += ".png";
         std::system(DotDoData.c_str());
 
-        //Sleep(1);
         return;
         }
 #endif

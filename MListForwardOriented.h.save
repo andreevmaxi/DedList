@@ -5,7 +5,8 @@
 #include <cassert>
 #include <string>
 #include <cstdlib>
-
+#include <windows.h>
+#include <stdio.h>
 #ifdef _DEBUG
     #define DEBMList_t( list ) MList_t list( #list )
 
@@ -16,7 +17,7 @@
     #define InitDEB( list )
 #endif
 
-const int NormCanary =
+const int NormCanary = -230 - 230 * 256 - 230 * 256 * 256 - 230 * 256 * 256 * 256;
 
 typedef int ListElem_t;
 
@@ -27,8 +28,14 @@ const std::string DotPath = "\"C:\\Program Files (x86)\\Graphviz2.38\\bin\\dot.e
 struct MList_t
     {
     DEB(int LCanary);
+    DEB(ListElem_t* LdataCanary);
     ListElem_t* data;
+    DEB(ListElem_t* RdataCanary);
+
+    DEB(int* LnextCanary);
     int* next;
+    DEB(int* RnextCanary);
+
     int* head;
     int* tail;        // to do fast "push back"
     bool sorted;      // 1 when data is equal to array
@@ -73,8 +80,17 @@ int* SearchingEmpty(ListElem_t data, int* next, int* LSize);
 #ifdef _DEBUG
 MList_t::MList_t( std::string name )
     {
-    data   = (ListElem_t*) calloc (BeginNumOfMember, sizeof(ListElem_t));
-    next   = (int*) calloc (BeginNumOfMember, sizeof(int));
+    LdataCanary   = (ListElem_t*) calloc (BeginNumOfMember + 2, sizeof(ListElem_t));
+    data = LdataCanary + 1;
+    RdataCanary   = LdataCanary + BeginNumOfMember + 1;
+    *LdataCanary = NormCanary;
+    *RdataCanary = NormCanary;
+    LnextCanary   = (int*) calloc (BeginNumOfMember, sizeof(int));
+    next = LnextCanary + 1;
+    RnextCanary   = LnextCanary + BeginNumOfMember + 1;
+    *LnextCanary = NormCanary;
+    *RnextCanary = NormCanary;
+
     head   = next + 4; // now we reserved 5 elems left from head
     tail   = next + 4;
 
@@ -83,8 +99,8 @@ MList_t::MList_t( std::string name )
     assert(head);
     assert(tail);// than it needs to be if (...) {errnum = 124124125125; LDUMP}
 
-    LCanary = -230 - 230 * 256 - 230 * 256 * 256 - 230 * 256 * 256 * 256;
-    RCanary = -230 - 230 * 256 - 230 * 256 * 256 - 230 * 256 * 256 * 256;
+    LCanary = NormCanary;
+    RCanary = NormCanary;
     sorted = 1;
     LSize  = BeginNumOfMember;
     LName = name;
@@ -414,26 +430,36 @@ bool MList_t::SortList()
             NowElem = *NowElem + next;
             ++NowPos;
             }
-        NowElem = head;
+        NowElem = next;
+
         for(int i = 0; i < LSize; ++i)
             {
             if(*NowElem == -1)
                 {
                 ++NowPos;
                 }
-            NowElem = *NowElem + next;
+            ++NowElem;
             }
-        if(NowPos - 1 < LSize)
+        if(NowPos < LSize)
             {
+            printf("Np and LS: %d %d\n", NowPos, LSize);
             err = 2;
             MList_t::LDUMP(err); // err 2 :: list has gap!
             }
 
-        if(NowPos - 1 > LSize)
+        if(NowPos > LSize)
             {
             err = 3;
             MList_t::LDUMP(err); // err 3 :: list lost connection, how hz, but hz.
             }
+
+
+        if(*LdataCanary != *RdataCanary || *LdataCanary != (List)NormCanary)
+            {
+            err = 5;
+            MList_t::LDUMP(err); // err 5 :: something went on list's memory!
+            }
+
 
         return 1; // if err 6 :: it's just printing the list
         }
@@ -530,8 +556,8 @@ bool MList_t::SortList()
         fprintf(LDot, "subgraph clusterlist {\n");
         while(*NowElem != -1 && NowPos < LSize)
             {
-            fprintf(LDot, "%d [shape=record, label=\"ElemPointer:\n%d | {Position\n:%d | Data:\n%d | Next:\n%d}\"];\n", NowPos, NowElem, NowPos, *(data + (NowElem - next)), *NowElem);
-            fprintf(LDot, "%d [shape=record, label=\"ElemPointer:\n%d | {Position\n:%d | Data:\n%d | Next:\n%d}\"];\n", (NowPos + 1), (*NowElem + next), *(data + *NowElem), *(next + *NowElem));
+            fprintf(LDot, "%d [shape=record, label=\"ElemPointer:\\n%d | {Position\\n:%d | Data:\\n%d | Next:\\n%d}\"];\n", NowPos, NowElem, NowPos, *(data + (NowElem - next)), *NowElem);
+            fprintf(LDot, "%d [shape=record, label=\"ElemPointer:\\n%d | {Position\\n:%d | Data:\\n%d | Next:\\n%d}\"];\n", (NowPos + 1), (*NowElem + next), *(data + *NowElem), *(next + *NowElem));
             fprintf(LDot, "%d->%d\n", NowPos, (NowPos + 1));
             NowElem = *NowElem + next;
             ++NowPos;
@@ -551,7 +577,6 @@ bool MList_t::SortList()
         NewPath.erase(NewPath.rfind(".dot"));
         DotDoDot += NewPath;
         DotDoDot += ".png";
-        printf("\n%s\n", DotDoDot.c_str());
         std::system(DotDoDot.c_str());
 
         if(err == 6)
@@ -570,13 +595,14 @@ bool MList_t::SortList()
 
         fprintf(LDot, "digraph G{\n");
         fprintf(LDot, "data [shape=record,label=\"");
-        fprintf(LDot, "{Memory of list: %s} | {{DataPointer:\n%d | Data:\n%d | NextPointer:\n%d | Next:\n%d}", LName.c_str(), data, *(data), next, *(next));
+        fprintf(LDot, "{Memory of list: %s} | {{DataPointer:\\n%d | Data:\\n%d | NextPointer:\\n%d | Next:\n%d}\n", LName.c_str(), data, *(data), next, *(next));
         for(int i = 1; i < LSize; ++i)
             {
-            fprintf(LDot, "| {DataPointer:\n%d | Data:\n%d | NextPointer:\n%d | Next:\n%d}", data + i, *(data + i), next + i, *(next + i));
+            fprintf(LDot, "| {DataPointer:\\n%d | Data:\\n%d | NextPointer:\\n%d | Next:\\n%d}\n", data + i, *(data + i), next + i, *(next + i));
             }
-        fprintf(LDot, "}\"];\n}\n");
-        fprintf(LDot, "Shild [shape=record,label=\" RCanary:\n%d | LCanary:\n%d | Hash:\n%d | NormalCanary:\n%d];\n", RCanary, LCanary, LHash, (-230 - 230 * 256 - 230 * 256 * 256 - 230 * 256 * 256 * 256));
+        fprintf(LDot, "}\"];\n");
+        fprintf(LDot, "Shild [shape=record,label=\" RCanary:\\n%d | LCanary:\\n%d | Hash:\\n%lld | NormalCanary:\\n%d\"];\n", RCanary, LCanary, LHash, NormCanary);
+        fprintf(LDot, "Shild->data\n}\n");
         fclose(LDot);
         std::string DotDoData;
         DotDoData += DotPath;
@@ -586,8 +612,9 @@ bool MList_t::SortList()
         NewPath.erase(NewPath.find(".dot"));
         DotDoData += NewPath;
         DotDoData += ".png";
-        printf("\n%s\n", DotDoData.c_str());
         std::system(DotDoData.c_str());
+
+        //Sleep(1);
         return;
         }
 #endif

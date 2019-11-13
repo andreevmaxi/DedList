@@ -34,7 +34,7 @@ int main()
     printf("%d %d\n", *(test.data + i), *(test.next + i));
     }
 
-    test.LDUMP(6);
+    test.LDUMP(9);
     printf("\n\n");
     for(int i = 0; i < 15; ++i)
         {
@@ -55,22 +55,72 @@ int main()
     printf("\n%d\n", test.head - test.next);
     printf("\n%d\n", test.tail - test.next);
 
-test.PushBack(10);
-    test.PushBack(20);
-    test.PushBack(30);
-    test.PushBack(40);
     test.PushBack(10);
     test.PushBack(20);
     test.PushBack(30);
     test.PushBack(40);
+
+
+test.LDUMP(9);
     test.PushBack(10);
+
+test.LDUMP(9);
     test.PushBack(20);
     test.PushBack(30);
     test.PushBack(40);
-    test.PushBack(10);
-    test.PushBack(20);
-    test.PushBack(30);
-    test.PushBack(40);
-    //TODO решить трабл какого чёрта ты ломаешься при resize
+
     return 0;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //TODO решить трабл какого чёрта ты ломаешься при resize
