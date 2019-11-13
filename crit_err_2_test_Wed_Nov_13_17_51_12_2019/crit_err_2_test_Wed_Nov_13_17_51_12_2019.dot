@@ -1,0 +1,8 @@
+digraph G{
+rankdir=LR;
+subgraph clusterlist {
+0 [shape=record, label="ElemPointer:\n3422612 | {Position\n:0 | Data:\n58618 | Next:\n0}"];
+0->1
+1 [shape=record, label="ElemPointer:\n3422616 | {Position\n:1 | Data:\n0 | Next:\n-1}"];
+label = "List with name: test"}
+}

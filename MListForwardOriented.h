@@ -138,10 +138,12 @@ MList_t::MList_t()
 
 bool MList_t::LResize()
     {
+    int TmpHead = head - next;
+    int TmpTail = tail - next;
 
     LSize *= 2;
-    next = (int*)        realloc(next, (LSize));
-    data = (ListElem_t*) realloc(data, (LSize));
+    next = (int*)        realloc(next, (LSize) * sizeof(int));
+    data = (ListElem_t*) realloc(data, (LSize) * sizeof(ListElem_t));
 
     assert(next != NULL);
     assert(data != NULL);
@@ -150,6 +152,10 @@ bool MList_t::LResize()
         {
         *(next + i) = -1;
         }
+    head = next + TmpHead;
+    tail = next + TmpTail;
+
+
     return 1;
     }
 
@@ -228,12 +234,11 @@ bool MList_t::InsertAfter(ListElem_t PushingElem, int RawPos)
         {
         if(head == next)
             {
+            int TmpHead = head - next;
+            int TmpTail = tail - next;
             LSize *= 2;
             ListElem_t* TmpArr1 = (ListElem_t*) calloc(LSize, sizeof(ListElem_t));
-            for(int i = 0; i < (LSize/2); ++i)
-                {
-                *(TmpArr1 + i) = -1;
-                }
+
             for(int i = (LSize/2); i < LSize; ++i)
                 {
                 *(TmpArr1 + i) = *(data + i - LSize/2);
@@ -244,10 +249,22 @@ bool MList_t::InsertAfter(ListElem_t PushingElem, int RawPos)
             int* TmpArr2 = (int*) calloc(LSize, sizeof(int));
             for(int i = (LSize/2); i < LSize; ++i)
                 {
-                *(TmpArr2 + i) = *(next + i - LSize/2);
+                if(*(next + i - LSize/2) != -1)
+                    {
+                    *(TmpArr2 + i) = *(next + i - LSize/2) + (LSize/2);
+                    } else
+                    {
+                    *(TmpArr2 + i) = *(next + i - LSize/2);
+                    }
+                }
+            for(int i = 0; i < (LSize/2); ++i)
+                {
+                *(TmpArr2 + i) = -1;
                 }
             free(next);
             next = TmpArr2;
+            head = next + TmpHead;
+            tail = next + TmpTail;
             }
         --head;
         *head = head + 1 - next;
@@ -560,11 +577,11 @@ bool MList_t::SortList()
         while(*NowElem != -1 && NowPos < LSize)
             {
             fprintf(LDot, "%d [shape=record, label=\"ElemPointer:\\n%d | {Position\\n:%d | Data:\\n%d | Next:\\n%d}\"];\n", NowPos, NowElem, NowPos, *(data + (NowElem - next)), *NowElem);
-            fprintf(LDot, "%d [shape=record, label=\"ElemPointer:\\n%d | {Position\\n:%d | Data:\\n%d | Next:\\n%d}\"];\n", (NowPos + 1), (*NowElem + next), *(data + *NowElem), *(next + *NowElem));
             fprintf(LDot, "%d->%d\n", NowPos, (NowPos + 1));
             NowElem = *NowElem + next;
             ++NowPos;
             }
+        fprintf(LDot, "%d [shape=record, label=\"ElemPointer:\\n%d | {Position\\n:%d | Data:\\n%d | Next:\\n%d}\"];\n", NowPos, NowElem, NowPos, *(data + (NowElem - next)), *NowElem);
         fprintf(LDot, "label = \"List with name: %s\"}\n", LName.c_str());
 
 

@@ -1,0 +1,35 @@
+digraph G{
+rankdir=LR;
+subgraph clusterlist {
+0 [shape=record, label="ElemPointer:\n5847088 | {Position\n:0 | Data:\n10 | Next:\n5}"];
+1 [shape=record, label="ElemPointer:\n5847092 | {Position\n:50 | Data:\n6 | Next:\n5}"];
+0->1
+1 [shape=record, label="ElemPointer:\n5847092 | {Position\n:1 | Data:\n50 | Next:\n6}"];
+2 [shape=record, label="ElemPointer:\n5847096 | {Position\n:20 | Data:\n7 | Next:\n6}"];
+1->2
+2 [shape=record, label="ElemPointer:\n5847096 | {Position\n:2 | Data:\n20 | Next:\n7}"];
+3 [shape=record, label="ElemPointer:\n5847100 | {Position\n:30 | Data:\n8 | Next:\n7}"];
+2->3
+3 [shape=record, label="ElemPointer:\n5847100 | {Position\n:3 | Data:\n30 | Next:\n8}"];
+4 [shape=record, label="ElemPointer:\n5847104 | {Position\n:40 | Data:\n9 | Next:\n8}"];
+3->4
+4 [shape=record, label="ElemPointer:\n5847104 | {Position\n:4 | Data:\n40 | Next:\n9}"];
+5 [shape=record, label="ElemPointer:\n5847108 | {Position\n:50 | Data:\n10 | Next:\n9}"];
+4->5
+5 [shape=record, label="ElemPointer:\n5847108 | {Position\n:5 | Data:\n50 | Next:\n10}"];
+6 [shape=record, label="ElemPointer:\n5847112 | {Position\n:10 | Data:\n11 | Next:\n10}"];
+5->6
+6 [shape=record, label="ElemPointer:\n5847112 | {Position\n:6 | Data:\n10 | Next:\n11}"];
+7 [shape=record, label="ElemPointer:\n5847116 | {Position\n:20 | Data:\n12 | Next:\n11}"];
+6->7
+7 [shape=record, label="ElemPointer:\n5847116 | {Position\n:7 | Data:\n20 | Next:\n12}"];
+8 [shape=record, label="ElemPointer:\n5847120 | {Position\n:30 | Data:\n13 | Next:\n12}"];
+7->8
+8 [shape=record, label="ElemPointer:\n5847120 | {Position\n:8 | Data:\n30 | Next:\n13}"];
+9 [shape=record, label="ElemPointer:\n5847124 | {Position\n:40 | Data:\n14 | Next:\n13}"];
+8->9
+9 [shape=record, label="ElemPointer:\n5847124 | {Position\n:9 | Data:\n40 | Next:\n14}"];
+10 [shape=record, label="ElemPointer:\n5847128 | {Position\n:0 | Data:\n-1 | Next:\n14}"];
+9->10
+label = "List with name: test"}
+}
