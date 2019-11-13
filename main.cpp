@@ -73,6 +73,11 @@ int main()
         }
 
     test.LDUMP(9);
-
+    test.InsertAfterRaw(100, 38);
+    for(int i = 0; i < 60; ++i)
+        {
+        printf("%d %d\n", *(test.data + i), *(test.next + i));
+        }
+    test.LDUMP(9);
     return 0;
 }

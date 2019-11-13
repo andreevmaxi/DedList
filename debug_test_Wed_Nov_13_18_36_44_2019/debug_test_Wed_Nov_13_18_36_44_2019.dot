@@ -1,0 +1,50 @@
+digraph G{
+rankdir=LR;
+subgraph clusterlist {
+0 [shape=record, label="ElemPointer:\n4012544 | {Position\n:0 | Data:\n7 | Next:\n27}"];
+0->1
+1 [shape=record, label="ElemPointer:\n4012548 | {Position\n:1 | Data:\n6 | Next:\n28}"];
+1->2
+2 [shape=record, label="ElemPointer:\n4012552 | {Position\n:2 | Data:\n5 | Next:\n29}"];
+2->3
+3 [shape=record, label="ElemPointer:\n4012556 | {Position\n:3 | Data:\n4 | Next:\n30}"];
+3->4
+4 [shape=record, label="ElemPointer:\n4012560 | {Position\n:4 | Data:\n3 | Next:\n31}"];
+4->5
+5 [shape=record, label="ElemPointer:\n4012564 | {Position\n:5 | Data:\n2 | Next:\n32}"];
+5->6
+6 [shape=record, label="ElemPointer:\n4012568 | {Position\n:6 | Data:\n1 | Next:\n33}"];
+6->7
+7 [shape=record, label="ElemPointer:\n4012572 | {Position\n:7 | Data:\n0 | Next:\n34}"];
+7->8
+8 [shape=record, label="ElemPointer:\n4012576 | {Position\n:8 | Data:\n10 | Next:\n35}"];
+8->9
+9 [shape=record, label="ElemPointer:\n4012580 | {Position\n:9 | Data:\n50 | Next:\n36}"];
+9->10
+10 [shape=record, label="ElemPointer:\n4012584 | {Position\n:10 | Data:\n20 | Next:\n37}"];
+10->11
+11 [shape=record, label="ElemPointer:\n4012588 | {Position\n:11 | Data:\n30 | Next:\n38}"];
+11->12
+12 [shape=record, label="ElemPointer:\n4012592 | {Position\n:12 | Data:\n40 | Next:\n39}"];
+12->13
+13 [shape=record, label="ElemPointer:\n4012596 | {Position\n:13 | Data:\n0 | Next:\n40}"];
+13->14
+14 [shape=record, label="ElemPointer:\n4012600 | {Position\n:14 | Data:\n10 | Next:\n41}"];
+14->15
+15 [shape=record, label="ElemPointer:\n4012604 | {Position\n:15 | Data:\n20 | Next:\n42}"];
+15->16
+16 [shape=record, label="ElemPointer:\n4012608 | {Position\n:16 | Data:\n30 | Next:\n43}"];
+16->17
+17 [shape=record, label="ElemPointer:\n4012612 | {Position\n:17 | Data:\n40 | Next:\n44}"];
+17->18
+18 [shape=record, label="ElemPointer:\n4012616 | {Position\n:18 | Data:\n10 | Next:\n45}"];
+18->19
+19 [shape=record, label="ElemPointer:\n4012620 | {Position\n:19 | Data:\n20 | Next:\n46}"];
+19->20
+20 [shape=record, label="ElemPointer:\n4012624 | {Position\n:20 | Data:\n30 | Next:\n47}"];
+20->21
+21 [shape=record, label="ElemPointer:\n4012628 | {Position\n:21 | Data:\n40 | Next:\n48}"];
+21->22
+22 [shape=record, label="ElemPointer:\n4012632 | {Position\n:22 | Data:\n4012192 | Next:\n-1}"];
+label = "List with name: test"}
+}

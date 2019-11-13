@@ -52,6 +52,12 @@ struct MList_t
 
     bool DeleteAfter(int Pos);
 
+    bool InsertAfterRaw(ListElem_t PushingElem, int Pos);
+
+    bool DeleteAfterRaw(int Pos);
+
+    ListElem_t rte(int RawPos); // raw position to element
+
     ListElem_t elem(int Pos);
 
     bool SortList();
@@ -211,6 +217,10 @@ bool MList_t::InsertAfter(ListElem_t PushingElem, int RawPos)
         if(sorted == 1)
             {
             Pos = head - next + RawPos;
+            if(Pos > tail - next)
+                {
+                Pos = tail - next;
+                }
             } else
             {
             int TmpP = 0;
@@ -223,13 +233,11 @@ bool MList_t::InsertAfter(ListElem_t PushingElem, int RawPos)
             Pos = NowElem - next;
             }
         }
-
-    if(Pos + next >= tail)
+    if(Pos + next == tail)
         {
         MList_t::PushBack(PushingElem);
         return 1;
         }
-
     if(Pos == -1 && sorted == 1)
         {
         if(head == next)
@@ -269,7 +277,6 @@ bool MList_t::InsertAfter(ListElem_t PushingElem, int RawPos)
         --head;
         *head = head + 1 - next;
         *(data + (head - next) )   = PushingElem;
-
 
         DEB(LHash = MList_t::MAXHash());
         return 1;
@@ -593,7 +600,6 @@ bool MList_t::SortList()
         fprintf(LDot, "%d [shape=record, label=\"ElemPointer:\\n%d | {Position\\n:%d | Data:\\n%d | Next:\\n%d}\"];\n", NowPos, NowElem, NowPos, *(data + (NowElem - next)), *NowElem);
         fprintf(LDot, "label = \"List with name: %s\"}\n", LName.c_str());
 
-
         fprintf(LDot, "}\n");
         fclose(LDot);
 
@@ -614,7 +620,9 @@ bool MList_t::SortList()
             } else
             {
             std::string CritStr = "crit_err_";
-            CritStr += (err + '0');
+            char ErrStr[17];
+            itoa(err, ErrStr, 10);
+            CritStr += ErrStr;
             NewPath.replace(NewPath.rfind(CritStr), sizeof(CritStr), "LMems");
             }
         NewPath += ".dot";
@@ -646,3 +654,93 @@ bool MList_t::SortList()
         return;
         }
 #endif
+
+ListElem_t MList_t::rte(int RawPos)
+    {
+    DEB(MList_t::Verify());
+    return *(data + RawPos);
+    }
+
+
+bool MList_t::InsertAfterRaw(ListElem_t PushingElem, int Pos)
+    {
+    DEB(MList_t::Verify());
+
+    if(Pos >= LSize)
+        {
+        MList_t::PushBack(PushingElem);
+        return 1;
+        }
+
+    if(Pos == -1 && sorted == 1)
+        {
+        if(head == next)
+            {
+            int TmpHead = head - next;
+            int TmpTail = tail - next;
+            LSize *= 2;
+            ListElem_t* TmpArr1 = (ListElem_t*) calloc(LSize, sizeof(ListElem_t));
+
+            for(int i = (LSize/2); i < LSize; ++i)
+                {
+                *(TmpArr1 + i) = *(data + i - LSize/2);
+                }
+            free(data);
+            data = TmpArr1;
+
+            int* TmpArr2 = (int*) calloc(LSize, sizeof(int));
+            for(int i = (LSize/2); i < LSize; ++i)
+                {
+                if(*(next + i - LSize/2) != -1)
+                    {
+                    *(TmpArr2 + i) = *(next + i - LSize/2) + (LSize/2);
+                    } else
+                    {
+                    *(TmpArr2 + i) = *(next + i - LSize/2);
+                    }
+                }
+            for(int i = 0; i < (LSize/2); ++i)
+                {
+                *(TmpArr2 + i) = -1;
+                }
+            free(next);
+            next = TmpArr2;
+            head = next + TmpHead + (LSize/2);
+            tail = next + TmpTail + (LSize/2);
+            }
+        --head;
+        *head = head + 1 - next;
+        *(data + (head - next) )   = PushingElem;
+
+
+        DEB(LHash = MList_t::MAXHash());
+        return 1;
+        }
+    sorted = 0;
+    int* NewElem = MList_t::SearchingEmpty();
+    *NewElem = *(next + Pos);
+    *(next + Pos) = NewElem - next;
+    *(data + (NewElem - next)) = PushingElem;
+    DEB(LHash = MList_t::MAXHash());
+    return 1;
+    }
+
+bool MList_t::DeleteAfterRaw(int Pos)
+    {
+    DEB(MList_t::Verify());
+    int* DeletingElem = 0;
+    if(Pos == -1)
+        {
+        DeletingElem = head;
+        head = *head + next;
+        *DeletingElem = -1;
+        } else
+        {
+        DeletingElem = next + *(next + Pos);
+        *(next + Pos) = *DeletingElem;
+        *DeletingElem = -1;
+        }
+
+    DEB(LHash = MList_t::MAXHash());
+    return 1;
+    }

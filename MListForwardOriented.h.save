@@ -263,8 +263,8 @@ bool MList_t::InsertAfter(ListElem_t PushingElem, int RawPos)
                 }
             free(next);
             next = TmpArr2;
-            head = next + TmpHead;
-            tail = next + TmpTail;
+            head = next + TmpHead + (LSize/2);
+            tail = next + TmpTail + (LSize/2);
             }
         --head;
         *head = head + 1 - next;
@@ -329,12 +329,21 @@ ListElem_t MList_t::elem(int Pos)
     DEB(MList_t::Verify());
     int NowPos = 0;
     int* NowElem = head;
-    while (NowPos != Pos && *NowElem != -1)
-        {
-        NowElem = next + (*NowElem);
-        ++NowPos;
-        }
 
+    if(sorted == 0)
+        {
+        while (NowPos != Pos && *NowElem != -1)
+            {
+            NowElem = next + (*NowElem);
+            ++NowPos;
+            }
+        }else
+        {
+        if(head + Pos < tail)
+            {
+            NowElem = head + Pos;
+            }
+        }
     return *(data + (NowElem - next));
     }
 
@@ -605,7 +614,9 @@ bool MList_t::SortList()
             } else
             {
             std::string CritStr = "crit_err_";
-            CritStr += (err + '0');
+            std::string ErrStr;
+            itoa(err, ErrStr, 10);
+            CritStr += ErrStr;
             NewPath.replace(NewPath.rfind(CritStr), sizeof(CritStr), "LMems");
             }
         NewPath += ".dot";
@@ -621,7 +632,7 @@ bool MList_t::SortList()
             fprintf(LDot, "| {DataPointer:\\n%d | Data:\\n%d | NextPointer:\\n%d | Next:\\n%d}\n", data + i, *(data + i), next + i, *(next + i));
             }
         fprintf(LDot, "}\"];\n");
-        fprintf(LDot, "Shild [shape=record,label=\" RCanary:\\n%d | LCanary:\\n%d | NormalCanary:\\n%d | Hash:\\n%llu | Sorted:\\n%d\"];\n", RCanary, LCanary, LHash, NormCanary, sorted);
+        fprintf(LDot, "Shild [shape=record,label=\" RCanary:\\n%d | LCanary:\\n%d | Hash:\\n%llu | NormalCanary:\\n%d | Sorted:\\n%d | head: \\n%d | tail: \\n%d \"];\n", RCanary, LCanary, LHash, NormCanary, sorted, head, tail);
         fprintf(LDot, "Shild->data\n}\n");
         fclose(LDot);
         std::string DotDoData;
