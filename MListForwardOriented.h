@@ -327,10 +327,11 @@ MList_t::~MList_t()
 ListElem_t MList_t::elem(int Pos)
     {
     DEB(MList_t::Verify());
+    int NowPos = 0;
+    int* NowElem = head;
+
     if(sorted == 0)
         {
-        int NowPos = 0;
-        int* NowElem = head;
         while (NowPos != Pos && *NowElem != -1)
             {
             NowElem = next + (*NowElem);
@@ -338,7 +339,10 @@ ListElem_t MList_t::elem(int Pos)
             }
         }else
         {
-
+        if(head + Pos < tail)
+            {
+            NowElem = head + Pos;
+            }
         }
     return *(data + (NowElem - next));
     }
