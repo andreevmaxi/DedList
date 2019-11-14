@@ -615,7 +615,7 @@ bool MList_t::SortList()
 
         fprintf(LDot, "subgraph clusterlist {\nstyle=filled;\ncolor=dodgerblue1;\n");
         NowPos = 0;
-        NowElem = free;
+        NowElem = LFree;
         fprintf(LDot, "f%d [shape=record, label=\"FreePointer:\\n%d | {Position\\n:%d | Data:\\n%d | Next:\\n%d}\",style=\"filled\",fillcolor=\"gold4\"];\n", NowPos, NowElem, NowPos, *(data + (NowElem - next)), *NowElem);
         fprintf(LDot, "f%d->f%d\n", NowPos, (NowPos + 1));
         NowElem = *NowElem + next;
@@ -730,7 +730,7 @@ bool MList_t::InsertAfterRaw(ListElem_t PushingElem, int Pos)
             int* TmpArr2 = (int*) calloc(LSize, sizeof(int));
             for(int i = (LSize/2); i < LSize; ++i)
                 {
-                if(*(next + i - LSize/2) != -1 && *(next + i - LSize/2) != -2 *(next + i - LSize/2) != -3)
+                if(*(next + i - LSize/2) != -1 && *(next + i - LSize/2) != -2 && *(next + i - LSize/2) != -3)
                     {
                     *(TmpArr2 + i) = *(next + i - LSize/2) + (LSize/2);
                     } else
@@ -738,7 +738,7 @@ bool MList_t::InsertAfterRaw(ListElem_t PushingElem, int Pos)
                     *(TmpArr2 + i) = *(next + i - LSize/2);
                     }
                 }
-            *(TmpArr2 + LFreeTail - next) = 0;
+            *(TmpArr2 + (LFreeTail - next)) = 0;
             for(int i = 1; i < (LSize/2); ++i)
                 {
                 *(TmpArr2 + i - 1) = i;
@@ -749,7 +749,7 @@ bool MList_t::InsertAfterRaw(ListElem_t PushingElem, int Pos)
             head = next + TmpHead + (LSize/2);
             tail = next + TmpTail + (LSize/2);
             LFree = next + TmpFree + (LSize/2);
-            LFreeTail = (LSize/2) - 1;
+            LFreeTail = next + (LSize/2) - 1;
             }
         --head;
         *head = head + 1 - next;
