@@ -613,6 +613,25 @@ bool MList_t::SortList()
         fprintf(LDot, "%d [shape=record, label=\"ElemPointer:\\n%d | {Position\\n:%d | Data:\\n%d | Next:\\n%d}\",style=\"filled\",fillcolor=\"royalblue1\"];\n", NowPos, NowElem, NowPos, *(data + (NowElem - next)), *NowElem);
         fprintf(LDot, "label = \"List with name: %s\"}\n", LName.c_str());
 
+        fprintf(LDot, "subgraph clusterlist {\nstyle=filled;\ncolor=dodgerblue1;\n");
+        NowPos = 0;
+        NowElem = free;
+        fprintf(LDot, "f%d [shape=record, label=\"FreePointer:\\n%d | {Position\\n:%d | Data:\\n%d | Next:\\n%d}\",style=\"filled\",fillcolor=\"gold4\"];\n", NowPos, NowElem, NowPos, *(data + (NowElem - next)), *NowElem);
+        fprintf(LDot, "f%d->f%d\n", NowPos, (NowPos + 1));
+        NowElem = *NowElem + next;
+        ++NowPos;
+
+        while(*NowElem != -1 && NowPos < LSize)
+            {
+            fprintf(LDot, "f%d [shape=record, label=\"FreePointer:\\n%d | {Position\\n:%d | Data:\\n%d | Next:\\n%d}\",style=\"filled\",fillcolor=\"green4\"];\n", NowPos, NowElem, NowPos, *(data + (NowElem - next)), *NowElem);
+            fprintf(LDot, "f%d->f%d\n", NowPos, (NowPos + 1));
+            NowElem = *NowElem + next;
+            ++NowPos;
+            }
+        fprintf(LDot, "f%d [shape=record, label=\"FreePointer:\\n%d | {Position\\n:%d | Data:\\n%d | Next:\\n%d}\",style=\"filled\",fillcolor=\"slateblue4\"];\n", NowPos, NowElem, NowPos, *(data + (NowElem - next)), *NowElem);
+
+
+        fprintf(LDot, "label = \"Free memory of list: %s\"}\n", LName.c_str());
         fprintf(LDot, "}\n");
         fclose(LDot);
 
