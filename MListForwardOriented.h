@@ -177,7 +177,7 @@ bool MList_t::LResize()
         *(next + i) = -1;
         }
     int* NowFree;
-    int* SecondFree;
+    int SecondFree;
     if(sorted == 1)
         {
         NowFree    = next + (LSize/2) - 1;
@@ -186,8 +186,8 @@ bool MList_t::LResize()
         {
         NowFree = LFreeTail;
         }
-    *NowFree = next + (LSize)/2;
-    for(int i = next + (LSize)/2 + 1; i < (next + LSize); ++i)
+    *NowFree = (LSize)/2;
+    for(int* i = next + (LSize)/2 + 1; i < (next + LSize); ++i)
         {
         *(i - 1) = i - next;
         }
@@ -296,7 +296,7 @@ bool MList_t::InsertAfter(ListElem_t PushingElem, int RawPos)
             int* TmpArr2 = (int*) calloc(LSize, sizeof(int));
             for(int i = (LSize/2); i < LSize; ++i)
                 {
-                if(*(next + i - LSize/2) != -1 && *(next + i - LSize/2) != -2 *(next + i - LSize/2) != -3)
+                if(*(next + i - LSize/2) != -1 && *(next + i - LSize/2) != -2 && *(next + i - LSize/2) != -3)
                     {
                     *(TmpArr2 + i) = *(next + i - LSize/2) + (LSize/2);
                     } else
@@ -304,7 +304,7 @@ bool MList_t::InsertAfter(ListElem_t PushingElem, int RawPos)
                     *(TmpArr2 + i) = *(next + i - LSize/2);
                     }
                 }
-            *(TmpArr2 + LFreeTail - next) = 0;
+            *(TmpArr2 + (LFreeTail - next)) = 0;
             for(int i = 1; i < (LSize/2); ++i)
                 {
                 *(TmpArr2 + i - 1) = i;
@@ -315,7 +315,7 @@ bool MList_t::InsertAfter(ListElem_t PushingElem, int RawPos)
             head = next + TmpHead + (LSize/2);
             tail = next + TmpTail + (LSize/2);
             LFree = next + TmpFree + (LSize/2);
-            LFreeTail = (LSize/2) - 1;
+            LFreeTail = next + (LSize/2) - 1;
             }
         --head;
         *head = head + 1 - next;
