@@ -704,12 +704,19 @@ bool MList_t::InsertAfterRaw(ListElem_t PushingElem, int Pos)
         return 1;
         }
 
+    if(Pos + next == tail)
+        {
+        MList_t::PushBack(PushingElem);
+        return 1;
+        }
+
     if(Pos == -1 && sorted == 1)
         {
         if(head == next)
             {
             int TmpHead = head - next;
             int TmpTail = tail - next;
+            int TmpFree = LFree - next;
             LSize *= 2;
             ListElem_t* TmpArr1 = (ListElem_t*) calloc(LSize, sizeof(ListElem_t));
 
@@ -723,7 +730,7 @@ bool MList_t::InsertAfterRaw(ListElem_t PushingElem, int Pos)
             int* TmpArr2 = (int*) calloc(LSize, sizeof(int));
             for(int i = (LSize/2); i < LSize; ++i)
                 {
-                if(*(next + i - LSize/2) != -1)
+                if(*(next + i - LSize/2) != -1 && *(next + i - LSize/2) != -2 *(next + i - LSize/2) != -3)
                     {
                     *(TmpArr2 + i) = *(next + i - LSize/2) + (LSize/2);
                     } else
@@ -731,19 +738,24 @@ bool MList_t::InsertAfterRaw(ListElem_t PushingElem, int Pos)
                     *(TmpArr2 + i) = *(next + i - LSize/2);
                     }
                 }
-            for(int i = 0; i < (LSize/2); ++i)
+            *(TmpArr2 + LFreeTail - next) = 0;
+            for(int i = 1; i < (LSize/2); ++i)
                 {
-                *(TmpArr2 + i) = -1;
+                *(TmpArr2 + i - 1) = i;
                 }
+            *(TmpArr2 + (LSize/2) - 1) = - 2;
             free(next);
             next = TmpArr2;
             head = next + TmpHead + (LSize/2);
             tail = next + TmpTail + (LSize/2);
+            LFree = next + TmpFree + (LSize/2);
+            LFreeTail = (LSize/2) - 1;
             }
         --head;
         *head = head + 1 - next;
+        --LFreeTail;
+        *LFreeTail = -2;
         *(data + (head - next) )   = PushingElem;
-
 
         return 1;
         }
@@ -752,6 +764,7 @@ bool MList_t::InsertAfterRaw(ListElem_t PushingElem, int Pos)
     *NewElem = *(next + Pos);
     *(next + Pos) = NewElem - next;
     *(data + (NewElem - next)) = PushingElem;
+
     return 1;
     }
 
