@@ -236,6 +236,7 @@ bool MList_t::PushBack(ListElem_t PushingElem)
             *tail = tail - next + 1;
             ++tail;
             *tail = -3;
+            ++LFree;
             }
 
         return 1;
