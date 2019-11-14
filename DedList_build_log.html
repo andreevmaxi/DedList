@@ -4,91 +4,19 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
 <body>
 <tt>
-Build started on: <u>13-11-2019 at 19:00.22</u><br />
-Build ended on: <u>13-11-2019 at 19:00.24</u><p />
+Build started on: <u>14-11-2019 at 04:18.04</u><br />
+Build ended on: <u>14-11-2019 at 04:18.05</u><p />
 <b>-------------- Build: Debug in DedList (compiler: GNU GCC Compiler - Strict + Fast (SINGLE FILES ONLY))---------------</b><br />
-mingw32-g++.exe "C:\Users\Maksim\Documents\GitHub\DedList\main.cpp" -o bin\Debug\DedList.exe -mconsole  -Wall -fexceptions  -g  -Wshadow -Winit-self -Wredundant-decls -Wcast-align -Wundef -Wfloat-equal -Winline -Wunreachable-code -Wmissing-declarations -Wmissing-include-dirs -Wswitch-enum -Wswitch-default -Weffc++ -Wmain -Wextra -Wall -g -pipe -fexceptions -Wcast-qual -Wconversion -Wctor-dtor-privacy -Wempty-body -Wformat-security -Wformat=2 -Wignored-qualifiers -Wlogical-op -Wmissing-field-initializers -Wnon-virtual-dtor -Woverloaded-virtual -Wpointer-arith -Wsign-promo -Wstack-usage=8192 -Wstrict-aliasing -Wstrict-null-sentinel -Wtype-limits -Wwrite-strings -D_EJUDGE_CLIENT_SIDE -D_EJC -D__slowpoke -D_VORONEZH -D_DEBUG<br />
-In file included from C:\Users\Maksim\Documents\GitHub\DedList\main.cpp:2:0:<br />
-<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListForwardOriented.h:20:79: warning: integer overflow in expression [-Woverflow]</font><br />
- const int NormCanary = -230 - 230 * 256 - 230 * 256 * 256 - 230 * 256 * 256 * 256;<br />
-                                                                               ^<br />
-<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListForwardOriented.h:28:8: warning: 'struct MList_t' has pointer data members [-Weffc++]</font><br />
- struct MList_t<br />
-        ^<br />
-<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListForwardOriented.h:28:8: warning:   but does not override 'MList_t(const MList_t&amp;)' [-Weffc++]</font><br />
-<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListForwardOriented.h:28:8: warning:   or 'operator=(const MList_t&amp;)' [-Weffc++]</font><br />
-C:\Users\Maksim\Documents\GitHub\DedList\MListForwardOriented.h: In constructor 'MList_t::MList_t(std::string)':<br />
-<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListForwardOriented.h:86:1: warning: 'MList_t::LCanary' should be initialized in the member initialization list [-Weffc++]</font><br />
- MList_t::MList_t( std::string name )<br />
+mingw32-g++.exe "C:\Users\Maksim\Documents\GitHub\GamesWithCompiler\libs_test\main.cpp" -o bin\Debug\DedList.exe -mconsole  -Wall -fexceptions  -g  -Wshadow -Winit-self -Wredundant-decls -Wcast-align -Wundef -Wfloat-equal -Winline -Wunreachable-code -Wmissing-declarations -Wmissing-include-dirs -Wswitch-enum -Wswitch-default -Weffc++ -Wmain -Wextra -Wall -g -pipe -fexceptions -Wcast-qual -Wconversion -Wctor-dtor-privacy -Wempty-body -Wformat-security -Wformat=2 -Wignored-qualifiers -Wlogical-op -Wmissing-field-initializers -Wnon-virtual-dtor -Woverloaded-virtual -Wpointer-arith -Wsign-promo -Wstack-usage=8192 -Wstrict-aliasing -Wstrict-null-sentinel -Wtype-limits -Wwrite-strings -D_EJUDGE_CLIENT_SIDE -D_EJC -D__slowpoke -D_VORONEZH -D_DEBUG<br />
+In file included from C:\Users\Maksim\Documents\GitHub\GamesWithCompiler\libs_test\main.cpp:1:0:<br />
+<font color="#ff0000">C:\Users\Maksim\Documents\GitHub\GamesWithCompiler\libs_test\config/default_enum.h:1:36: error: 'CMD_END' does not name a type</font><br />
+ #define MAKS_CMD( Id, Name, Args ) CMD_##Name = Id,<br />
+                                    ^<br />
+C:\Users\Maksim\Documents\GitHub\GamesWithCompiler\libs_test\config/default.h:11:1: note: in expansion of macro 'MAKS_CMD'<br />
+ MAKS_CMD (0, END, 0)<br />
  ^<br />
-<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListForwardOriented.h:86:1: warning: 'MList_t::LdataCanary' should be initialized in the member initialization list [-Weffc++]</font><br />
-<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListForwardOriented.h:86:1: warning: 'MList_t::data' should be initialized in the member initialization list [-Weffc++]</font><br />
-<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListForwardOriented.h:86:1: warning: 'MList_t::RdataCanary' should be initialized in the member initialization list [-Weffc++]</font><br />
-<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListForwardOriented.h:86:1: warning: 'MList_t::LnextCanary' should be initialized in the member initialization list [-Weffc++]</font><br />
-<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListForwardOriented.h:86:1: warning: 'MList_t::next' should be initialized in the member initialization list [-Weffc++]</font><br />
-<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListForwardOriented.h:86:1: warning: 'MList_t::RnextCanary' should be initialized in the member initialization list [-Weffc++]</font><br />
-<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListForwardOriented.h:86:1: warning: 'MList_t::head' should be initialized in the member initialization list [-Weffc++]</font><br />
-<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListForwardOriented.h:86:1: warning: 'MList_t::tail' should be initialized in the member initialization list [-Weffc++]</font><br />
-<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListForwardOriented.h:86:1: warning: 'MList_t::sorted' should be initialized in the member initialization list [-Weffc++]</font><br />
-<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListForwardOriented.h:86:1: warning: 'MList_t::LSize' should be initialized in the member initialization list [-Weffc++]</font><br />
-<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListForwardOriented.h:86:1: warning: 'MList_t::LName' should be initialized in the member initialization list [-Weffc++]</font><br />
-<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListForwardOriented.h:86:1: warning: 'MList_t::RCanary' should be initialized in the member initialization list [-Weffc++]</font><br />
-<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListForwardOriented.h:86:1: warning: 'MList_t::LHash' should be initialized in the member initialization list [-Weffc++]</font><br />
-C:\Users\Maksim\Documents\GitHub\DedList\MListForwardOriented.h: In member function 'bool MList_t::ArrOfElems(ListElem_t*, int*, int)':<br />
-<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListForwardOriented.h:386:13: warning: unused variable 'NowPos' [-Wunused-variable]</font><br />
-         int NowPos = 0;<br />
-             ^<br />
-C:\Users\Maksim\Documents\GitHub\DedList\MListForwardOriented.h: In member function 'long long unsigned int MList_t::MAXHash()':<br />
-<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListForwardOriented.h:526:21: warning: conversion to 'ListElem_t {aka int}' from 'long long unsigned int' may alter its value [-Wconversion]</font><br />
-             DEB(tmp *= MaxHashKey);<br />
-                     ^<br />
-C:\Users\Maksim\Documents\GitHub\DedList\MListForwardOriented.h:13:25: note: in definition of macro 'DEB'<br />
-     #define DEB( code ) code<br />
-                         ^<br />
-<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListForwardOriented.h:528:21: warning: conversion to 'ListElem_t {aka int}' from 'long long unsigned int' may alter its value [-Wconversion]</font><br />
-             DEB(tmp *= MaxHashKey);<br />
-                     ^<br />
-C:\Users\Maksim\Documents\GitHub\DedList\MListForwardOriented.h:13:25: note: in definition of macro 'DEB'<br />
-     #define DEB( code ) code<br />
-                         ^<br />
-C:\Users\Maksim\Documents\GitHub\DedList\MListForwardOriented.h: In member function 'void MList_t::LDUMP(int)':<br />
-<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListForwardOriented.h:554:27: warning: conversion to 'char' from 'int' may alter its value [-Wconversion]</font><br />
-             DTime += (err + '0');<br />
-                           ^<br />
-<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListForwardOriented.h:563:35: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]</font><br />
-         while(tmp != std::string::npos)<br />
-                                   ^<br />
-<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListForwardOriented.h:570:35: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]</font><br />
-         while(tmp != std::string::npos)<br />
-                                   ^<br />
-In file included from C:\Users\Maksim\Documents\GitHub\DedList\main.cpp:2:0:<br />
-<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListForwardOriented.h:595:186: warning: format '%d' expects argument of type 'int', but argument 4 has type 'int*' [-Wformat=]</font><br />
-             fprintf(LDot, "%d [shape=record, label=\"ElemPointer:\\n%d | {Position\\n:%d | Data:\\n%d | Next:\\n%d}\"];\n", NowPos, NowElem, NowPos, *(data + (NowElem - next)), *NowElem);<br />
-                                                                                                                                                                                          ^<br />
-<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListForwardOriented.h:600:182: warning: format '%d' expects argument of type 'int', but argument 4 has type 'int*' [-Wformat=]</font><br />
-         fprintf(LDot, "%d [shape=record, label=\"ElemPointer:\\n%d | {Position\\n:%d | Data:\\n%d | Next:\\n%d}\"];\n", NowPos, NowElem, NowPos, *(data + (NowElem - next)), *NowElem);<br />
-                                                                                                                                                                                      ^<br />
-<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListForwardOriented.h:635:161: warning: format '%d' expects argument of type 'int', but argument 4 has type 'ListElem_t* {aka int*}' [-Wformat=]</font><br />
-         fprintf(LDot, "{Memory of list: %s} | {{DataPointer:\\n%d | Data:\\n%d | NextPointer:\\n%d | Next:\\n%d}\n", LName.c_str(), data, *(data), next, *(next));<br />
-                                                                                                                                                                 ^<br />
-<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListForwardOriented.h:635:161: warning: format '%d' expects argument of type 'int', but argument 6 has type 'int*' [-Wformat=]</font><br />
-<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListForwardOriented.h:638:144: warning: format '%d' expects argument of type 'int', but argument 3 has type 'ListElem_t* {aka int*}' [-Wformat=]</font><br />
-             fprintf(LDot, "| {DataPointer:\\n%d | Data:\\n%d | NextPointer:\\n%d | Next:\\n%d}\n", data + i, *(data + i), next + i, *(next + i));<br />
-                                                                                                                                                ^<br />
-<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListForwardOriented.h:638:144: warning: format '%d' expects argument of type 'int', but argument 5 has type 'int*' [-Wformat=]</font><br />
-<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListForwardOriented.h:641:226: warning: unknown conversion type character 'l' in format [-Wformat=]</font><br />
-         fprintf(LDot, "Shild [shape=record,label=\" RCanary:\\n%d | LCanary:\\n%d | Hash:\\n%llu | NormalCanary:\\n%d | Sorted:\\n%d | head: \\n%d | tail: \\n%d \"];\n", RCanary, LCanary, LHash, NormCanary, sorted, head, tail);<br />
-                                                                                                                                                                                                                                  ^<br />
-<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListForwardOriented.h:641:226: warning: format '%d' expects argument of type 'int', but argument 5 has type 'long long unsigned int' [-Wformat=]</font><br />
-<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListForwardOriented.h:641:226: warning: format '%d' expects argument of type 'int', but argument 8 has type 'int*' [-Wformat=]</font><br />
-<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListForwardOriented.h:641:226: warning: too many arguments for format [-Wformat-extra-args]</font><br />
-In file included from C:\Users\Maksim\Documents\GitHub\DedList\main.cpp:2:0:<br />
-<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListForwardOriented.h:576:29: warning: 'LDot' may be used uninitialized in this function [-Wmaybe-uninitialized]</font><br />
-         assert(LDot != NULL);<br />
-                             ^<br />
-Output size is 515,22 KB<br />
-<font color="#0000ff">Process terminated with status 0 (0 minutes, 1 seconds)</font><br />
-<font color="#0000ff">0 errors, 35 warnings (0 minutes, 1 seconds)</font><br />
+<font color="#a00000">Process terminated with status 1 (0 minutes, 0 seconds)</font><br />
+<font color="#a00000">1 errors, 0 warnings (0 minutes, 0 seconds)</font><br />
 </tt>
 </body>
 </html>

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <BrowseTracker_layout_file>
 	<ActiveTarget name="Debug" />
-	<File name="MListForwardOriented.h" open="1" top="1" tabpos="2">
-		<Cursor position="0" topLine="0" />
+	<File name="MListForwardOriented.h" open="0" top="0" tabpos="1">
+		<Cursor position="4224" topLine="179" />
 		<BrowseMarks positions="" />
-		<Book_Marks positions="994" />
+		<Book_Marks positions="994,5153,5144" />
 	</File>
-	<File name="main.cpp" open="1" top="0" tabpos="1">
-		<Cursor position="254" topLine="0" />
-		<BrowseMarks positions="864" />
-		<Book_Marks positions="" />
+	<File name="main.cpp" open="0" top="0" tabpos="2">
+		<Cursor position="1454" topLine="45" />
+		<BrowseMarks positions="222" />
+		<Book_Marks positions="1636,1632" />
 	</File>
 </BrowseTracker_layout_file>

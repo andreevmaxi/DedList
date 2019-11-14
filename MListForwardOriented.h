@@ -28,15 +28,13 @@ const std::string DotPath = "\"C:\\Program Files (x86)\\Graphviz2.38\\bin\\dot.e
 struct MList_t
     {
     DEB(int LCanary);
-    DEB(ListElem_t* LdataCanary);
     ListElem_t* data;
-    DEB(ListElem_t* RdataCanary);
 
-    DEB(int* LnextCanary);
     int* next;
-    DEB(int* RnextCanary);
-
+    DEB(int NumOfDumps);
     int* head;
+    int* LFree;
+    int* LFreeTail;
     int* tail;        // to do fast "push back"
     bool sorted;      // 1 when data is equal to array
     int LSize;
@@ -76,50 +74,57 @@ struct MList_t
     ~MList_t();
 
     DEB(int RCanary);
-
-    DEB(unsigned long long MAXHash());
-
-    DEB(unsigned long long LHash);
     };
 
 #ifdef _DEBUG
 MList_t::MList_t( std::string name )
     {
-    LdataCanary   = (ListElem_t*) calloc (BeginNumOfMember + 2, sizeof(ListElem_t));
-    data = LdataCanary + 1;
-    RdataCanary   = LdataCanary + BeginNumOfMember + 1;
-    *LdataCanary = NormCanary;
-    *RdataCanary = NormCanary;
-    LnextCanary   = (int*) calloc (BeginNumOfMember, sizeof(int));
-    next = LnextCanary + 1;
-    RnextCanary   = LnextCanary + BeginNumOfMember + 1;
-    *LnextCanary = NormCanary;
-    *RnextCanary = NormCanary;
+    NumOfDumps = 0;
 
+    LSize  = BeginNumOfMember;
+
+    data   = (ListElem_t*) calloc (BeginNumOfMember, sizeof(ListElem_t));
+    next   = (int*) calloc (BeginNumOfMember, sizeof(int));
     head   = next + 4; // now we reserved 5 elems left from head
     tail   = next + 4;
+    LFree   = tail + 1;
 
-    assert(data);
-    assert(next);
-    assert(head);
-    assert(tail);// than it needs to be if (...) {errnum = 124124125125; LDUMP}
+    assert(data != NULL);
+    assert(next != NULL);
+    assert(head != NULL);
+    assert(tail != NULL);// than it needs to be if (...) {errnum = 124124125125; LDUMP}
+    assert(LFree != NULL);
 
-    LCanary = NormCanary;
-    RCanary = NormCanary;
-    sorted = 1;
-    LSize  = BeginNumOfMember;
-    LName = name;
 
     for(int i = 0; i < LSize; ++i)
         {
         *(next + i) = -1;
         }
-    LHash = MList_t::MAXHash();
+    for(int* i = (LFree + 1); i < (next + LSize); ++i)
+        {
+        *(i - 1) = i - next;
+        }
+
+    *(next + LSize) = 0;
+    for(int* i = (next + 1); i < (next + 4); ++i)
+        {
+        *(i - 1) = i - next;
+        }
+    LFreeTail = next + 3;
+    *(LFreeTail) = -2;
+
+    LCanary = NormCanary;
+    RCanary = NormCanary;
+    *tail = -3;
+    sorted = 1;
+    LName = name;
     return;
     }
 #else
 MList_t::MList_t()
     {
+    LSize  = BeginNumOfMember;
+
     data   = (ListElem_t*) calloc (BeginNumOfMember, sizeof(ListElem_t));
     next   = (int*) calloc (BeginNumOfMember, sizeof(int));
     head   = next + 4; // now we reserved 5 elems left from head
@@ -129,14 +134,27 @@ MList_t::MList_t()
     assert(next != NULL);
     assert(head != NULL);
     assert(tail != NULL);// than it needs to be if (...) {errnum = 124124125125; LDUMP}
-
-    sorted = 1;
-    LSize  = BeginNumOfMember;
+    assert(LFree != NULL);
 
     for(int i = 0; i < LSize; ++i)
         {
         *(next + i) = -1;
         }
+
+    for(int* i = (LFree + 1); i < (next + LSize); ++i)
+        {
+        *(i - 1) = i - next;
+        }
+
+    *(next + LSize) = 0;
+    for(int* i = (next + 1); i < (next + 4); ++i)
+        {
+        *(i - 1) = i - next;
+        }
+    LFreeTail = next + 3;
+    *(LFreeTail) = -2;
+    *tail = -3;
+    sorted = 1;
 
     return;
     }
@@ -158,9 +176,31 @@ bool MList_t::LResize()
         {
         *(next + i) = -1;
         }
+    int* NowFree;
+    int* SecondFree;
+    if(sorted == 1)
+        {
+        NowFree    = next + (LSize/2) - 1;
+        SecondFree = *tail;
+        } else
+        {
+        NowFree = LFreeTail;
+        }
+    *NowFree = next + (LSize)/2;
+    for(int i = next + (LSize)/2 + 1; i < (next + LSize); ++i)
+        {
+        *(i - 1) = i - next;
+        }
+    if(sorted == 1)
+        {
+        *(next + LSize - 1) = SecondFree;
+        } else
+        {
+        *(next + LSize - 1) = -2;
+        LFreeTail = next + LSize - 1;
+        }
     head = next + TmpHead;
     tail = next + TmpTail;
-
 
     return 1;
     }
@@ -199,7 +239,6 @@ bool MList_t::PushBack(ListElem_t PushingElem)
             ++tail;
             }
 
-        DEB(LHash = MList_t::MAXHash());
         return 1;
         }
     return 0;
@@ -278,7 +317,6 @@ bool MList_t::InsertAfter(ListElem_t PushingElem, int RawPos)
         *head = head + 1 - next;
         *(data + (head - next) )   = PushingElem;
 
-        DEB(LHash = MList_t::MAXHash());
         return 1;
         }
     sorted = 0;
@@ -287,7 +325,6 @@ bool MList_t::InsertAfter(ListElem_t PushingElem, int RawPos)
     *(next + Pos) = NewElem - next;
     *(data + (NewElem - next)) = PushingElem;
 
-    DEB(LHash = MList_t::MAXHash());
     return 1;
     }
 
@@ -315,7 +352,6 @@ bool MList_t::DeleteAfter(int Pos)
         *DeletingElem = -1;
         }
 
-    DEB(LHash = MList_t::MAXHash());
     return 1;
     }
 
@@ -326,7 +362,6 @@ MList_t::~MList_t()
     free(next);
 
 
-    DEB(LHash = MList_t::MAXHash());
     LSize = -1; // it's like it's dead, like destructed you knawww
     return;
     }
@@ -427,8 +462,6 @@ bool MList_t::SortList()
     sorted = 1;
 
 
-    DEB(LHash = MList_t::MAXHash());
-
     return 1;
     }
 
@@ -441,12 +474,6 @@ bool MList_t::SortList()
             {
             err = 5;
             MList_t::LDUMP(err); // err 5 :: something went on list's memory!
-            }
-
-        if(LHash != MList_t::MAXHash())
-            {
-            err = 4;
-            MList_t::LDUMP(err); // err 4 :: list has been attacked!
             }
 
         int* NowElem = head;
@@ -484,57 +511,8 @@ bool MList_t::SortList()
             MList_t::LDUMP(err); // err 3 :: list lost connection, how hz, but hz.
             }
 
-
-        if(*LdataCanary != *RdataCanary || *LdataCanary != (ListElem_t)NormCanary)
-            {
-            err = 6;
-            MList_t::LDUMP(err); // err 6 :: something went on data's memory!
-            }
-
-        if(*LnextCanary != *RnextCanary || *LnextCanary != NormCanary)
-            {
-            err = 7;
-            MList_t::LDUMP(err); // err 7 :: something went on next's memory!
-            }
-
         return 1; // if err 9 :: it's just printing the list
         }
-#endif
-
-#ifdef _DEBUG
-    unsigned long long MList_t::MAXHash()
-        {
-        const unsigned long long MaxHashKey = 0x5BD1E995;
-
-        const int ByteShift = 10;
-
-        unsigned long long HashSum = 0;
-
-        // initializing HashSum
-
-        DEB(HashSum = MaxHashKey ^ LSize);
-
-        ListElem_t tmp = 0;
-
-        // adding all Data to hash
-
-        int* NowFByte = (int*)&LCanary;
-
-        while(NowFByte + 4 < (int*)&LHash)
-            {
-            DEB(tmp = *NowFByte);
-            DEB(tmp *= MaxHashKey);
-            DEB(tmp ^= tmp >> ByteShift);
-            DEB(tmp *= MaxHashKey);
-
-            DEB(HashSum *= MaxHashKey);
-            DEB(HashSum ^= tmp);
-            ++NowFByte;
-            }
-
-        return HashSum;
-        }
-
 #endif
 
 #ifdef _DEBUG
@@ -550,13 +528,21 @@ bool MList_t::SortList()
             DTime = "debug";
             } else
             {
-            DTime = "crit_err_";
-            DTime += (err + '0');
+            std::string CritStr = "crit_err_";
+            char ErrStr[17];
+            itoa(err, ErrStr, 10);
+            CritStr += ErrStr;
+            DTime += CritStr;
             }
         DTime += "_";
         DTime += LName;
         DTime += "_";
         DTime += ctime(&now);
+        DTime += "#";
+        char HashStr[17];
+        ++NumOfDumps;
+        itoa(NumOfDumps, HashStr, 10);
+        DTime += HashStr;
         DTime += ".dot";
         DTime.erase(DTime.find('\n'), 1);
         int tmp = DTime.find(' ');
@@ -588,16 +574,20 @@ bool MList_t::SortList()
         int* NowElem = head;
         int NowPos = 0;
         fprintf(LDot, "rankdir=LR;\n");
+        fprintf(LDot, "subgraph clusterlist {\nstyle=filled;\ncolor=lightgrey;\n");
+        fprintf(LDot, "%d [shape=record, label=\"ElemPointer:\\n%d | {Position\\n:%d | Data:\\n%d | Next:\\n%d}\",style=\"filled\",fillcolor=\"gold2\"];\n", NowPos, NowElem, NowPos, *(data + (NowElem - next)), *NowElem);
+        fprintf(LDot, "%d->%d\n", NowPos, (NowPos + 1));
+        NowElem = *NowElem + next;
+        ++NowPos;
 
-        fprintf(LDot, "subgraph clusterlist {\n");
         while(*NowElem != -1 && NowPos < LSize)
             {
-            fprintf(LDot, "%d [shape=record, label=\"ElemPointer:\\n%d | {Position\\n:%d | Data:\\n%d | Next:\\n%d}\"];\n", NowPos, NowElem, NowPos, *(data + (NowElem - next)), *NowElem);
+            fprintf(LDot, "%d [shape=record, label=\"ElemPointer:\\n%d | {Position\\n:%d | Data:\\n%d | Next:\\n%d}\",style=\"filled\",fillcolor=\"lawngreen\"];\n", NowPos, NowElem, NowPos, *(data + (NowElem - next)), *NowElem);
             fprintf(LDot, "%d->%d\n", NowPos, (NowPos + 1));
             NowElem = *NowElem + next;
             ++NowPos;
             }
-        fprintf(LDot, "%d [shape=record, label=\"ElemPointer:\\n%d | {Position\\n:%d | Data:\\n%d | Next:\\n%d}\"];\n", NowPos, NowElem, NowPos, *(data + (NowElem - next)), *NowElem);
+        fprintf(LDot, "%d [shape=record, label=\"ElemPointer:\\n%d | {Position\\n:%d | Data:\\n%d | Next:\\n%d}\",style=\"filled\",fillcolor=\"royalblue1\"];\n", NowPos, NowElem, NowPos, *(data + (NowElem - next)), *NowElem);
         fprintf(LDot, "label = \"List with name: %s\"}\n", LName.c_str());
 
         fprintf(LDot, "}\n");
@@ -638,7 +628,7 @@ bool MList_t::SortList()
             fprintf(LDot, "| {DataPointer:\\n%d | Data:\\n%d | NextPointer:\\n%d | Next:\\n%d}\n", data + i, *(data + i), next + i, *(next + i));
             }
         fprintf(LDot, "}\"];\n");
-        fprintf(LDot, "Shild [shape=record,label=\" RCanary:\\n%d | LCanary:\\n%d | Hash:\\n%llu | NormalCanary:\\n%d | Sorted:\\n%d | head: \\n%d | tail: \\n%d \"];\n", RCanary, LCanary, LHash, NormCanary, sorted, head, tail);
+        fprintf(LDot, "Shild [shape=record,label=\" RCanary:\\n%d | LCanary:\\n%d  | NormalCanary:\\n%d | Sorted:\\n%d | head: \\n%d | tail: \\n%d \"];\n", RCanary, LCanary, NormCanary, sorted, head, tail);
         fprintf(LDot, "Shild->data\n}\n");
         fclose(LDot);
         std::string DotDoData;
@@ -650,7 +640,7 @@ bool MList_t::SortList()
         DotDoData += NewPath;
         DotDoData += ".png";
         std::system(DotDoData.c_str());
-
+        printf("sosat %d\n", NumOfDumps);
         return;
         }
 #endif
@@ -713,7 +703,6 @@ bool MList_t::InsertAfterRaw(ListElem_t PushingElem, int Pos)
         *(data + (head - next) )   = PushingElem;
 
 
-        DEB(LHash = MList_t::MAXHash());
         return 1;
         }
     sorted = 0;
@@ -721,7 +710,6 @@ bool MList_t::InsertAfterRaw(ListElem_t PushingElem, int Pos)
     *NewElem = *(next + Pos);
     *(next + Pos) = NewElem - next;
     *(data + (NewElem - next)) = PushingElem;
-    DEB(LHash = MList_t::MAXHash());
     return 1;
     }
 
@@ -741,6 +729,5 @@ bool MList_t::DeleteAfterRaw(int Pos)
         *DeletingElem = -1;
         }
 
-    DEB(LHash = MList_t::MAXHash());
     return 1;
     }

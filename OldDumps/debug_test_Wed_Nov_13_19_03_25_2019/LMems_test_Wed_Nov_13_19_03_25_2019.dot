@@ -1,0 +1,65 @@
+digraph G{
+data [shape=record,label="{Memory of list: test} | {{DataPointer:\n12335264 | Data:\n0 | NextPointer:\n12335512 | Next:\n-1}
+| {DataPointer:\n12335268 | Data:\n0 | NextPointer:\n12335516 | Next:\n-1}
+| {DataPointer:\n12335272 | Data:\n0 | NextPointer:\n12335520 | Next:\n-1}
+| {DataPointer:\n12335276 | Data:\n0 | NextPointer:\n12335524 | Next:\n-1}
+| {DataPointer:\n12335280 | Data:\n0 | NextPointer:\n12335528 | Next:\n-1}
+| {DataPointer:\n12335284 | Data:\n0 | NextPointer:\n12335532 | Next:\n-1}
+| {DataPointer:\n12335288 | Data:\n0 | NextPointer:\n12335536 | Next:\n-1}
+| {DataPointer:\n12335292 | Data:\n0 | NextPointer:\n12335540 | Next:\n-1}
+| {DataPointer:\n12335296 | Data:\n0 | NextPointer:\n12335544 | Next:\n-1}
+| {DataPointer:\n12335300 | Data:\n0 | NextPointer:\n12335548 | Next:\n-1}
+| {DataPointer:\n12335304 | Data:\n0 | NextPointer:\n12335552 | Next:\n-1}
+| {DataPointer:\n12335308 | Data:\n0 | NextPointer:\n12335556 | Next:\n-1}
+| {DataPointer:\n12335312 | Data:\n0 | NextPointer:\n12335560 | Next:\n-1}
+| {DataPointer:\n12335316 | Data:\n0 | NextPointer:\n12335564 | Next:\n-1}
+| {DataPointer:\n12335320 | Data:\n0 | NextPointer:\n12335568 | Next:\n-1}
+| {DataPointer:\n12335324 | Data:\n0 | NextPointer:\n12335572 | Next:\n-1}
+| {DataPointer:\n12335328 | Data:\n0 | NextPointer:\n12335576 | Next:\n-1}
+| {DataPointer:\n12335332 | Data:\n0 | NextPointer:\n12335580 | Next:\n-1}
+| {DataPointer:\n12335336 | Data:\n0 | NextPointer:\n12335584 | Next:\n-1}
+| {DataPointer:\n12335340 | Data:\n0 | NextPointer:\n12335588 | Next:\n-1}
+| {DataPointer:\n12335344 | Data:\n0 | NextPointer:\n12335592 | Next:\n-1}
+| {DataPointer:\n12335348 | Data:\n0 | NextPointer:\n12335596 | Next:\n-1}
+| {DataPointer:\n12335352 | Data:\n0 | NextPointer:\n12335600 | Next:\n-1}
+| {DataPointer:\n12335356 | Data:\n0 | NextPointer:\n12335604 | Next:\n-1}
+| {DataPointer:\n12335360 | Data:\n0 | NextPointer:\n12335608 | Next:\n-1}
+| {DataPointer:\n12335364 | Data:\n0 | NextPointer:\n12335612 | Next:\n-1}
+| {DataPointer:\n12335368 | Data:\n7 | NextPointer:\n12335616 | Next:\n27}
+| {DataPointer:\n12335372 | Data:\n6 | NextPointer:\n12335620 | Next:\n28}
+| {DataPointer:\n12335376 | Data:\n5 | NextPointer:\n12335624 | Next:\n29}
+| {DataPointer:\n12335380 | Data:\n4 | NextPointer:\n12335628 | Next:\n30}
+| {DataPointer:\n12335384 | Data:\n3 | NextPointer:\n12335632 | Next:\n31}
+| {DataPointer:\n12335388 | Data:\n2 | NextPointer:\n12335636 | Next:\n32}
+| {DataPointer:\n12335392 | Data:\n1 | NextPointer:\n12335640 | Next:\n33}
+| {DataPointer:\n12335396 | Data:\n0 | NextPointer:\n12335644 | Next:\n34}
+| {DataPointer:\n12335400 | Data:\n10 | NextPointer:\n12335648 | Next:\n35}
+| {DataPointer:\n12335404 | Data:\n50 | NextPointer:\n12335652 | Next:\n36}
+| {DataPointer:\n12335408 | Data:\n20 | NextPointer:\n12335656 | Next:\n37}
+| {DataPointer:\n12335412 | Data:\n30 | NextPointer:\n12335660 | Next:\n38}
+| {DataPointer:\n12335416 | Data:\n40 | NextPointer:\n12335664 | Next:\n39}
+| {DataPointer:\n12335420 | Data:\n50 | NextPointer:\n12335668 | Next:\n40}
+| {DataPointer:\n12335424 | Data:\n10 | NextPointer:\n12335672 | Next:\n41}
+| {DataPointer:\n12335428 | Data:\n20 | NextPointer:\n12335676 | Next:\n42}
+| {DataPointer:\n12335432 | Data:\n30 | NextPointer:\n12335680 | Next:\n43}
+| {DataPointer:\n12335436 | Data:\n40 | NextPointer:\n12335684 | Next:\n44}
+| {DataPointer:\n12335440 | Data:\n10 | NextPointer:\n12335688 | Next:\n45}
+| {DataPointer:\n12335444 | Data:\n20 | NextPointer:\n12335692 | Next:\n46}
+| {DataPointer:\n12335448 | Data:\n30 | NextPointer:\n12335696 | Next:\n47}
+| {DataPointer:\n12335452 | Data:\n40 | NextPointer:\n12335700 | Next:\n48}
+| {DataPointer:\n12335456 | Data:\n12335264 | NextPointer:\n12335704 | Next:\n-1}
+| {DataPointer:\n12335460 | Data:\n12324744 | NextPointer:\n12335708 | Next:\n-1}
+| {DataPointer:\n12335464 | Data:\n-1 | NextPointer:\n12335712 | Next:\n-1}
+| {DataPointer:\n12335468 | Data:\n1969382756 | NextPointer:\n12335716 | Next:\n-1}
+| {DataPointer:\n12335472 | Data:\n1702125415 | NextPointer:\n12335720 | Next:\n-1}
+| {DataPointer:\n12335476 | Data:\n1465873523 | NextPointer:\n12335724 | Next:\n-1}
+| {DataPointer:\n12335480 | Data:\n1314874469 | NextPointer:\n12335728 | Next:\n-1}
+| {DataPointer:\n12335484 | Data:\n828339823 | NextPointer:\n12335732 | Next:\n-1}
+| {DataPointer:\n12335488 | Data:\n959536947 | NextPointer:\n12335736 | Next:\n-1}
+| {DataPointer:\n12335492 | Data:\n1597190239 | NextPointer:\n12335740 | Next:\n-1}
+| {DataPointer:\n12335496 | Data:\n845100082 | NextPointer:\n12335744 | Next:\n-1}
+| {DataPointer:\n12335500 | Data:\n775500080 | NextPointer:\n12335748 | Next:\n-1}
+}"];
+Shild [shape=record,label=" RCanary:\n421075226 | LCanary:\n421075226 | Hash:\n1361700346913204571 | NormalCanary:\n421075226 | Sorted:\n1 | head: \n12335616 | tail: \n12335704 "];
+Shild->data
+}

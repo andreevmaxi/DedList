@@ -1,0 +1,36 @@
+digraph G{
+rankdir=LR;
+subgraph clusterlist {
+style=filled;
+color=lightgrey;
+0 [shape=record, label="ElemPointer:\n5968344 | {Position\n:0 | Data:\n10 | Next:\n5}",style="filled",fillcolor="gold2"];
+0->1
+1 [shape=record, label="ElemPointer:\n5968348 | {Position\n:1 | Data:\n50 | Next:\n6}",style="filled",fillcolor="lawngreen"];
+1->2
+2 [shape=record, label="ElemPointer:\n5968352 | {Position\n:2 | Data:\n20 | Next:\n7}",style="filled",fillcolor="lawngreen"];
+2->3
+3 [shape=record, label="ElemPointer:\n5968356 | {Position\n:3 | Data:\n30 | Next:\n8}",style="filled",fillcolor="lawngreen"];
+3->4
+4 [shape=record, label="ElemPointer:\n5968360 | {Position\n:4 | Data:\n40 | Next:\n9}",style="filled",fillcolor="lawngreen"];
+4->5
+5 [shape=record, label="ElemPointer:\n5968364 | {Position\n:5 | Data:\n50 | Next:\n10}",style="filled",fillcolor="lawngreen"];
+5->6
+6 [shape=record, label="ElemPointer:\n5968368 | {Position\n:6 | Data:\n10 | Next:\n11}",style="filled",fillcolor="lawngreen"];
+6->7
+7 [shape=record, label="ElemPointer:\n5968372 | {Position\n:7 | Data:\n20 | Next:\n12}",style="filled",fillcolor="lawngreen"];
+7->8
+8 [shape=record, label="ElemPointer:\n5968376 | {Position\n:8 | Data:\n30 | Next:\n13}",style="filled",fillcolor="lawngreen"];
+8->9
+9 [shape=record, label="ElemPointer:\n5968380 | {Position\n:9 | Data:\n40 | Next:\n14}",style="filled",fillcolor="lawngreen"];
+9->10
+10 [shape=record, label="ElemPointer:\n5968384 | {Position\n:10 | Data:\n10 | Next:\n15}",style="filled",fillcolor="lawngreen"];
+10->11
+11 [shape=record, label="ElemPointer:\n5968388 | {Position\n:11 | Data:\n20 | Next:\n16}",style="filled",fillcolor="lawngreen"];
+11->12
+12 [shape=record, label="ElemPointer:\n5968392 | {Position\n:12 | Data:\n30 | Next:\n17}",style="filled",fillcolor="lawngreen"];
+12->13
+13 [shape=record, label="ElemPointer:\n5968396 | {Position\n:13 | Data:\n40 | Next:\n18}",style="filled",fillcolor="lawngreen"];
+13->14
+14 [shape=record, label="ElemPointer:\n5968400 | {Position\n:14 | Data:\n5 | Next:\n-1}",style="filled",fillcolor="royalblue1"];
+label = "List with name: test"}
+}

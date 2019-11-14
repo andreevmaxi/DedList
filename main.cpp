@@ -64,13 +64,12 @@ int main()
     test.PushBack(30);
     test.PushBack(40);
 
-
     test.LDUMP(9);
-
     for(int i = 0; i < 8; ++i)
         {
         test.InsertAfter(i, -1);
         }
+
 
     test.LDUMP(9);
     test.InsertAfterRaw(100, 38);
