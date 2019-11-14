@@ -452,9 +452,9 @@ bool MList_t::SortList()
         *(TmpNext + i)= -1;
         }
     int* NowElem = head;
-    int  i = head - next;
+    int  i = 0;
     head = TmpNext + i;
-    while(*(NowElem) != -1)
+    while(*(NowElem) != -3)
         {
         *(TmpData + i) = *(data + (NowElem - next));
         *(TmpNext + i) = i + 1;
@@ -462,10 +462,21 @@ bool MList_t::SortList()
         ++i;
         }
     tail = TmpNext + i;
+    *tail = -3;
+    ++i;
     ListElem_t* TmpD = data;
     int*        TmpN = next;
     next = TmpNext;
     data = TmpData;
+    LFree = TmpNext + i;
+    ++i;
+    while(i < LSize)
+        {
+        *(TmpNext + i - 1) = i;
+        ++i;
+        }
+    *(TmpNext + i - 1) = -2;
+
     free(TmpD);
     free(TmpN);
 

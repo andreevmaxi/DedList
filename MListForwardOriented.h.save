@@ -180,8 +180,8 @@ bool MList_t::LResize()
     int* SecondFree;
     if(sorted == 1)
         {
-        NowFree = next + (LSize/2) - 1;
-        Second
+        NowFree    = next + (LSize/2) - 1;
+        SecondFree = *tail;
         } else
         {
         NowFree = LFreeTail;
@@ -193,8 +193,7 @@ bool MList_t::LResize()
         }
     if(sorted == 1)
         {
-        *(next + LSize - 1) = -2;
-        LFreeTail = next + LSize - 1;
+        *(next + LSize - 1) = SecondFree;
         } else
         {
         *(next + LSize - 1) = -2;
@@ -208,28 +207,26 @@ bool MList_t::LResize()
 
 int* MList_t::SearchingEmpty()
     {
-    for(int i = 0; i < LSize; ++i)
+    if(LFree == (next - 3))
         {
-        if(*(next + i) == -1)
-            {
-            return (next + i);
-            }
+        MList_t::LResize();
         }
-    MList_t::LResize();
-
-    return (next + (LSize)/2);
+    int* Ans = LFree;
+    LFree = *LFree + next;
+    return (Ans);
     }
 
 bool MList_t::PushBack(ListElem_t PushingElem)
     {
     DEB(MList_t::Verify());
-    if(*tail == -1)
+    if(*tail == -3)
         {
         *(data + (tail - next)) = PushingElem;
         if(sorted == 0)
             {
             *tail = MList_t::SearchingEmpty() - next;
             tail = *tail + next;
+            *tail = -3;
             } else
             {
             if(tail - next + 1 == LSize)
@@ -238,6 +235,7 @@ bool MList_t::PushBack(ListElem_t PushingElem)
                 }
             *tail = tail - next + 1;
             ++tail;
+            *tail = -3;
             }
 
         return 1;
@@ -265,7 +263,7 @@ bool MList_t::InsertAfter(ListElem_t PushingElem, int RawPos)
             {
             int TmpP = 0;
             int* NowElem = head;
-            while (TmpP != RawPos && *NowElem != -1)
+            while (TmpP != RawPos && *NowElem != -3)
                 {
                 NowElem = next + (*NowElem);
                 ++TmpP;
@@ -284,6 +282,7 @@ bool MList_t::InsertAfter(ListElem_t PushingElem, int RawPos)
             {
             int TmpHead = head - next;
             int TmpTail = tail - next;
+            int TmpFree = LFree - next;
             LSize *= 2;
             ListElem_t* TmpArr1 = (ListElem_t*) calloc(LSize, sizeof(ListElem_t));
 
@@ -297,7 +296,7 @@ bool MList_t::InsertAfter(ListElem_t PushingElem, int RawPos)
             int* TmpArr2 = (int*) calloc(LSize, sizeof(int));
             for(int i = (LSize/2); i < LSize; ++i)
                 {
-                if(*(next + i - LSize/2) != -1)
+                if(*(next + i - LSize/2) != -1 && *(next + i - LSize/2) != -2 *(next + i - LSize/2) != -3)
                     {
                     *(TmpArr2 + i) = *(next + i - LSize/2) + (LSize/2);
                     } else
@@ -305,17 +304,23 @@ bool MList_t::InsertAfter(ListElem_t PushingElem, int RawPos)
                     *(TmpArr2 + i) = *(next + i - LSize/2);
                     }
                 }
-            for(int i = 0; i < (LSize/2); ++i)
+            *(TmpArr2 + LFreeTail - next) = 0;
+            for(int i = 1; i < (LSize/2); ++i)
                 {
-                *(TmpArr2 + i) = -1;
+                *(TmpArr2 + i - 1) = i;
                 }
+            *(TmpArr2 + (LSize/2) - 1) = - 2;
             free(next);
             next = TmpArr2;
             head = next + TmpHead + (LSize/2);
             tail = next + TmpTail + (LSize/2);
+            LFree = next + TmpFree + (LSize/2);
+            LFreeTail = (LSize/2) - 1;
             }
         --head;
         *head = head + 1 - next;
+        --LFreeTail;
+        *LFreeTail = -2;
         *(data + (head - next) )   = PushingElem;
 
         return 1;
@@ -345,12 +350,16 @@ bool MList_t::DeleteAfter(int Pos)
         {
         DeletingElem = head;
         head = *head + next;
-        *DeletingElem = -1;
+        *LFreeTail = DeletingElem - next;
+        *DeletingElem = -2;
+        LFreeTail = DeletingElem;
         } else
         {
         DeletingElem = next + *(next + Pos);
         *(next + Pos) = *DeletingElem;
-        *DeletingElem = -1;
+        *LFreeTail = DeletingElem - next;
+        *DeletingElem = -2;
+        LFreeTail = DeletingElem;
         }
 
     return 1;
@@ -443,15 +452,16 @@ bool MList_t::SortList()
         *(TmpNext + i)= -1;
         }
     int* NowElem = head;
-    int  i = head - next;
+    int  i = 0;
     head = TmpNext + i;
-    while(*(NowElem) != -1)
+    while(*(NowElem) != -3)
         {
         *(TmpData + i) = *(data + (NowElem - next));
         *(TmpNext + i) = i + 1;
         NowElem = next + *NowElem;
         ++i;
         }
+    
     tail = TmpNext + i;
     ListElem_t* TmpD = data;
     int*        TmpN = next;
