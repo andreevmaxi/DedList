@@ -499,7 +499,7 @@ bool MList_t::SortList()
 
         int* NowElem = head;
         int NowPos   = 0;
-        while (*NowElem != -1)
+        while (*NowElem != -2)
             {
             if(NowPos > LSize)
                 {
@@ -509,15 +509,17 @@ bool MList_t::SortList()
             NowElem = *NowElem + next;
             ++NowPos;
             }
-        NowElem = next;
+        NowElem = LFree;
 
-        for(int i = 0; i < LSize; ++i)
+        while (*NowElem != -3)
             {
-            if(*NowElem == -1)
+            if(NowPos > LSize)
                 {
-                ++NowPos;
+                err = 6;
+                MList_t::LDUMP(err); // err 6 :: free is circled!!!
                 }
-            ++NowElem;
+            NowElem = *NowElem + next;
+            ++NowPos;
             }
         if(NowPos < LSize)
             {
