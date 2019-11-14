@@ -12,6 +12,7 @@ int main()
 
     test.LDUMP(9);
 
+    printf("LFreeTail = %d\n", *test.LFreeTail);
     test.PushBack(10);
     test.PushBack(20);
     test.PushBack(30);
@@ -54,6 +55,7 @@ int main()
 
     test.SortList();
 
+    test.LDUMP(9); //3
     printf("\n\n");
     for(int i = 0; i < 15; ++i)
         {
@@ -63,14 +65,27 @@ int main()
     printf("\n%d\n", test.tail - test.next);
 
     test.PushBack(10);
+
     test.PushBack(20);
+
     test.PushBack(30);
-    test.PushBack(40);
-    test.PushBack(10);
-    test.PushBack(20);
-    test.PushBack(30);
+
     test.PushBack(40);
 
+    test.PushBack(10);
+
+    test.PushBack(20);
+
+    test.PushBack(30);
+
+    printf("LFreeTail = %d\n", *test.LFreeTail);
+    test.LDUMP(9);             //tyt pri resize
+    test.PushBack(40);
+
+    for(int i = 0; i < test.LSize; ++i)
+        {
+        printf("%d %d\n", *(test.data + i), *(test.next + i));
+        }
     test.LDUMP(9);
     for(int i = 0; i < 8; ++i)
         {

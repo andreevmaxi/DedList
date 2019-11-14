@@ -1,0 +1,77 @@
+digraph G{
+subgraph clustermem {
+style=filled;
+color=powderblue;
+f0 [shape=record, label="FreePointer:\n11146180 | {Position\n:0 | Data:\n303 | Next:\n46}",style="filled",fillcolor="gold4"];
+f0->f1
+f1 [shape=record, label="FreePointer:\n11146184 | {Position\n:1 | Data:\n11145800 | Next:\n47}",style="filled",fillcolor="green4"];
+f1->f2
+f2 [shape=record, label="FreePointer:\n11146188 | {Position\n:2 | Data:\n11145096 | Next:\n48}",style="filled",fillcolor="green4"];
+f2->f3
+f3 [shape=record, label="FreePointer:\n11146192 | {Position\n:3 | Data:\n117440512 | Next:\n49}",style="filled",fillcolor="green4"];
+f3->f4
+f4 [shape=record, label="FreePointer:\n11146196 | {Position\n:4 | Data:\n184549376 | Next:\n50}",style="filled",fillcolor="green4"];
+f4->f5
+f5 [shape=record, label="FreePointer:\n11146200 | {Position\n:5 | Data:\n117440512 | Next:\n51}",style="filled",fillcolor="green4"];
+f5->f6
+f6 [shape=record, label="FreePointer:\n11146204 | {Position\n:6 | Data:\n292 | Next:\n52}",style="filled",fillcolor="green4"];
+f6->f7
+f7 [shape=record, label="FreePointer:\n11146208 | {Position\n:7 | Data:\n100663302 | Next:\n53}",style="filled",fillcolor="green4"];
+f7->f8
+f8 [shape=record, label="FreePointer:\n11146212 | {Position\n:8 | Data:\n291 | Next:\n54}",style="filled",fillcolor="green4"];
+f8->f9
+f9 [shape=record, label="FreePointer:\n11146216 | {Position\n:9 | Data:\n11145800 | Next:\n55}",style="filled",fillcolor="green4"];
+f9->f10
+f10 [shape=record, label="FreePointer:\n11146220 | {Position\n:10 | Data:\n11145096 | Next:\n56}",style="filled",fillcolor="green4"];
+f10->f11
+f11 [shape=record, label="FreePointer:\n11146224 | {Position\n:11 | Data:\n2053731944 | Next:\n57}",style="filled",fillcolor="green4"];
+f11->f12
+f12 [shape=record, label="FreePointer:\n11146228 | {Position\n:12 | Data:\n942878258 | Next:\n58}",style="filled",fillcolor="green4"];
+f12->f13
+f13 [shape=record, label="FreePointer:\n11146232 | {Position\n:13 | Data:\n1852400220 | Next:\n59}",style="filled",fillcolor="green4"];
+f13->f14
+f14 [shape=record, label="FreePointer:\n11146236 | {Position\n:14 | Data:\n1953457244 | Next:\n-2}",style="filled",fillcolor="slateblue4"];
+label = "Free memory of list: test"}
+rankdir=LR;
+subgraph clusterlist {
+style=filled;
+color=lightgrey;
+0 [shape=record, label="ElemPointer:\n11146104 | {Position\n:0 | Data:\n3 | Next:\n27}",style="filled",fillcolor="gold2"];
+0->1
+1 [shape=record, label="ElemPointer:\n11146108 | {Position\n:1 | Data:\n2 | Next:\n28}",style="filled",fillcolor="lawngreen"];
+1->2
+2 [shape=record, label="ElemPointer:\n11146112 | {Position\n:2 | Data:\n1 | Next:\n29}",style="filled",fillcolor="lawngreen"];
+2->3
+3 [shape=record, label="ElemPointer:\n11146116 | {Position\n:3 | Data:\n0 | Next:\n30}",style="filled",fillcolor="lawngreen"];
+3->4
+4 [shape=record, label="ElemPointer:\n11146120 | {Position\n:4 | Data:\n10 | Next:\n31}",style="filled",fillcolor="lawngreen"];
+4->5
+5 [shape=record, label="ElemPointer:\n11146124 | {Position\n:5 | Data:\n50 | Next:\n32}",style="filled",fillcolor="lawngreen"];
+5->6
+6 [shape=record, label="ElemPointer:\n11146128 | {Position\n:6 | Data:\n20 | Next:\n33}",style="filled",fillcolor="lawngreen"];
+6->7
+7 [shape=record, label="ElemPointer:\n11146132 | {Position\n:7 | Data:\n30 | Next:\n34}",style="filled",fillcolor="lawngreen"];
+7->8
+8 [shape=record, label="ElemPointer:\n11146136 | {Position\n:8 | Data:\n40 | Next:\n35}",style="filled",fillcolor="lawngreen"];
+8->9
+9 [shape=record, label="ElemPointer:\n11146140 | {Position\n:9 | Data:\n50 | Next:\n36}",style="filled",fillcolor="lawngreen"];
+9->10
+10 [shape=record, label="ElemPointer:\n11146144 | {Position\n:10 | Data:\n10 | Next:\n37}",style="filled",fillcolor="lawngreen"];
+10->11
+11 [shape=record, label="ElemPointer:\n11146148 | {Position\n:11 | Data:\n20 | Next:\n38}",style="filled",fillcolor="lawngreen"];
+11->12
+12 [shape=record, label="ElemPointer:\n11146152 | {Position\n:12 | Data:\n30 | Next:\n39}",style="filled",fillcolor="lawngreen"];
+12->13
+13 [shape=record, label="ElemPointer:\n11146156 | {Position\n:13 | Data:\n40 | Next:\n40}",style="filled",fillcolor="lawngreen"];
+13->14
+14 [shape=record, label="ElemPointer:\n11146160 | {Position\n:14 | Data:\n10 | Next:\n41}",style="filled",fillcolor="lawngreen"];
+14->15
+15 [shape=record, label="ElemPointer:\n11146164 | {Position\n:15 | Data:\n20 | Next:\n42}",style="filled",fillcolor="lawngreen"];
+15->16
+16 [shape=record, label="ElemPointer:\n11146168 | {Position\n:16 | Data:\n30 | Next:\n43}",style="filled",fillcolor="lawngreen"];
+16->17
+17 [shape=record, label="ElemPointer:\n11146172 | {Position\n:17 | Data:\n40 | Next:\n44}",style="filled",fillcolor="lawngreen"];
+17->18
+18 [shape=record, label="ElemPointer:\n11146176 | {Position\n:18 | Data:\n0 | Next:\n-3}",style="filled",fillcolor="royalblue1"];
+label = "List with name: test"}
+}

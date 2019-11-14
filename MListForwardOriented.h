@@ -34,8 +34,8 @@ struct MList_t
     DEB(int NumOfDumps);
     int* head;
     int* LFree;
-    int* LFreeTail;
-    int* tail;        // to do fast "push back"
+    int* LFreeTail;   // has -2
+    int* tail;        // to do fast "push back"     has -3
     bool sorted;      // 1 when data is equal to array
     int LSize;
     DEB(std::string LName);
@@ -86,7 +86,7 @@ MList_t::MList_t( std::string name )
     data   = (ListElem_t*) calloc (BeginNumOfMember, sizeof(ListElem_t));
     next   = (int*) calloc (BeginNumOfMember, sizeof(int));
     head   = next + 4; // now we reserved 5 elems left from head
-    tail   = next + 4;
+    tail   = next + 4; // has -3
     LFree   = tail + 1;
 
     assert(data != NULL);
@@ -164,6 +164,8 @@ bool MList_t::LResize()
     {
     int TmpHead = head - next;
     int TmpTail = tail - next;
+    int TmpLFree = LFree - next;
+    int TmpLFreeTail = LFreeTail - next;
 
     LSize *= 2;
     next = (int*)        realloc(next, (LSize) * sizeof(int));
@@ -178,10 +180,12 @@ bool MList_t::LResize()
         }
     int* NowFree;
     int SecondFree;
+    LFreeTail = next + TmpLFreeTail;
+
     if(sorted == 1)
         {
         NowFree    = next + (LSize/2) - 1;
-        SecondFree = *tail;
+        SecondFree = *LFreeTail;
         } else
         {
         NowFree = LFreeTail;
@@ -201,6 +205,7 @@ bool MList_t::LResize()
         }
     head = next + TmpHead;
     tail = next + TmpTail;
+    LFree = next + TmpLFree;
 
     return 1;
     }
@@ -229,10 +234,11 @@ bool MList_t::PushBack(ListElem_t PushingElem)
             *tail = -3;
             } else
             {
-            if(tail - next + 1 == LSize)
+            if(tail - next + 2 == LSize)
                 {
                 MList_t::LResize();
                 }
+
             *tail = tail - next + 1;
             ++tail;
             *tail = -3;
@@ -477,7 +483,7 @@ bool MList_t::SortList()
         ++i;
         }
     *(TmpNext + i - 1) = -2;
-
+    LFreeTail = TmpNext + i - 1;
     free(TmpD);
     free(TmpN);
 
@@ -595,6 +601,56 @@ bool MList_t::SortList()
         DTime += ".dot";
         NewPath += DTime;
 
+        if(err == 9) // debug start of dump
+            {
+            NewPath.replace(NewPath.rfind("debug"), 5, "LMems");
+            } else
+            {
+            std::string CritStr = "crit_err_";
+            char ErrStr[17];
+            itoa(err, ErrStr, 10);
+            CritStr += ErrStr;
+            NewPath.replace(NewPath.rfind(CritStr), sizeof(CritStr), "LMems");
+            }
+        NewPath += ".dot";
+        LDot = fopen(NewPath.c_str(), "w");
+        assert(LDot != NULL);
+
+
+        fprintf(LDot, "digraph G{\n");
+        fprintf(LDot, "data [shape=record,label=\"");
+        fprintf(LDot, "{Memory of list: %s} | {{DataPointer:\\n%d | Data:\\n%d | NextPointer:\\n%d | Next:\\n%d}\n", LName.c_str(), data, *(data), next, *(next));
+        for(int i = 1; i < LSize; ++i)
+            {
+            fprintf(LDot, "| {DataPointer:\\n%d | Data:\\n%d | NextPointer:\\n%d | Next:\\n%d}\n", data + i, *(data + i), next + i, *(next + i));
+            }
+        fprintf(LDot, "}\"];\n");
+        fprintf(LDot, "Shild [shape=record,label=\" RCanary:\\n%d | LCanary:\\n%d  | NormalCanary:\\n%d | Sorted:\\n%d | head: \\n%d | tail: \\n%d \"];\n", RCanary, LCanary, NormCanary, sorted, head, tail);
+        fprintf(LDot, "Shild->data\n}\n");
+        fclose(LDot);
+        std::string DotDoData;
+        DotDoData += DotPath;
+        DotDoData += " -Tpng ";
+        DotDoData += NewPath;
+        DotDoData += " -o ";
+        NewPath.erase(NewPath.find(".dot"));
+        DotDoData += NewPath;
+        DotDoData += ".png";
+        std::system(DotDoData.c_str());
+
+        if(err == 9) // debug start of dump
+            {
+            NewPath.replace(NewPath.rfind("LMems"), 5, "debug");
+            } else
+            {
+            std::string CritStr = "crit_err_";
+            char ErrStr[17];
+            itoa(err, ErrStr, 10);
+            CritStr += ErrStr;
+            NewPath.replace(NewPath.rfind("LMems"), 5, CritStr);
+            }
+        NewPath += ".dot";
+
         LDot = fopen(NewPath.c_str(), "w");
         fprintf(LDot, "digraph G{\n");
 
@@ -656,42 +712,6 @@ bool MList_t::SortList()
         DotDoDot += ".png";
         std::system(DotDoDot.c_str());
 
-        if(err == 9) // debug start of dump
-            {
-            NewPath.replace(NewPath.rfind("debug"), 5, "LMems");
-            } else
-            {
-            std::string CritStr = "crit_err_";
-            char ErrStr[17];
-            itoa(err, ErrStr, 10);
-            CritStr += ErrStr;
-            NewPath.replace(NewPath.rfind(CritStr), sizeof(CritStr), "LMems");
-            }
-        NewPath += ".dot";
-        LDot = fopen(NewPath.c_str(), "w");
-        assert(LDot != NULL);
-
-
-        fprintf(LDot, "digraph G{\n");
-        fprintf(LDot, "data [shape=record,label=\"");
-        fprintf(LDot, "{Memory of list: %s} | {{DataPointer:\\n%d | Data:\\n%d | NextPointer:\\n%d | Next:\\n%d}\n", LName.c_str(), data, *(data), next, *(next));
-        for(int i = 1; i < LSize; ++i)
-            {
-            fprintf(LDot, "| {DataPointer:\\n%d | Data:\\n%d | NextPointer:\\n%d | Next:\\n%d}\n", data + i, *(data + i), next + i, *(next + i));
-            }
-        fprintf(LDot, "}\"];\n");
-        fprintf(LDot, "Shild [shape=record,label=\" RCanary:\\n%d | LCanary:\\n%d  | NormalCanary:\\n%d | Sorted:\\n%d | head: \\n%d | tail: \\n%d \"];\n", RCanary, LCanary, NormCanary, sorted, head, tail);
-        fprintf(LDot, "Shild->data\n}\n");
-        fclose(LDot);
-        std::string DotDoData;
-        DotDoData += DotPath;
-        DotDoData += " -Tpng ";
-        DotDoData += NewPath;
-        DotDoData += " -o ";
-        NewPath.erase(NewPath.find(".dot"));
-        DotDoData += NewPath;
-        DotDoData += ".png";
-        std::system(DotDoData.c_str());
         return;
         }
 #endif
