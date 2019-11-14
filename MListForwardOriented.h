@@ -263,7 +263,7 @@ bool MList_t::InsertAfter(ListElem_t PushingElem, int RawPos)
             {
             int TmpP = 0;
             int* NowElem = head;
-            while (TmpP != RawPos && *NowElem != -1)
+            while (TmpP != RawPos && *NowElem != -3)
                 {
                 NowElem = next + (*NowElem);
                 ++TmpP;
@@ -282,6 +282,7 @@ bool MList_t::InsertAfter(ListElem_t PushingElem, int RawPos)
             {
             int TmpHead = head - next;
             int TmpTail = tail - next;
+            int TmpFree = LFree - next;
             LSize *= 2;
             ListElem_t* TmpArr1 = (ListElem_t*) calloc(LSize, sizeof(ListElem_t));
 
@@ -295,7 +296,7 @@ bool MList_t::InsertAfter(ListElem_t PushingElem, int RawPos)
             int* TmpArr2 = (int*) calloc(LSize, sizeof(int));
             for(int i = (LSize/2); i < LSize; ++i)
                 {
-                if(*(next + i - LSize/2) != -1)
+                if(*(next + i - LSize/2) != -1 && *(next + i - LSize/2) != -2 *(next + i - LSize/2) != -3)
                     {
                     *(TmpArr2 + i) = *(next + i - LSize/2) + (LSize/2);
                     } else
@@ -303,17 +304,23 @@ bool MList_t::InsertAfter(ListElem_t PushingElem, int RawPos)
                     *(TmpArr2 + i) = *(next + i - LSize/2);
                     }
                 }
-            for(int i = 0; i < (LSize/2); ++i)
+            *(TmpArr2 + LFreeTail - next) = 0;
+            for(int i = 1; i < (LSize/2); ++i)
                 {
-                *(TmpArr2 + i) = -1;
+                *(TmpArr2 + i - 1) = i;
                 }
+            *(TmpArr2 + (LSize/2) - 1) = - 2;
             free(next);
             next = TmpArr2;
             head = next + TmpHead + (LSize/2);
             tail = next + TmpTail + (LSize/2);
+            LFree = next + TmpFree + (LSize/2);
+            LFreeTail = (LSize/2) - 1;
             }
         --head;
         *head = head + 1 - next;
+        --LFreeTail;
+        *LFreeTail = -2;
         *(data + (head - next) )   = PushingElem;
 
         return 1;
