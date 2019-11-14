@@ -219,13 +219,14 @@ int* MList_t::SearchingEmpty()
 bool MList_t::PushBack(ListElem_t PushingElem)
     {
     DEB(MList_t::Verify());
-    if(*tail == -1)
+    if(*tail == -3)
         {
         *(data + (tail - next)) = PushingElem;
         if(sorted == 0)
             {
             *tail = MList_t::SearchingEmpty() - next;
             tail = *tail + next;
+            *tail = -3;
             } else
             {
             if(tail - next + 1 == LSize)
@@ -234,6 +235,7 @@ bool MList_t::PushBack(ListElem_t PushingElem)
                 }
             *tail = tail - next + 1;
             ++tail;
+            *tail = -3;
             }
 
         return 1;
