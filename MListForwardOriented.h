@@ -207,16 +207,13 @@ bool MList_t::LResize()
 
 int* MList_t::SearchingEmpty()
     {
-    for(int i = 0; i < LSize; ++i)
+    if(LFree == (next - 3))
         {
-        if(*(next + i) == -1)
-            {
-            return (next + i);
-            }
+        MList_t::LResize();
         }
-    MList_t::LResize();
-
-    return (next + (LSize)/2);
+    int* Ans = LFree;
+    LFree = *LFree + next;
+    return (Ans);
     }
 
 bool MList_t::PushBack(ListElem_t PushingElem)
