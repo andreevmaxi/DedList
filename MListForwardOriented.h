@@ -105,7 +105,7 @@ MList_t::MList_t( std::string name )
         *(i - 1) = i - next;
         }
 
-    *(next + LSize) = 0;
+    *(next + LSize - 1) = 0;
     for(int* i = (next + 1); i < (next + 4); ++i)
         {
         *(i - 1) = i - next;
@@ -146,7 +146,7 @@ MList_t::MList_t()
         *(i - 1) = i - next;
         }
 
-    *(next + LSize) = 0;
+    *(next + LSize - 1) = 0;
     for(int* i = (next + 1); i < (next + 4); ++i)
         {
         *(i - 1) = i - next;

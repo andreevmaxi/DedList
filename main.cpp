@@ -5,6 +5,13 @@ int main()
 {
     DEBMList_t(test);
 
+    for(int i = 0; i < 15; ++i)
+    {
+    printf("%d %d\n", *(test.data + i), *(test.next + i));
+    }
+
+    test.LDUMP(9);
+
     test.PushBack(10);
     test.PushBack(20);
     test.PushBack(30);
