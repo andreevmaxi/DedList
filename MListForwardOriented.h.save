@@ -105,7 +105,7 @@ MList_t::MList_t( std::string name )
         *(i - 1) = i - next;
         }
 
-    *(next + LSize) = 0;
+    *(next + LSize - 1) = 0;
     for(int* i = (next + 1); i < (next + 4); ++i)
         {
         *(i - 1) = i - next;
@@ -146,7 +146,7 @@ MList_t::MList_t()
         *(i - 1) = i - next;
         }
 
-    *(next + LSize) = 0;
+    *(next + LSize - 1) = 0;
     for(int* i = (next + 1); i < (next + 4); ++i)
         {
         *(i - 1) = i - next;
@@ -177,7 +177,7 @@ bool MList_t::LResize()
         *(next + i) = -1;
         }
     int* NowFree;
-    int* SecondFree;
+    int SecondFree;
     if(sorted == 1)
         {
         NowFree    = next + (LSize/2) - 1;
@@ -186,8 +186,8 @@ bool MList_t::LResize()
         {
         NowFree = LFreeTail;
         }
-    *NowFree = next + (LSize)/2;
-    for(int i = next + (LSize)/2 + 1; i < (next + LSize); ++i)
+    *NowFree = (LSize)/2;
+    for(int* i = next + (LSize)/2 + 1; i < (next + LSize); ++i)
         {
         *(i - 1) = i - next;
         }
@@ -296,7 +296,7 @@ bool MList_t::InsertAfter(ListElem_t PushingElem, int RawPos)
             int* TmpArr2 = (int*) calloc(LSize, sizeof(int));
             for(int i = (LSize/2); i < LSize; ++i)
                 {
-                if(*(next + i - LSize/2) != -1 && *(next + i - LSize/2) != -2 *(next + i - LSize/2) != -3)
+                if(*(next + i - LSize/2) != -1 && *(next + i - LSize/2) != -2 && *(next + i - LSize/2) != -3)
                     {
                     *(TmpArr2 + i) = *(next + i - LSize/2) + (LSize/2);
                     } else
@@ -304,7 +304,7 @@ bool MList_t::InsertAfter(ListElem_t PushingElem, int RawPos)
                     *(TmpArr2 + i) = *(next + i - LSize/2);
                     }
                 }
-            *(TmpArr2 + LFreeTail - next) = 0;
+            *(TmpArr2 + (LFreeTail - next)) = 0;
             for(int i = 1; i < (LSize/2); ++i)
                 {
                 *(TmpArr2 + i - 1) = i;
@@ -315,7 +315,7 @@ bool MList_t::InsertAfter(ListElem_t PushingElem, int RawPos)
             head = next + TmpHead + (LSize/2);
             tail = next + TmpTail + (LSize/2);
             LFree = next + TmpFree + (LSize/2);
-            LFreeTail = (LSize/2) - 1;
+            LFreeTail = next + (LSize/2) - 1;
             }
         --head;
         *head = head + 1 - next;
@@ -461,12 +461,22 @@ bool MList_t::SortList()
         NowElem = next + *NowElem;
         ++i;
         }
-    
     tail = TmpNext + i;
+    *tail = -3;
+    ++i;
     ListElem_t* TmpD = data;
     int*        TmpN = next;
     next = TmpNext;
     data = TmpData;
+    LFree = TmpNext + i;
+    ++i;
+    while(i < LSize)
+        {
+        *(TmpNext + i - 1) = i;
+        ++i;
+        }
+    *(TmpNext + i - 1) = -2;
+
     free(TmpD);
     free(TmpN);
 
@@ -489,7 +499,7 @@ bool MList_t::SortList()
 
         int* NowElem = head;
         int NowPos   = 0;
-        while (*NowElem != -1)
+        while (*NowElem != -2)
             {
             if(NowPos > LSize)
                 {
@@ -499,15 +509,17 @@ bool MList_t::SortList()
             NowElem = *NowElem + next;
             ++NowPos;
             }
-        NowElem = next;
+        NowElem = LFree;
 
-        for(int i = 0; i < LSize; ++i)
+        while (*NowElem != -3)
             {
-            if(*NowElem == -1)
+            if(NowPos > LSize)
                 {
-                ++NowPos;
+                err = 6;
+                MList_t::LDUMP(err); // err 6 :: free is circled!!!
                 }
-            ++NowElem;
+            NowElem = *NowElem + next;
+            ++NowPos;
             }
         if(NowPos < LSize)
             {
@@ -582,16 +594,42 @@ bool MList_t::SortList()
 
         LDot = fopen(NewPath.c_str(), "w");
         fprintf(LDot, "digraph G{\n");
-        int* NowElem = head;
+
+        fprintf(LDot, "subgraph clustermem {\nstyle=filled;\ncolor=powderblue;\n");
         int NowPos = 0;
+        int* NowElem = LFree;
+        fprintf(LDot, "f%d [shape=record, label=\"FreePointer:\\n%d | {Position\\n:%d | Data:\\n%d | Next:\\n%d}\",style=\"filled\",fillcolor=\"gold4\"];\n", NowPos, NowElem, NowPos, *(data + (NowElem - next)), *NowElem);
+        if(*NowElem != -2)
+            {
+            fprintf(LDot, "f%d->f%d\n", NowPos, (NowPos + 1));
+            NowElem = *NowElem + next;
+            ++NowPos;
+            }
+        while(*NowElem != -2 && NowPos < LSize)
+            {
+            fprintf(LDot, "f%d [shape=record, label=\"FreePointer:\\n%d | {Position\\n:%d | Data:\\n%d | Next:\\n%d}\",style=\"filled\",fillcolor=\"green4\"];\n", NowPos, NowElem, NowPos, *(data + (NowElem - next)), *NowElem);
+            fprintf(LDot, "f%d->f%d\n", NowPos, (NowPos + 1));
+            NowElem = *NowElem + next;
+            ++NowPos;
+            }
+        fprintf(LDot, "f%d [shape=record, label=\"FreePointer:\\n%d | {Position\\n:%d | Data:\\n%d | Next:\\n%d}\",style=\"filled\",fillcolor=\"slateblue4\"];\n", NowPos, NowElem, NowPos, *(data + (NowElem - next)), *NowElem);
+
+
+        fprintf(LDot, "label = \"Free memory of list: %s\"}\n", LName.c_str());
+
+
+        NowElem = head;
+        NowPos = 0;
         fprintf(LDot, "rankdir=LR;\n");
         fprintf(LDot, "subgraph clusterlist {\nstyle=filled;\ncolor=lightgrey;\n");
         fprintf(LDot, "%d [shape=record, label=\"ElemPointer:\\n%d | {Position\\n:%d | Data:\\n%d | Next:\\n%d}\",style=\"filled\",fillcolor=\"gold2\"];\n", NowPos, NowElem, NowPos, *(data + (NowElem - next)), *NowElem);
-        fprintf(LDot, "%d->%d\n", NowPos, (NowPos + 1));
-        NowElem = *NowElem + next;
-        ++NowPos;
-
-        while(*NowElem != -1 && NowPos < LSize)
+        if(*NowElem != -3)
+            {
+            fprintf(LDot, "%d->%d\n", NowPos, (NowPos + 1));
+            NowElem = *NowElem + next;
+            ++NowPos;
+            }
+        while(*NowElem != -3 && NowPos < LSize)
             {
             fprintf(LDot, "%d [shape=record, label=\"ElemPointer:\\n%d | {Position\\n:%d | Data:\\n%d | Next:\\n%d}\",style=\"filled\",fillcolor=\"lawngreen\"];\n", NowPos, NowElem, NowPos, *(data + (NowElem - next)), *NowElem);
             fprintf(LDot, "%d->%d\n", NowPos, (NowPos + 1));
@@ -651,7 +689,6 @@ bool MList_t::SortList()
         DotDoData += NewPath;
         DotDoData += ".png";
         std::system(DotDoData.c_str());
-        printf("sosat %d\n", NumOfDumps);
         return;
         }
 #endif
@@ -673,12 +710,19 @@ bool MList_t::InsertAfterRaw(ListElem_t PushingElem, int Pos)
         return 1;
         }
 
+    if(Pos + next == tail)
+        {
+        MList_t::PushBack(PushingElem);
+        return 1;
+        }
+
     if(Pos == -1 && sorted == 1)
         {
         if(head == next)
             {
             int TmpHead = head - next;
             int TmpTail = tail - next;
+            int TmpFree = LFree - next;
             LSize *= 2;
             ListElem_t* TmpArr1 = (ListElem_t*) calloc(LSize, sizeof(ListElem_t));
 
@@ -692,7 +736,7 @@ bool MList_t::InsertAfterRaw(ListElem_t PushingElem, int Pos)
             int* TmpArr2 = (int*) calloc(LSize, sizeof(int));
             for(int i = (LSize/2); i < LSize; ++i)
                 {
-                if(*(next + i - LSize/2) != -1)
+                if(*(next + i - LSize/2) != -1 && *(next + i - LSize/2) != -2 && *(next + i - LSize/2) != -3)
                     {
                     *(TmpArr2 + i) = *(next + i - LSize/2) + (LSize/2);
                     } else
@@ -700,19 +744,24 @@ bool MList_t::InsertAfterRaw(ListElem_t PushingElem, int Pos)
                     *(TmpArr2 + i) = *(next + i - LSize/2);
                     }
                 }
-            for(int i = 0; i < (LSize/2); ++i)
+            *(TmpArr2 + (LFreeTail - next)) = 0;
+            for(int i = 1; i < (LSize/2); ++i)
                 {
-                *(TmpArr2 + i) = -1;
+                *(TmpArr2 + i - 1) = i;
                 }
+            *(TmpArr2 + (LSize/2) - 1) = - 2;
             free(next);
             next = TmpArr2;
             head = next + TmpHead + (LSize/2);
             tail = next + TmpTail + (LSize/2);
+            LFree = next + TmpFree + (LSize/2);
+            LFreeTail = next + (LSize/2) - 1;
             }
         --head;
         *head = head + 1 - next;
+        --LFreeTail;
+        *LFreeTail = -2;
         *(data + (head - next) )   = PushingElem;
-
 
         return 1;
         }
@@ -721,6 +770,7 @@ bool MList_t::InsertAfterRaw(ListElem_t PushingElem, int Pos)
     *NewElem = *(next + Pos);
     *(next + Pos) = NewElem - next;
     *(data + (NewElem - next)) = PushingElem;
+
     return 1;
     }
 
@@ -732,12 +782,16 @@ bool MList_t::DeleteAfterRaw(int Pos)
         {
         DeletingElem = head;
         head = *head + next;
-        *DeletingElem = -1;
+        *LFreeTail = DeletingElem - next;
+        *DeletingElem = -2;
+        LFreeTail = DeletingElem;
         } else
         {
         DeletingElem = next + *(next + Pos);
         *(next + Pos) = *DeletingElem;
-        *DeletingElem = -1;
+        *LFreeTail = DeletingElem - next;
+        *DeletingElem = -2;
+        LFreeTail = DeletingElem;
         }
 
     return 1;

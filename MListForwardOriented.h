@@ -594,34 +594,18 @@ bool MList_t::SortList()
 
         LDot = fopen(NewPath.c_str(), "w");
         fprintf(LDot, "digraph G{\n");
-        int* NowElem = head;
-        int NowPos = 0;
-        fprintf(LDot, "rankdir=LR;\n");
-        fprintf(LDot, "subgraph clusterlist {\nstyle=filled;\ncolor=lightgrey;\n");
-        fprintf(LDot, "%d [shape=record, label=\"ElemPointer:\\n%d | {Position\\n:%d | Data:\\n%d | Next:\\n%d}\",style=\"filled\",fillcolor=\"gold2\"];\n", NowPos, NowElem, NowPos, *(data + (NowElem - next)), *NowElem);
-        fprintf(LDot, "%d->%d\n", NowPos, (NowPos + 1));
-        NowElem = *NowElem + next;
-        ++NowPos;
 
-        while(*NowElem != -1 && NowPos < LSize)
+        fprintf(LDot, "subgraph clustermem {\nstyle=filled;\ncolor=powderblue;\n");
+        int NowPos = 0;
+        int* NowElem = LFree;
+        fprintf(LDot, "f%d [shape=record, label=\"FreePointer:\\n%d | {Position\\n:%d | Data:\\n%d | Next:\\n%d}\",style=\"filled\",fillcolor=\"gold4\"];\n", NowPos, NowElem, NowPos, *(data + (NowElem - next)), *NowElem);
+        if(*NowElem != -2)
             {
-            fprintf(LDot, "%d [shape=record, label=\"ElemPointer:\\n%d | {Position\\n:%d | Data:\\n%d | Next:\\n%d}\",style=\"filled\",fillcolor=\"lawngreen\"];\n", NowPos, NowElem, NowPos, *(data + (NowElem - next)), *NowElem);
-            fprintf(LDot, "%d->%d\n", NowPos, (NowPos + 1));
+            fprintf(LDot, "f%d->f%d\n", NowPos, (NowPos + 1));
             NowElem = *NowElem + next;
             ++NowPos;
             }
-        fprintf(LDot, "%d [shape=record, label=\"ElemPointer:\\n%d | {Position\\n:%d | Data:\\n%d | Next:\\n%d}\",style=\"filled\",fillcolor=\"royalblue1\"];\n", NowPos, NowElem, NowPos, *(data + (NowElem - next)), *NowElem);
-        fprintf(LDot, "label = \"List with name: %s\"}\n", LName.c_str());
-
-        fprintf(LDot, "subgraph clusterlist {\nstyle=filled;\ncolor=dodgerblue1;\n");
-        NowPos = 0;
-        NowElem = LFree;
-        fprintf(LDot, "f%d [shape=record, label=\"FreePointer:\\n%d | {Position\\n:%d | Data:\\n%d | Next:\\n%d}\",style=\"filled\",fillcolor=\"gold4\"];\n", NowPos, NowElem, NowPos, *(data + (NowElem - next)), *NowElem);
-        fprintf(LDot, "f%d->f%d\n", NowPos, (NowPos + 1));
-        NowElem = *NowElem + next;
-        ++NowPos;
-
-        while(*NowElem != -1 && NowPos < LSize)
+        while(*NowElem != -2 && NowPos < LSize)
             {
             fprintf(LDot, "f%d [shape=record, label=\"FreePointer:\\n%d | {Position\\n:%d | Data:\\n%d | Next:\\n%d}\",style=\"filled\",fillcolor=\"green4\"];\n", NowPos, NowElem, NowPos, *(data + (NowElem - next)), *NowElem);
             fprintf(LDot, "f%d->f%d\n", NowPos, (NowPos + 1));
@@ -632,6 +616,29 @@ bool MList_t::SortList()
 
 
         fprintf(LDot, "label = \"Free memory of list: %s\"}\n", LName.c_str());
+
+
+        NowElem = head;
+        NowPos = 0;
+        fprintf(LDot, "rankdir=LR;\n");
+        fprintf(LDot, "subgraph clusterlist {\nstyle=filled;\ncolor=lightgrey;\n");
+        fprintf(LDot, "%d [shape=record, label=\"ElemPointer:\\n%d | {Position\\n:%d | Data:\\n%d | Next:\\n%d}\",style=\"filled\",fillcolor=\"gold2\"];\n", NowPos, NowElem, NowPos, *(data + (NowElem - next)), *NowElem);
+        if(*NowElem != -3)
+            {
+            fprintf(LDot, "%d->%d\n", NowPos, (NowPos + 1));
+            NowElem = *NowElem + next;
+            ++NowPos;
+            }
+        while(*NowElem != -3 && NowPos < LSize)
+            {
+            fprintf(LDot, "%d [shape=record, label=\"ElemPointer:\\n%d | {Position\\n:%d | Data:\\n%d | Next:\\n%d}\",style=\"filled\",fillcolor=\"lawngreen\"];\n", NowPos, NowElem, NowPos, *(data + (NowElem - next)), *NowElem);
+            fprintf(LDot, "%d->%d\n", NowPos, (NowPos + 1));
+            NowElem = *NowElem + next;
+            ++NowPos;
+            }
+        fprintf(LDot, "%d [shape=record, label=\"ElemPointer:\\n%d | {Position\\n:%d | Data:\\n%d | Next:\\n%d}\",style=\"filled\",fillcolor=\"royalblue1\"];\n", NowPos, NowElem, NowPos, *(data + (NowElem - next)), *NowElem);
+        fprintf(LDot, "label = \"List with name: %s\"}\n", LName.c_str());
+
         fprintf(LDot, "}\n");
         fclose(LDot);
 
@@ -682,7 +689,6 @@ bool MList_t::SortList()
         DotDoData += NewPath;
         DotDoData += ".png";
         std::system(DotDoData.c_str());
-        printf("sosat %d\n", NumOfDumps);
         return;
         }
 #endif
