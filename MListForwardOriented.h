@@ -524,14 +524,14 @@ bool MList_t::SortList()
             ++NowPos;
             }
 
-        if(NowPos < LSize)
+        if(NowPos < LSize - 2)
             {
             //printf("Np and LS: %d %d\n", NowPos, LSize);
             err = 2;
             MList_t::LDUMP(err); // err 2 :: list has gap!
             }
 
-        if(NowPos > LSize)
+        if(NowPos > LSize - 2)
             {
             err = 3;
             MList_t::LDUMP(err); // err 3 :: list lost connection, how hz, but hz.
