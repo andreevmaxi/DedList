@@ -201,12 +201,11 @@ bool MList_t::LResize()
         } else
         {
         *(next + LSize - 1) = -2;
-        LFreeTail = next + LSize - 1;
         }
+    LFreeTail = next + LSize - 1;
     head = next + TmpHead;
     tail = next + TmpTail;
     LFree = next + TmpLFree;
-
     return 1;
     }
 
@@ -290,6 +289,8 @@ bool MList_t::InsertAfter(ListElem_t PushingElem, int RawPos)
             int TmpHead = head - next;
             int TmpTail = tail - next;
             int TmpFree = LFree - next;
+            int TmpLFreeTail = LFreeTail - next;
+
             LSize *= 2;
             ListElem_t* TmpArr1 = (ListElem_t*) calloc(LSize, sizeof(ListElem_t));
 
@@ -311,7 +312,8 @@ bool MList_t::InsertAfter(ListElem_t PushingElem, int RawPos)
                     *(TmpArr2 + i) = *(next + i - LSize/2);
                     }
                 }
-            *(TmpArr2 + (LFreeTail - next)) = 0;
+            printf("vot nash tail free: %d", TmpLFreeTail + (LSize/2));
+            *(TmpArr2 + TmpLFreeTail + (LSize/2)) = 0;
             for(int i = 1; i < (LSize/2); ++i)
                 {
                 *(TmpArr2 + i - 1) = i;

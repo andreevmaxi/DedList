@@ -10,7 +10,7 @@ int main()
     printf("%d %d\n", *(test.data + i), *(test.next + i));
     }
 
-    test.LDUMP(9);
+    test.LDUMP(9);    //1
 
     printf("LFreeTail = %d\n", *test.LFreeTail);
     test.PushBack(10);
@@ -42,7 +42,7 @@ int main()
     printf("%d %d\n", *(test.data + i), *(test.next + i));
     }
 
-    test.LDUMP(9);
+    test.LDUMP(9);       //2
     printf("\n\n");
     for(int i = 0; i < 15; ++i)
         {
@@ -79,26 +79,28 @@ int main()
     test.PushBack(30);
 
     printf("LFreeTail = %d\n", *test.LFreeTail);
-    test.LDUMP(9);             //tyt pri resize
+    test.LDUMP(9);             //tyt pri resize   4
     test.PushBack(40);
 
     for(int i = 0; i < test.LSize; ++i)
         {
         printf("%d %d\n", *(test.data + i), *(test.next + i));
         }
-    test.LDUMP(9);
+    test.LDUMP(9);                                 //5
+
+    printf("LFreeTail = %d\n", test.LFreeTail - test.next);
     for(int i = 0; i < 8; ++i)
         {
         test.InsertAfter(i, -1);
         }
 
 
-    test.LDUMP(9);
+    test.LDUMP(9);          //6
     test.InsertAfterRaw(100, 38);
     for(int i = 0; i < 60; ++i)
         {
         printf("%d %d\n", *(test.data + i), *(test.next + i));
         }
-    test.LDUMP(9);
+    test.LDUMP(9);             //7
     return 0;
 }
