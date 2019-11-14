@@ -1,0 +1,20 @@
+digraph G{
+data [shape=record,label="{Memory of list: test} | {{DataPointer:\n10883088 | Data:\n0 | NextPointer:\n10883160 | Next:\n1}
+| {DataPointer:\n10883092 | Data:\n0 | NextPointer:\n10883164 | Next:\n2}
+| {DataPointer:\n10883096 | Data:\n0 | NextPointer:\n10883168 | Next:\n3}
+| {DataPointer:\n10883100 | Data:\n0 | NextPointer:\n10883172 | Next:\n-2}
+| {DataPointer:\n10883104 | Data:\n0 | NextPointer:\n10883176 | Next:\n-3}
+| {DataPointer:\n10883108 | Data:\n0 | NextPointer:\n10883180 | Next:\n6}
+| {DataPointer:\n10883112 | Data:\n0 | NextPointer:\n10883184 | Next:\n7}
+| {DataPointer:\n10883116 | Data:\n0 | NextPointer:\n10883188 | Next:\n8}
+| {DataPointer:\n10883120 | Data:\n0 | NextPointer:\n10883192 | Next:\n9}
+| {DataPointer:\n10883124 | Data:\n0 | NextPointer:\n10883196 | Next:\n10}
+| {DataPointer:\n10883128 | Data:\n0 | NextPointer:\n10883200 | Next:\n11}
+| {DataPointer:\n10883132 | Data:\n0 | NextPointer:\n10883204 | Next:\n12}
+| {DataPointer:\n10883136 | Data:\n0 | NextPointer:\n10883208 | Next:\n13}
+| {DataPointer:\n10883140 | Data:\n0 | NextPointer:\n10883212 | Next:\n14}
+| {DataPointer:\n10883144 | Data:\n0 | NextPointer:\n10883216 | Next:\n0}
+}"];
+Shild [shape=record,label=" RCanary:\n421075226 | LCanary:\n421075226  | NormalCanary:\n421075226 | Sorted:\n1 | head: \n10883176 | tail: \n10883176 "];
+Shild->data
+}

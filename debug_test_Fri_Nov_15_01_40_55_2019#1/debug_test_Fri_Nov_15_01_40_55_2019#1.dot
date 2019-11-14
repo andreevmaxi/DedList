@@ -1,0 +1,40 @@
+digraph G{
+subgraph clustermem {
+style=filled;
+color=powderblue;
+f0 [shape=record, label="FreePointer:\n9506924 | {Position\n:0 | Data:\n0 | Next:\n6}",style="filled",fillcolor="gold4"];
+f0->f1
+f1 [shape=record, label="FreePointer:\n9506928 | {Position\n:1 | Data:\n0 | Next:\n7}",style="filled",fillcolor="green4"];
+f1->f2
+f2 [shape=record, label="FreePointer:\n9506932 | {Position\n:2 | Data:\n0 | Next:\n8}",style="filled",fillcolor="green4"];
+f2->f3
+f3 [shape=record, label="FreePointer:\n9506936 | {Position\n:3 | Data:\n0 | Next:\n9}",style="filled",fillcolor="green4"];
+f3->f4
+f4 [shape=record, label="FreePointer:\n9506940 | {Position\n:4 | Data:\n0 | Next:\n10}",style="filled",fillcolor="green4"];
+f4->f5
+f5 [shape=record, label="FreePointer:\n9506944 | {Position\n:5 | Data:\n0 | Next:\n11}",style="filled",fillcolor="green4"];
+f5->f6
+f6 [shape=record, label="FreePointer:\n9506948 | {Position\n:6 | Data:\n0 | Next:\n12}",style="filled",fillcolor="green4"];
+f6->f7
+f7 [shape=record, label="FreePointer:\n9506952 | {Position\n:7 | Data:\n0 | Next:\n13}",style="filled",fillcolor="green4"];
+f7->f8
+f8 [shape=record, label="FreePointer:\n9506956 | {Position\n:8 | Data:\n0 | Next:\n14}",style="filled",fillcolor="green4"];
+f8->f9
+f9 [shape=record, label="FreePointer:\n9506960 | {Position\n:9 | Data:\n0 | Next:\n0}",style="filled",fillcolor="green4"];
+f9->f10
+f10 [shape=record, label="FreePointer:\n9506904 | {Position\n:10 | Data:\n0 | Next:\n1}",style="filled",fillcolor="green4"];
+f10->f11
+f11 [shape=record, label="FreePointer:\n9506908 | {Position\n:11 | Data:\n0 | Next:\n2}",style="filled",fillcolor="green4"];
+f11->f12
+f12 [shape=record, label="FreePointer:\n9506912 | {Position\n:12 | Data:\n0 | Next:\n3}",style="filled",fillcolor="green4"];
+f12->f13
+f13 [shape=record, label="FreePointer:\n9506916 | {Position\n:13 | Data:\n0 | Next:\n-2}",style="filled",fillcolor="slateblue4"];
+label = "Free memory of list: test"}
+rankdir=LR;
+subgraph clusterlist {
+style=filled;
+color=lightgrey;
+0 [shape=record, label="ElemPointer:\n9506920 | {Position\n:0 | Data:\n0 | Next:\n-3}",style="filled",fillcolor="gold2"];
+0 [shape=record, label="ElemPointer:\n9506920 | {Position\n:0 | Data:\n0 | Next:\n-3}",style="filled",fillcolor="royalblue1"];
+label = "List with name: test"}
+}

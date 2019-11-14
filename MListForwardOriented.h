@@ -499,7 +499,8 @@ bool MList_t::SortList()
 
         int* NowElem = head;
         int NowPos   = 0;
-        while (*NowElem != -2)
+
+        while (*NowElem != -3)
             {
             if(NowPos > LSize)
                 {
@@ -509,9 +510,9 @@ bool MList_t::SortList()
             NowElem = *NowElem + next;
             ++NowPos;
             }
-        NowElem = LFree;
 
-        while (*NowElem != -3)
+        NowElem = LFree;
+        while (*NowElem != -2)
             {
             if(NowPos > LSize)
                 {
@@ -521,6 +522,7 @@ bool MList_t::SortList()
             NowElem = *NowElem + next;
             ++NowPos;
             }
+
         if(NowPos < LSize)
             {
             //printf("Np and LS: %d %d\n", NowPos, LSize);
