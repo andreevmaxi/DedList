@@ -350,12 +350,16 @@ bool MList_t::DeleteAfter(int Pos)
         {
         DeletingElem = head;
         head = *head + next;
-        *DeletingElem = -1;
+        *LFreeTail = DeletingElem - next;
+        *DeletingElem = -2;
+        LFreeTail = DeletingElem;
         } else
         {
         DeletingElem = next + *(next + Pos);
         *(next + Pos) = *DeletingElem;
-        *DeletingElem = -1;
+        *LFreeTail = DeletingElem - next;
+        *DeletingElem = -2;
+        LFreeTail = DeletingElem;
         }
 
     return 1;
