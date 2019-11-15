@@ -499,7 +499,7 @@ bool MDList_t::SortList()
     int* NowElem = head;
     int  i = 0;
     head = TmpNext + i;
-    *(TmpPrev + i) = -1;
+    
     while(*(NowElem) != -3)
         {
         *(TmpData + i) = *(data + (NowElem - next));
@@ -509,29 +509,23 @@ bool MDList_t::SortList()
         ++i;
         }
     tail = TmpNext + i;
-    *(TmpPrev + i) = i - 1;
     *tail = -3;
     ++i;
     ListElem_t* TmpD = data;
     int*        TmpN = next;
-    int*        TmpP = prev;
     next = TmpNext;
     data = TmpData;
-    prev = TmpPrev;
     LFree = TmpNext + i;
     ++i;
     while(i < LSize)
         {
         *(TmpNext + i - 1) = i;
-        *(TmpPrev + i - 1) = -1;
         ++i;
         }
-    *(TmpPrev + i - 1) = -1;
     *(TmpNext + i - 1) = -2;
     LFreeTail = TmpNext + i - 1;
     free(TmpD);
     free(TmpN);
-    free(TmpP);
 
     sorted = 1;
 
