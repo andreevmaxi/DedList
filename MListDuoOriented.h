@@ -250,7 +250,7 @@ bool MDList_t::PushBack(ListElem_t PushingElem)
             *tail = tail - next + 1;
             ++tail;
             *tail = -3;
-            *(prev + (tail - next)) = --(tail - next);
+            *(prev + (tail - next)) = (tail - next) - 1;
             ++LFree;
             }
 
@@ -502,10 +502,10 @@ bool MDList_t::SortList()
         time_t now = std::chrono::system_clock::to_time_t ( std::chrono::system_clock::now() );
         if(err == 9)
             {
-            DTime = "debug";
+            DTime = "debug_duo";
             } else
             {
-            std::string CritStr = "crit_err_";
+            std::string CritStr = "crit_err_duo_";
             char ErrStr[17];
             itoa(err, ErrStr, 10);
             CritStr += ErrStr;
@@ -563,7 +563,7 @@ bool MDList_t::SortList()
 
         fprintf(LDot, "digraph G{\n");
         fprintf(LDot, "data [shape=record,label=\"");
-        fprintf(LDot, "{Memory of list: %s} | {{DataPointer:\\n%d | Data:\\n%d | NextPointer:\\n%d | Next:\\n%d | PhysPos:\\n0 | Prev:\\n}\n", LName.c_str(), data, *(data), next, *(next), *(prev));
+        fprintf(LDot, "{Memory of list: %s} | {{DataPointer:\\n%d | Data:\\n%d | NextPointer:\\n%d | Next:\\n%d | PhysPos:\\n0 | Prev:\\n%d}\n", LName.c_str(), data, *(data), next, *(next), *(prev));
         for(int i = 1; i < LSize; ++i)
             {
             fprintf(LDot, "| {DataPointer:\\n%d | Data:\\n%d | NextPointer:\\n%d | Next:\\n%d | PhysPos:\\n%d | Prev:\\n%d}\n", data + i, *(data + i), next + i, *(next + i), i, *(prev + i));
@@ -592,11 +592,12 @@ bool MDList_t::SortList()
 
         fprintf(LDot, "subgraph clusterlist {\nstyle=filled;\ncolor=lightgrey;\n");
         fprintf(LDot, "rankdir=LR;\n");
-        fprintf(LDot, "Model [shape=record,style=\"filled\",fillcolor=\"mediumpurple\",label=\"{{<%d>} | {ElemPointer:\\n%d | {PhysPosition\\n:%d | Data:\\n%d | Next:\\n%d | Prev:\\n%d}}}", NowPos, NowPos + next, NowPos, *(data + NowPos), *(next + NowPos),*(prev + (NowElem - next)));
+        fprintf(LDot, "Model [shape=record,style=\"filled\",fillcolor=\"mediumpurple\",label=\"{{<%d>} | {ElemPointer:\\n%d | {PhysPosition\\n:%d | Data:\\n%d | Next:\\n%d | Prev:\\n%d}}}", NowPos, NowPos + next, NowPos, *(data + NowPos), *(next + NowPos),*(prev + NowPos));
+
         ++NowPos;
         while(NowPos < LSize)
             {
-            fprintf(LDot, "| {{<%d>} | {ElemPointer:\\n%d | {PhysPosition\\n:%d | Data:\\n%d | Next:\\n%d | Prev:\\n%d}}}", NowPos, NowPos + next, NowPos, *(data + NowPos), *(next + NowPos), *(prev + (NowElem - next)));
+            fprintf(LDot, "| {{<%d>} | {ElemPointer:\\n%d | {PhysPosition\\n:%d | Data:\\n%d | Next:\\n%d | Prev:\\n%d}}}", NowPos, NowPos + next, NowPos, *(data + NowPos), *(next + NowPos), *(prev + NowPos));
             ++NowPos;
             }
         fprintf(LDot, "\"];\n");
@@ -656,30 +657,18 @@ bool MDList_t::SortList()
         fprintf(LDot, "f%d [shape=record, label=\"FreePointer:\\n%d | {Position\\n:%d | Data:\\n%d | Next:\\n%d | Prev:\\n%d}\",style=\"filled\",fillcolor=\"gold4\"];\n", NowPos, NowElem, NowPos, *(data + (NowElem - next)), *NowElem, *(prev + (NowElem - next)));
         if(*NowElem != -2)
             {
-            if( (NowElem - next) == *(prev + *NowElem) )
-                {
-                fprintf(LDot, "f%d->f%d[dir=\"both\"];\n", NowPos, (NowPos + 1));
-                } else
-                {
-                fprintf(LDot, "f%d->f%d\n", NowPos, (NowPos + 1));
-                }
+            fprintf(LDot, "f%d->f%d\n", NowPos, (NowPos + 1));
             NowElem = *NowElem + next;
             ++NowPos;
             }
         while(*NowElem != -2 && NowPos < LSize)
             {
-            fprintf(LDot, "f%d [shape=record, label=\"FreePointer:\\n%d | {Position\\n:%d | Data:\\n%d | Next:\\n%d | Prev:\\n%d}\",style=\"filled\",fillcolor=\"green4\"];\n", NowPos, NowElem, NowPos, *(data + (NowElem - next)), *NowElem, *(prev + (NowElem - next)));
-            if( (NowElem - next) == *(prev + *NowElem) )
-                {
-                fprintf(LDot, "f%d->f%d[dir=\"both\"];\n", NowPos, (NowPos + 1));
-                } else
-                {
-                fprintf(LDot, "f%d->f%d\n", NowPos, (NowPos + 1));
-                }
+            fprintf(LDot, "f%d [shape=record, label=\"FreePointer:\\n%d | {Position\\n:%d | Data:\\n%d | Next:\\n%d}\",style=\"filled\",fillcolor=\"green4\"];\n", NowPos, NowElem, NowPos, *(data + (NowElem - next)), *NowElem);
+            fprintf(LDot, "f%d->f%d\n", NowPos, (NowPos + 1));
             NowElem = *NowElem + next;
             ++NowPos;
             }
-        fprintf(LDot, "f%d [shape=record, label=\"FreePointer:\\n%d | {Position\\n:%d | Data:\\n%d | Next:\\n%d | Prev:\\n%d}\",style=\"filled\",fillcolor=\"slateblue4\"];\n", NowPos, NowElem, NowPos, *(data + (NowElem - next)), *NowElem, *(prev + (NowElem - next)));
+        fprintf(LDot, "f%d [shape=record, label=\"FreePointer:\\n%d | {Position\\n:%d | Data:\\n%d | Next:\\n%d}\",style=\"filled\",fillcolor=\"slateblue4\"];\n", NowPos, NowElem, NowPos, *(data + (NowElem - next)), *NowElem);
 
 
         fprintf(LDot, "label = \"Free memory of list: %s\"}\n", LName.c_str());
@@ -689,21 +678,33 @@ bool MDList_t::SortList()
         NowPos = 0;
         fprintf(LDot, "rankdir=LR;\n");
         fprintf(LDot, "subgraph clusterlist {\nstyle=filled;\ncolor=lightgrey;\n");
-        fprintf(LDot, "%d [shape=record, label=\"ElemPointer:\\n%d | {Position\\n:%d | Data:\\n%d | Next:\\n%d}\",style=\"filled\",fillcolor=\"gold2\"];\n", NowPos, NowElem, NowPos, *(data + (NowElem - next)), *NowElem);
+        fprintf(LDot, "%d [shape=record, label=\"ElemPointer:\\n%d | {Position\\n:%d | Data:\\n%d | Next:\\n%d | Prev:\\n%d}\",style=\"filled\",fillcolor=\"gold2\"];\n", NowPos, NowElem, NowPos, *(data + (NowElem - next)), *NowElem, *(prev + (NowElem - next)));
         if(*NowElem != -3)
             {
-            fprintf(LDot, "%d->%d\n", NowPos, (NowPos + 1));
+            if( (NowElem - next) == *(prev + *NowElem) )
+                {
+                fprintf(LDot, "%d->%d[dir=\"both\";style=\"bold\"];\n", NowPos, (NowPos + 1));
+                } else
+                {
+                fprintf(LDot, "%d->%d[color=\"red\"];\n", NowPos, (NowPos + 1));
+                }
             NowElem = *NowElem + next;
             ++NowPos;
             }
         while(*NowElem != -3 && NowPos < LSize)
             {
-            fprintf(LDot, "%d [shape=record, label=\"ElemPointer:\\n%d | {Position\\n:%d | Data:\\n%d | Next:\\n%d}\",style=\"filled\",fillcolor=\"lawngreen\"];\n", NowPos, NowElem, NowPos, *(data + (NowElem - next)), *NowElem);
-            fprintf(LDot, "%d->%d\n", NowPos, (NowPos + 1));
+            fprintf(LDot, "%d [shape=record, label=\"ElemPointer:\\n%d | {Position\\n:%d | Data:\\n%d | Next:\\n%d | Prev:\\n%d}\",style=\"filled\",fillcolor=\"lawngreen\"];\n", NowPos, NowElem, NowPos, *(data + (NowElem - next)), *NowElem, *(prev + (NowElem - next)));
+            if( (NowElem - next) == *(prev + *NowElem) )
+                {
+                fprintf(LDot, "%d->%d[dir=\"both\";style=\"bold\"];\n", NowPos, (NowPos + 1));
+                } else
+                {
+                fprintf(LDot, "%d->%d[color=\"red\"];\n", NowPos, (NowPos + 1));
+                }
             NowElem = *NowElem + next;
             ++NowPos;
             }
-        fprintf(LDot, "%d [shape=record, label=\"ElemPointer:\\n%d | {Position\\n:%d | Data:\\n%d | Next:\\n%d}\",style=\"filled\",fillcolor=\"royalblue1\"];\n", NowPos, NowElem, NowPos, *(data + (NowElem - next)), *NowElem);
+        fprintf(LDot, "%d [shape=record, label=\"ElemPointer:\\n%d | {Position\\n:%d | Data:\\n%d | Next:\\n%d | Prev:\\n%d}\",style=\"filled\",fillcolor=\"royalblue1\"];\n", NowPos, NowElem, NowPos, *(data + (NowElem - next)), *NowElem, *(prev + (NowElem - next)));
         fprintf(LDot, "label = \"List with name: %s\"}\n", LName.c_str());
 
         fprintf(LDot, "}\n");
