@@ -1,0 +1,21 @@
+digraph G{
+subgraph clusterlist {
+style=filled;
+color=lightgrey;
+rankdir=LR;
+Model [shape=record,style="filled",fillcolor="mediumpurple",label="{{<0>} | {ElemPointer:\n2953304 | {PhysPosition\n:0 | Data:\n0 | Next:\n1}}}| {{<1>} | {ElemPointer:\n2953308 | {PhysPosition\n:1 | Data:\n0 | Next:\n2}}}| {{<2>} | {ElemPointer:\n2953312 | {PhysPosition\n:2 | Data:\n0 | Next:\n3}}}| {{<3>} | {ElemPointer:\n2953316 | {PhysPosition\n:3 | Data:\n0 | Next:\n-2}}}| {{<4>} | {ElemPointer:\n2953320 | {PhysPosition\n:4 | Data:\n10 | Next:\n9}}}| {{<5>} | {ElemPointer:\n2953324 | {PhysPosition\n:5 | Data:\n20 | Next:\n6}}}| {{<6>} | {ElemPointer:\n2953328 | {PhysPosition\n:6 | Data:\n30 | Next:\n7}}}| {{<7>} | {ElemPointer:\n2953332 | {PhysPosition\n:7 | Data:\n40 | Next:\n8}}}| {{<8>} | {ElemPointer:\n2953336 | {PhysPosition\n:8 | Data:\n50 | Next:\n10}}}| {{<9>} | {ElemPointer:\n2953340 | {PhysPosition\n:9 | Data:\n50 | Next:\n5}}}| {{<10>} | {ElemPointer:\n2953344 | {PhysPosition\n:10 | Data:\n0 | Next:\n-3}}}| {{<11>} | {ElemPointer:\n2953348 | {PhysPosition\n:11 | Data:\n0 | Next:\n12}}}| {{<12>} | {ElemPointer:\n2953352 | {PhysPosition\n:12 | Data:\n0 | Next:\n13}}}| {{<13>} | {ElemPointer:\n2953356 | {PhysPosition\n:13 | Data:\n0 | Next:\n14}}}| {{<14>} | {ElemPointer:\n2953360 | {PhysPosition\n:14 | Data:\n0 | Next:\n0}}}"];
+Model:<4>->Model:<9>[color="green";style="bold"];
+Model:<9>->Model:<5>[color="green";style="bold"];
+Model:<5>->Model:<6>[color="green";style="bold"];
+Model:<6>->Model:<7>[color="green";style="bold"];
+Model:<7>->Model:<8>[color="green";style="bold"];
+Model:<8>->Model:<10>[color="green";style="bold"];
+Model:<11>->Model:<12>[color="blue";style="bold"];
+Model:<12>->Model:<13>[color="blue";style="bold"];
+Model:<13>->Model:<14>[color="blue";style="bold"];
+Model:<14>->Model:<0>[color="blue";style="bold"];
+Model:<0>->Model:<1>[color="blue";style="bold"];
+Model:<1>->Model:<2>[color="blue";style="bold"];
+Model:<2>->Model:<3>[color="blue";style="bold"];
+label = "List with name: test"}
+}

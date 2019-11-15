@@ -626,7 +626,7 @@ bool MList_t::SortList()
             fprintf(LDot, "| {DataPointer:\\n%d | Data:\\n%d | NextPointer:\\n%d | Next:\\n%d}\n", data + i, *(data + i), next + i, *(next + i));
             }
         fprintf(LDot, "}\"];\n");
-        fprintf(LDot, "Shild [shape=record,label=\" RCanary:\\n%d | LCanary:\\n%d  | NormalCanary:\\n%d | Sorted:\\n%d | head: \\n%d | tail: \\n%d \"];\n", RCanary, LCanary, NormCanary, sorted, head, tail);
+        fprintf(LDot, "Shild [shape=record,label=\"{ RCanary:\\n%d | LCanary:\\n%d  | NormalCanary:\\n%d | Sorted:\\n%d } | { head: \\n%d | tail: \\n%d | LFree: \\n%d | LFreeTail:}\"];\n", RCanary, LCanary, NormCanary, sorted, head, tail);
         fprintf(LDot, "Shild->data\n}\n");
         fclose(LDot);
         std::string DotDoData;
@@ -648,23 +648,25 @@ bool MList_t::SortList()
         fprintf(LDot, "digraph G{\n");
 
         fprintf(LDot, "subgraph clusterlist {\nstyle=filled;\ncolor=lightgrey;\n");
-        fprintf(LDot, "Model [shape=record,style=\"filled\",fillcolor=\"gold2\",label=\"{<%d> ElemPointer:\\n%d | {PhysPosition\\n:%d | Data:\\n%d | Next:\\n%d}}", NowPos, NowPos + next, NowPos, *(data + NowPos), *(next + NowPos));
+        fprintf(LDot, "rankdir=LR;\n");
+        fprintf(LDot, "Model [shape=record,style=\"filled\",fillcolor=\"mediumpurple\",label=\"{{<%d>} | {ElemPointer:\\n%d | {PhysPosition\\n:%d | Data:\\n%d | Next:\\n%d}}}", NowPos, NowPos + next, NowPos, *(data + NowPos), *(next + NowPos));
+        ++NowPos;
         while(NowPos < LSize)
             {
-            fprintf(LDot, "| {<%d> ElemPointer:\\n%d | {PhysPosition\\n:%d | Data:\\n%d | Next:\\n%d}}", NowPos, NowPos + next, NowPos, *(data + NowPos), *(next + NowPos));
+            fprintf(LDot, "| {{<%d>} | {ElemPointer:\\n%d | {PhysPosition\\n:%d | Data:\\n%d | Next:\\n%d}}}", NowPos, NowPos + next, NowPos, *(data + NowPos), *(next + NowPos));
             ++NowPos;
             }
         fprintf(LDot, "\"];\n");
         NowElem = head;
         while(*NowElem != -3)
             {
-            fprintf(LDot, "Model:<%d>->Model:<%d>[color=\"green\"];\n", NowElem - next, *NowElem);
+            fprintf(LDot, "Model:<%d>->Model:<%d>[color=\"green\";style=\"bold\"];\n", NowElem - next, *NowElem);
             NowElem = *NowElem + next;
             }
         NowElem = LFree;
         while(*NowElem != -2)
             {
-            fprintf(LDot, "Model:<%d>->Model:<%d>[color=\"blue\"];\n", NowElem - next, *NowElem);
+            fprintf(LDot, "Model:<%d>->Model:<%d>[color=\"blue\";style=\"bold\"];\n", NowElem - next, *NowElem);
             NowElem = *NowElem + next;
             }
         fprintf(LDot, "label = \"List with name: %s\"}\n", LName.c_str());

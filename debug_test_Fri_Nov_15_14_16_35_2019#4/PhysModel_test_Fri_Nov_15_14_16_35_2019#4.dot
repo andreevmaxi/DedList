@@ -1,0 +1,21 @@
+digraph G{
+subgraph clusterlist {
+style=filled;
+color=lightgrey;
+rankdir=LR;
+Model [shape=record,style="filled",fillcolor="mediumpurple",label="{{<0>} | {ElemPointer:\n2953624 | {PhysPosition\n:0 | Data:\n10 | Next:\n1}}}| {{<1>} | {ElemPointer:\n2953628 | {PhysPosition\n:1 | Data:\n50 | Next:\n2}}}| {{<2>} | {ElemPointer:\n2953632 | {PhysPosition\n:2 | Data:\n20 | Next:\n3}}}| {{<3>} | {ElemPointer:\n2953636 | {PhysPosition\n:3 | Data:\n30 | Next:\n4}}}| {{<4>} | {ElemPointer:\n2953640 | {PhysPosition\n:4 | Data:\n40 | Next:\n5}}}| {{<5>} | {ElemPointer:\n2953644 | {PhysPosition\n:5 | Data:\n50 | Next:\n6}}}| {{<6>} | {ElemPointer:\n2953648 | {PhysPosition\n:6 | Data:\n10 | Next:\n7}}}| {{<7>} | {ElemPointer:\n2953652 | {PhysPosition\n:7 | Data:\n20 | Next:\n8}}}| {{<8>} | {ElemPointer:\n2953656 | {PhysPosition\n:8 | Data:\n30 | Next:\n9}}}| {{<9>} | {ElemPointer:\n2953660 | {PhysPosition\n:9 | Data:\n40 | Next:\n10}}}| {{<10>} | {ElemPointer:\n2953664 | {PhysPosition\n:10 | Data:\n10 | Next:\n11}}}| {{<11>} | {ElemPointer:\n2953668 | {PhysPosition\n:11 | Data:\n20 | Next:\n12}}}| {{<12>} | {ElemPointer:\n2953672 | {PhysPosition\n:12 | Data:\n30 | Next:\n13}}}| {{<13>} | {ElemPointer:\n2953676 | {PhysPosition\n:13 | Data:\n0 | Next:\n-3}}}| {{<14>} | {ElemPointer:\n2953680 | {PhysPosition\n:14 | Data:\n0 | Next:\n-2}}}"];
+Model:<0>->Model:<1>[color="green";style="bold"];
+Model:<1>->Model:<2>[color="green";style="bold"];
+Model:<2>->Model:<3>[color="green";style="bold"];
+Model:<3>->Model:<4>[color="green";style="bold"];
+Model:<4>->Model:<5>[color="green";style="bold"];
+Model:<5>->Model:<6>[color="green";style="bold"];
+Model:<6>->Model:<7>[color="green";style="bold"];
+Model:<7>->Model:<8>[color="green";style="bold"];
+Model:<8>->Model:<9>[color="green";style="bold"];
+Model:<9>->Model:<10>[color="green";style="bold"];
+Model:<10>->Model:<11>[color="green";style="bold"];
+Model:<11>->Model:<12>[color="green";style="bold"];
+Model:<12>->Model:<13>[color="green";style="bold"];
+label = "List with name: test"}
+}

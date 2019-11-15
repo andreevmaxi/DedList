@@ -32,6 +32,7 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="MListDuoOriented.h" />
 		<Unit filename="MListForwardOriented.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>
