@@ -932,11 +932,13 @@ bool MDList_t::InsertAfterRaw(ListElem_t PushingElem, int Pos)
 bool MDList_t::DeleteAfterRaw(int Pos)
     {
     DEB(MDList_t::Verify());
+
     int* DeletingElem = 0;
     if(Pos == -1)
         {
         DeletingElem = head;
         head = *head + next;
+        *(prev + (head - next)) = -1;
         *LFreeTail = DeletingElem - next;
         *DeletingElem = -2;
         LFreeTail = DeletingElem;
@@ -944,6 +946,8 @@ bool MDList_t::DeleteAfterRaw(int Pos)
         {
         DeletingElem = next + *(next + Pos);
         *(next + Pos) = *DeletingElem;
+        *(prev + *(next + Pos)) = Pos;
+        *(prev + (DeletingElem - next)) = -1;
         *LFreeTail = DeletingElem - next;
         *DeletingElem = -2;
         LFreeTail = DeletingElem;
