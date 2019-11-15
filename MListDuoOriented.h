@@ -176,13 +176,14 @@ bool MDList_t::LResize()
     LSize *= 2;
     next = (int*)        realloc(next, (LSize) * sizeof(int));
     data = (ListElem_t*) realloc(data, (LSize) * sizeof(ListElem_t));
-
+    prev = (int*)        realloc(next, (LSize) * sizeof(int));
     assert(next != NULL);
     assert(data != NULL);
 
     for(int i = (LSize)/2; i < (LSize); ++i)
         {
         *(next + i) = -1;
+        *(prev + i) = -1;
         }
     int* NowFree;
     int SecondFree;

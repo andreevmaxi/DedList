@@ -3,138 +3,20 @@
 	<ActiveTarget name="Debug" />
 	<File name="MListForwardOriented.h" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="0" topLine="608" />
+			<Cursor1 position="0" topLine="647" />
 		</Cursor>
 	</File>
-	<File name="main.cpp" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="main.cpp" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="286" topLine="0" />
+			<Cursor1 position="286" topLine="10" />
 		</Cursor>
-		<Folding>
-			<Collapse line="4" />
-			<Collapse line="8" />
-			<Collapse line="32" />
-			<Collapse line="40" />
-			<Collapse line="47" />
-			<Collapse line="60" />
-			<Collapse line="85" />
-			<Collapse line="92" />
-			<Collapse line="100" />
-		</Folding>
 	</File>
-	<File name="MListDuoOriented.h" open="1" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="DUO_TEST.cpp" open="1" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="25031" topLine="38" />
+			<Cursor1 position="0" topLine="0" />
 		</Cursor>
-		<Folding>
-			<Collapse line="9" />
-			<Collapse line="28" />
-			<Collapse line="68" />
-			<Collapse line="78" />
-			<Collapse line="80" />
-			<Collapse line="99" />
-			<Collapse line="103" />
-			<Collapse line="109" />
-			<Collapse line="124" />
-			<Collapse line="139" />
-			<Collapse line="144" />
-			<Collapse line="150" />
-			<Collapse line="163" />
-			<Collapse line="177" />
-			<Collapse line="185" />
-			<Collapse line="189" />
-			<Collapse line="194" />
-			<Collapse line="198" />
-			<Collapse line="201" />
-			<Collapse line="212" />
-			<Collapse line="214" />
-			<Collapse line="223" />
-			<Collapse line="226" />
-			<Collapse line="229" />
-			<Collapse line="234" />
-			<Collapse line="236" />
-			<Collapse line="252" />
-			<Collapse line="256" />
-			<Collapse line="259" />
-			<Collapse line="261" />
-			<Collapse line="264" />
-			<Collapse line="268" />
-			<Collapse line="272" />
-			<Collapse line="280" />
-			<Collapse line="285" />
-			<Collapse line="287" />
-			<Collapse line="297" />
-			<Collapse line="305" />
-			<Collapse line="307" />
-			<Collapse line="310" />
-			<Collapse line="317" />
-			<Collapse line="346" />
-			<Collapse line="351" />
-			<Collapse line="358" />
-			<Collapse line="365" />
-			<Collapse line="377" />
-			<Collapse line="388" />
-			<Collapse line="394" />
-			<Collapse line="396" />
-			<Collapse line="401" />
-			<Collapse line="403" />
-			<Collapse line="411" />
-			<Collapse line="416" />
-			<Collapse line="421" />
-			<Collapse line="423" />
-			<Collapse line="431" />
-			<Collapse line="434" />
-			<Collapse line="438" />
-			<Collapse line="441" />
-			<Collapse line="444" />
-			<Collapse line="453" />
-			<Collapse line="459" />
-			<Collapse line="466" />
-			<Collapse line="482" />
-			<Collapse line="497" />
-			<Collapse line="499" />
-			<Collapse line="503" />
-			<Collapse line="512" />
-			<Collapse line="514" />
-			<Collapse line="524" />
-			<Collapse line="526" />
-			<Collapse line="535" />
-			<Collapse line="542" />
-			<Collapse line="551" />
-			<Collapse line="553" />
-			<Collapse line="560" />
-			<Collapse line="563" />
-			<Collapse line="583" />
-			<Collapse line="590" />
-			<Collapse line="606" />
-			<Collapse line="609" />
-			<Collapse line="624" />
-			<Collapse line="654" />
-			<Collapse line="661" />
-			<Collapse line="667" />
-			<Collapse line="688" />
-			<Collapse line="691" />
-			<Collapse line="708" />
-			<Collapse line="714" />
-			<Collapse line="732" />
-			<Collapse line="738" />
-			<Collapse line="766" />
-			<Collapse line="773" />
-			<Collapse line="777" />
-			<Collapse line="783" />
-			<Collapse line="789" />
-			<Collapse line="791" />
-			<Collapse line="799" />
-			<Collapse line="807" />
-			<Collapse line="809" />
-			<Collapse line="812" />
-			<Collapse line="818" />
-			<Collapse line="847" />
-			<Collapse line="851" />
-			<Collapse line="858" />
-		</Folding>
 	</File>
-	<File name="DUO_TEST.cpp" open="1" top="1" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="MListDuoOriented.h" open="1" top="1" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="0" topLine="0" />
 		</Cursor>
