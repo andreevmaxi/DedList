@@ -4,8 +4,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
 <body>
 <tt>
-Build started on: <u>15-11-2019 at 16:12.59</u><br />
-Build ended on: <u>15-11-2019 at 16:13.01</u><p />
+Build started on: <u>15-11-2019 at 16:19.37</u><br />
+Build ended on: <u>15-11-2019 at 16:19.38</u><p />
 <b>-------------- Build: Debug in DedList (compiler: GNU GCC Compiler - Strict + Fast (SINGLE FILES ONLY))---------------</b><br />
 mingw32-g++.exe "C:\Users\Maksim\Documents\GitHub\DedList\DUO_TEST.cpp" -o bin\Debug\DedList.exe -mconsole  -Wall -fexceptions  -g  -Wshadow -Winit-self -Wredundant-decls -Wcast-align -Wundef -Wfloat-equal -Winline -Wunreachable-code -Wmissing-declarations -Wmissing-include-dirs -Wswitch-enum -Wswitch-default -Weffc++ -Wmain -Wextra -Wall -g -pipe -fexceptions -Wcast-qual -Wconversion -Wctor-dtor-privacy -Wempty-body -Wformat-security -Wformat=2 -Wignored-qualifiers -Wlogical-op -Wmissing-field-initializers -Wnon-virtual-dtor -Woverloaded-virtual -Wpointer-arith -Wsign-promo -Wstack-usage=8192 -Wstrict-aliasing -Wstrict-null-sentinel -Wtype-limits -Wwrite-strings -D_EJUDGE_CLIENT_SIDE -D_EJC -D__slowpoke -D_VORONEZH -D_DEBUG<br />
 In file included from C:\Users\Maksim\Documents\GitHub\DedList\DUO_TEST.cpp:2:0:<br />
@@ -34,63 +34,63 @@ C:\Users\Maksim\Documents\GitHub\DedList\MListDuoOriented.h: In constructor 'MDL
 <font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListDuoOriented.h:81:1: warning: 'MDList_t::LName' should be initialized in the member initialization list [-Weffc++]</font><br />
 <font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListDuoOriented.h:81:1: warning: 'MDList_t::RCanary' should be initialized in the member initialization list [-Weffc++]</font><br />
 C:\Users\Maksim\Documents\GitHub\DedList\MListDuoOriented.h: In member function 'bool MDList_t::ArrOfElems(ListElem_t*, int*, int)':<br />
-<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListDuoOriented.h:373:13: warning: unused variable 'NowPos' [-Wunused-variable]</font><br />
+<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListDuoOriented.h:377:13: warning: unused variable 'NowPos' [-Wunused-variable]</font><br />
          int NowPos = 0;<br />
              ^<br />
 C:\Users\Maksim\Documents\GitHub\DedList\MListDuoOriented.h: In member function 'void MDList_t::LDUMP(int)':<br />
-<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListDuoOriented.h:526:35: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]</font><br />
+<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListDuoOriented.h:530:35: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]</font><br />
          while(tmp != std::string::npos)<br />
                                    ^<br />
-<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListDuoOriented.h:533:35: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]</font><br />
+<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListDuoOriented.h:537:35: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]</font><br />
          while(tmp != std::string::npos)<br />
                                    ^<br />
 In file included from C:\Users\Maksim\Documents\GitHub\DedList\DUO_TEST.cpp:2:0:<br />
-<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListDuoOriented.h:566:198: warning: format '%d' expects argument of type 'int', but argument 4 has type 'ListElem_t* {aka int*}' [-Wformat=]</font><br />
+<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListDuoOriented.h:570:198: warning: format '%d' expects argument of type 'int', but argument 4 has type 'ListElem_t* {aka int*}' [-Wformat=]</font><br />
          fprintf(LDot, "{Memory of list: %s} | {{DataPointer:\\n%d | Data:\\n%d | NextPointer:\\n%d | Next:\\n%d | PhysPos:\\n0 | Prev:\\n%d}\n", LName.c_str(), data, *(data), next, *(next), *(prev));<br />
                                                                                                                                                                                                       ^<br />
-<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListDuoOriented.h:566:198: warning: format '%d' expects argument of type 'int', but argument 6 has type 'int*' [-Wformat=]</font><br />
-<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListDuoOriented.h:569:189: warning: format '%d' expects argument of type 'int', but argument 3 has type 'ListElem_t* {aka int*}' [-Wformat=]</font><br />
+<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListDuoOriented.h:570:198: warning: format '%d' expects argument of type 'int', but argument 6 has type 'int*' [-Wformat=]</font><br />
+<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListDuoOriented.h:573:189: warning: format '%d' expects argument of type 'int', but argument 3 has type 'ListElem_t* {aka int*}' [-Wformat=]</font><br />
              fprintf(LDot, "| {DataPointer:\\n%d | Data:\\n%d | NextPointer:\\n%d | Next:\\n%d | PhysPos:\\n%d | Prev:\\n%d}\n", data + i, *(data + i), next + i, *(next + i), i, *(prev + i));<br />
                                                                                                                                                                                              ^<br />
-<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListDuoOriented.h:569:189: warning: format '%d' expects argument of type 'int', but argument 5 has type 'int*' [-Wformat=]</font><br />
+<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListDuoOriented.h:573:189: warning: format '%d' expects argument of type 'int', but argument 5 has type 'int*' [-Wformat=]</font><br />
 In file included from C:\Users\Maksim\Documents\GitHub\DedList\DUO_TEST.cpp:2:0:<br />
-<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListDuoOriented.h:572:357: warning: format '%d' expects argument of type 'int', but argument 7 has type 'int*' [-Wformat=]</font><br />
+<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListDuoOriented.h:576:357: warning: format '%d' expects argument of type 'int', but argument 7 has type 'int*' [-Wformat=]</font><br />
          fprintf(LDot, "Shild [shape=record,label=\"{ RCanary:\\n%d | LCanary:\\n%d  | NormalCanary:\\n%d | Sorted:\\n%d } | { head:\\n%d | tail:\\n%d | LFree:\\n%d | LFreeTail:\\n%d} | { *head:\\n%d | *tail:\\n%d | *LFree:\\n%d | *LFreeTail:\\n%d}\"];\n", RCanary, LCanary, NormCanary, sorted, head, tail, LFree, LFreeTail, *head, *tail, *LFree, *LFreeTail);<br />
                                                                                                                                                                                                                                                                                                                                                                      ^<br />
-<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListDuoOriented.h:572:357: warning: format '%d' expects argument of type 'int', but argument 8 has type 'int*' [-Wformat=]</font><br />
-<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListDuoOriented.h:572:357: warning: format '%d' expects argument of type 'int', but argument 9 has type 'int*' [-Wformat=]</font><br />
-<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListDuoOriented.h:572:357: warning: format '%d' expects argument of type 'int', but argument 10 has type 'int*' [-Wformat=]</font><br />
-<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListDuoOriented.h:595:273: warning: format '%d' expects argument of type 'int', but argument 4 has type 'int*' [-Wformat=]</font><br />
+<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListDuoOriented.h:576:357: warning: format '%d' expects argument of type 'int', but argument 8 has type 'int*' [-Wformat=]</font><br />
+<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListDuoOriented.h:576:357: warning: format '%d' expects argument of type 'int', but argument 9 has type 'int*' [-Wformat=]</font><br />
+<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListDuoOriented.h:576:357: warning: format '%d' expects argument of type 'int', but argument 10 has type 'int*' [-Wformat=]</font><br />
+<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListDuoOriented.h:599:273: warning: format '%d' expects argument of type 'int', but argument 4 has type 'int*' [-Wformat=]</font><br />
          fprintf(LDot, "Model [shape=record,style=\"filled\",fillcolor=\"mediumpurple\",label=\"{{&lt;%d&gt;} | {ElemPointer:\\n%d | {PhysPosition\\n:%d | Data:\\n%d | Next:\\n%d | Prev:\\n%d}}}", NowPos, NowPos + next, NowPos, *(data + NowPos), *(next + NowPos),*(prev + NowPos));<br />
                                                                                                                                                                                                                                                                                  ^<br />
-<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListDuoOriented.h:600:208: warning: format '%d' expects argument of type 'int', but argument 4 has type 'int*' [-Wformat=]</font><br />
+<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListDuoOriented.h:604:208: warning: format '%d' expects argument of type 'int', but argument 4 has type 'int*' [-Wformat=]</font><br />
              fprintf(LDot, "| {{&lt;%d&gt;} | {ElemPointer:\\n%d | {PhysPosition\\n:%d | Data:\\n%d | Next:\\n%d | Prev:\\n%d}}}", NowPos, NowPos + next, NowPos, *(data + NowPos), *(next + NowPos), *(prev + NowPos));<br />
                                                                                                                                                                                                                 ^<br />
-<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListDuoOriented.h:657:261: warning: format '%d' expects argument of type 'int', but argument 4 has type 'int*' [-Wformat=]</font><br />
+<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListDuoOriented.h:661:261: warning: format '%d' expects argument of type 'int', but argument 4 has type 'int*' [-Wformat=]</font><br />
          fprintf(LDot, "f%d [shape=record, label=\"FreePointer:\\n%d | {Position\\n:%d | Data:\\n%d | Next:\\n%d | Prev:\\n%d}\",style=\"filled\",fillcolor=\"gold4\"];\n", NowPos, NowElem, NowPos, *(data + (NowElem - next)), *NowElem, *(prev + (NowElem - next)));<br />
                                                                                                                                                                                                                                                                      ^<br />
-<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListDuoOriented.h:666:225: warning: format '%d' expects argument of type 'int', but argument 4 has type 'int*' [-Wformat=]</font><br />
+<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListDuoOriented.h:670:225: warning: format '%d' expects argument of type 'int', but argument 4 has type 'int*' [-Wformat=]</font><br />
              fprintf(LDot, "f%d [shape=record, label=\"FreePointer:\\n%d | {Position\\n:%d | Data:\\n%d | Next:\\n%d}\",style=\"filled\",fillcolor=\"green4\"];\n", NowPos, NowElem, NowPos, *(data + (NowElem - next)), *NowElem);<br />
                                                                                                                                                                                                                                  ^<br />
-<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListDuoOriented.h:671:225: warning: format '%d' expects argument of type 'int', but argument 4 has type 'int*' [-Wformat=]</font><br />
+<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListDuoOriented.h:675:225: warning: format '%d' expects argument of type 'int', but argument 4 has type 'int*' [-Wformat=]</font><br />
          fprintf(LDot, "f%d [shape=record, label=\"FreePointer:\\n%d | {Position\\n:%d | Data:\\n%d | Next:\\n%d}\",style=\"filled\",fillcolor=\"slateblue4\"];\n", NowPos, NowElem, NowPos, *(data + (NowElem - next)), *NowElem);<br />
                                                                                                                                                                                                                                  ^<br />
-<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListDuoOriented.h:681:260: warning: format '%d' expects argument of type 'int', but argument 4 has type 'int*' [-Wformat=]</font><br />
+<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListDuoOriented.h:685:260: warning: format '%d' expects argument of type 'int', but argument 4 has type 'int*' [-Wformat=]</font><br />
          fprintf(LDot, "%d [shape=record, label=\"ElemPointer:\\n%d | {Position\\n:%d | Data:\\n%d | Next:\\n%d | Prev:\\n%d}\",style=\"filled\",fillcolor=\"gold2\"];\n", NowPos, NowElem, NowPos, *(data + (NowElem - next)), *NowElem, *(prev + (NowElem - next)));<br />
                                                                                                                                                                                                                                                                     ^<br />
-<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListDuoOriented.h:696:268: warning: format '%d' expects argument of type 'int', but argument 4 has type 'int*' [-Wformat=]</font><br />
+<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListDuoOriented.h:700:268: warning: format '%d' expects argument of type 'int', but argument 4 has type 'int*' [-Wformat=]</font><br />
              fprintf(LDot, "%d [shape=record, label=\"ElemPointer:\\n%d | {Position\\n:%d | Data:\\n%d | Next:\\n%d | Prev:\\n%d}\",style=\"filled\",fillcolor=\"lawngreen\"];\n", NowPos, NowElem, NowPos, *(data + (NowElem - next)), *NowElem, *(prev + (NowElem - next)));<br />
                                                                                                                                                                                                                                                                             ^<br />
-<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListDuoOriented.h:707:265: warning: format '%d' expects argument of type 'int', but argument 4 has type 'int*' [-Wformat=]</font><br />
+<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListDuoOriented.h:711:265: warning: format '%d' expects argument of type 'int', but argument 4 has type 'int*' [-Wformat=]</font><br />
          fprintf(LDot, "%d [shape=record, label=\"ElemPointer:\\n%d | {Position\\n:%d | Data:\\n%d | Next:\\n%d | Prev:\\n%d}\",style=\"filled\",fillcolor=\"royalblue1\"];\n", NowPos, NowElem, NowPos, *(data + (NowElem - next)), *NowElem, *(prev + (NowElem - next)));<br />
                                                                                                                                                                                                                                                                          ^<br />
 In file included from C:\Users\Maksim\Documents\GitHub\DedList\DUO_TEST.cpp:2:0:<br />
-<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListDuoOriented.h:539:29: warning: 'LDot' may be used uninitialized in this function [-Wmaybe-uninitialized]</font><br />
+<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListDuoOriented.h:543:29: warning: 'LDot' may be used uninitialized in this function [-Wmaybe-uninitialized]</font><br />
          assert(LDot != NULL);<br />
                              ^<br />
-Output size is 520,20 KB<br />
-<font color="#0000ff">Process terminated with status 0 (0 minutes, 2 seconds)</font><br />
-<font color="#0000ff">0 errors, 37 warnings (0 minutes, 2 seconds)</font><br />
+Output size is 520,70 KB<br />
+<font color="#0000ff">Process terminated with status 0 (0 minutes, 1 seconds)</font><br />
+<font color="#0000ff">0 errors, 37 warnings (0 minutes, 1 seconds)</font><br />
 </tt>
 </body>
 </html>

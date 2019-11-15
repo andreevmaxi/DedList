@@ -176,7 +176,7 @@ bool MDList_t::LResize()
     LSize *= 2;
     next = (int*)        realloc(next, (LSize) * sizeof(int));
     data = (ListElem_t*) realloc(data, (LSize) * sizeof(ListElem_t));
-    prev = (int*)        realloc(next, (LSize) * sizeof(int));
+    prev = (int*)        realloc(prev, (LSize) * sizeof(int));
     assert(next != NULL);
     assert(data != NULL);
 
