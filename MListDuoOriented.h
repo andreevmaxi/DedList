@@ -236,8 +236,10 @@ bool MDList_t::PushBack(ListElem_t PushingElem)
         if(sorted == 0)
             {
             *tail = MDList_t::SearchingEmpty() - next;
+            int TmpPrev = tail - next;
             tail = *tail + next;
             *tail = -3;
+            *(prev + (tail - next)) = TmpPrev;
             } else
             {
             if(tail - next + 2 == LSize)
@@ -248,6 +250,7 @@ bool MDList_t::PushBack(ListElem_t PushingElem)
             *tail = tail - next + 1;
             ++tail;
             *tail = -3;
+            *(prev + (tail - next)) = --(tail - next);
             ++LFree;
             }
 
@@ -353,6 +356,7 @@ bool MDList_t::InsertAfter(ListElem_t PushingElem, int RawPos)
             }
         --head;
         *head = head + 1 - next;
+        *(prev + (head - next) + 1) = (head - next);
         --LFreeTail;
         *LFreeTail = -2;
         *(data + (head - next) )   = PushingElem;
@@ -362,7 +366,9 @@ bool MDList_t::InsertAfter(ListElem_t PushingElem, int RawPos)
     sorted = 0;
     int* NewElem = MDList_t::SearchingEmpty();
     *NewElem = *(next + Pos);
+    *(prev + (NewElem - next)) = Pos;
     *(next + Pos) = NewElem - next;
+    *(prev + *NewElem) = NewElem - next;
     *(data + (NewElem - next)) = PushingElem;
 
     return 1;
@@ -480,10 +486,12 @@ bool MDList_t::SortList()
     DEB(MDList_t::Verify());
     ListElem_t* TmpData = (ListElem_t*) calloc(LSize, sizeof(ListElem_t));
     int*        TmpNext =        (int*) calloc(LSize, sizeof(int));
+    int*        TmpPrev =        (int*) calloc(LSize, sizeof(int));
 
     for(int i = 0; i < LSize; ++i)
         {
         *(TmpNext + i)= -1;
+        *(TmpPrev + i)= -1;
         }
     int* NowElem = head;
     int  i = 0;
