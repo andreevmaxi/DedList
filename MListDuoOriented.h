@@ -789,12 +789,12 @@ bool MDList_t::InsertAfterRaw(ListElem_t PushingElem, int Pos)
             int* TmpArr3 = (int*) calloc(LSize, sizeof(int));
             for(int i = (LSize/2); i < LSize; ++i)
                 {
-                if(*(next + i - LSize/2) != -1)
+                if(*(prev + i - LSize/2) != -1)
                     {
-                    *(TmpArr3 + i) = *(next + i - LSize/2) + (LSize/2);
+                    *(TmpArr3 + i) = *(prev + i - LSize/2) + (LSize/2);
                     } else
                     {
-                    *(TmpArr3 + i) = *(next + i - LSize/2);
+                    *(TmpArr3 + i) = *(prev + i - LSize/2);
                     }
                 }
             for(int i = 1; i < (LSize/2); ++i)

@@ -1,0 +1,21 @@
+digraph G{
+subgraph clusterlist {
+style=filled;
+color=lightgrey;
+rankdir=LR;
+Model [shape=record,style="filled",fillcolor="mediumpurple",label="{{<0>} | {ElemPointer:\n7410144 | {PhysPosition\n:0 | Data:\n10 | Next:\n1 | Prev:\n-1}}}| {{<1>} | {ElemPointer:\n7410148 | {PhysPosition\n:1 | Data:\n50 | Next:\n2 | Prev:\n0}}}| {{<2>} | {ElemPointer:\n7410152 | {PhysPosition\n:2 | Data:\n20 | Next:\n3 | Prev:\n1}}}| {{<3>} | {ElemPointer:\n7410156 | {PhysPosition\n:3 | Data:\n30 | Next:\n4 | Prev:\n2}}}| {{<4>} | {ElemPointer:\n7410160 | {PhysPosition\n:4 | Data:\n40 | Next:\n5 | Prev:\n3}}}| {{<5>} | {ElemPointer:\n7410164 | {PhysPosition\n:5 | Data:\n50 | Next:\n6 | Prev:\n4}}}| {{<6>} | {ElemPointer:\n7410168 | {PhysPosition\n:6 | Data:\n10 | Next:\n7 | Prev:\n5}}}| {{<7>} | {ElemPointer:\n7410172 | {PhysPosition\n:7 | Data:\n20 | Next:\n8 | Prev:\n6}}}| {{<8>} | {ElemPointer:\n7410176 | {PhysPosition\n:8 | Data:\n30 | Next:\n9 | Prev:\n7}}}| {{<9>} | {ElemPointer:\n7410180 | {PhysPosition\n:9 | Data:\n40 | Next:\n10 | Prev:\n8}}}| {{<10>} | {ElemPointer:\n7410184 | {PhysPosition\n:10 | Data:\n10 | Next:\n11 | Prev:\n9}}}| {{<11>} | {ElemPointer:\n7410188 | {PhysPosition\n:11 | Data:\n20 | Next:\n12 | Prev:\n10}}}| {{<12>} | {ElemPointer:\n7410192 | {PhysPosition\n:12 | Data:\n30 | Next:\n13 | Prev:\n11}}}| {{<13>} | {ElemPointer:\n7410196 | {PhysPosition\n:13 | Data:\n0 | Next:\n-3 | Prev:\n12}}}| {{<14>} | {ElemPointer:\n7410200 | {PhysPosition\n:14 | Data:\n0 | Next:\n-2 | Prev:\n-1}}}"];
+Model:<0>->Model:<1>[color="green";style="bold";dir="both"];
+Model:<1>->Model:<2>[color="green";style="bold";dir="both"];
+Model:<2>->Model:<3>[color="green";style="bold";dir="both"];
+Model:<3>->Model:<4>[color="green";style="bold";dir="both"];
+Model:<4>->Model:<5>[color="green";style="bold";dir="both"];
+Model:<5>->Model:<6>[color="green";style="bold";dir="both"];
+Model:<6>->Model:<7>[color="green";style="bold";dir="both"];
+Model:<7>->Model:<8>[color="green";style="bold";dir="both"];
+Model:<8>->Model:<9>[color="green";style="bold";dir="both"];
+Model:<9>->Model:<10>[color="green";style="bold";dir="both"];
+Model:<10>->Model:<11>[color="green";style="bold";dir="both"];
+Model:<11>->Model:<12>[color="green";style="bold";dir="both"];
+Model:<12>->Model:<13>[color="green";style="bold";dir="both"];
+label = "List with name: test"}
+}

@@ -1,0 +1,65 @@
+digraph G{
+data [shape=record,label="{Memory of list: test} | {{DataPointer:\n6165160 | Data:\n0 | NextPointer:\n6165408 | Next:\n1 | PhysPos:\n0 | Prev:\n0}
+| {DataPointer:\n6165164 | Data:\n0 | NextPointer:\n6165412 | Next:\n2 | PhysPos:\n1 | Prev:\n-1}
+| {DataPointer:\n6165168 | Data:\n0 | NextPointer:\n6165416 | Next:\n3 | PhysPos:\n2 | Prev:\n-1}
+| {DataPointer:\n6165172 | Data:\n0 | NextPointer:\n6165420 | Next:\n4 | PhysPos:\n3 | Prev:\n-1}
+| {DataPointer:\n6165176 | Data:\n0 | NextPointer:\n6165424 | Next:\n5 | PhysPos:\n4 | Prev:\n-1}
+| {DataPointer:\n6165180 | Data:\n0 | NextPointer:\n6165428 | Next:\n6 | PhysPos:\n5 | Prev:\n-1}
+| {DataPointer:\n6165184 | Data:\n0 | NextPointer:\n6165432 | Next:\n7 | PhysPos:\n6 | Prev:\n-1}
+| {DataPointer:\n6165188 | Data:\n0 | NextPointer:\n6165436 | Next:\n8 | PhysPos:\n7 | Prev:\n-1}
+| {DataPointer:\n6165192 | Data:\n0 | NextPointer:\n6165440 | Next:\n9 | PhysPos:\n8 | Prev:\n-1}
+| {DataPointer:\n6165196 | Data:\n0 | NextPointer:\n6165444 | Next:\n10 | PhysPos:\n9 | Prev:\n-1}
+| {DataPointer:\n6165200 | Data:\n0 | NextPointer:\n6165448 | Next:\n11 | PhysPos:\n10 | Prev:\n-1}
+| {DataPointer:\n6165204 | Data:\n0 | NextPointer:\n6165452 | Next:\n12 | PhysPos:\n11 | Prev:\n-1}
+| {DataPointer:\n6165208 | Data:\n0 | NextPointer:\n6165456 | Next:\n13 | PhysPos:\n12 | Prev:\n-1}
+| {DataPointer:\n6165212 | Data:\n0 | NextPointer:\n6165460 | Next:\n14 | PhysPos:\n13 | Prev:\n-1}
+| {DataPointer:\n6165216 | Data:\n0 | NextPointer:\n6165464 | Next:\n15 | PhysPos:\n14 | Prev:\n-1}
+| {DataPointer:\n6165220 | Data:\n0 | NextPointer:\n6165468 | Next:\n16 | PhysPos:\n15 | Prev:\n-1}
+| {DataPointer:\n6165224 | Data:\n0 | NextPointer:\n6165472 | Next:\n17 | PhysPos:\n16 | Prev:\n-1}
+| {DataPointer:\n6165228 | Data:\n0 | NextPointer:\n6165476 | Next:\n18 | PhysPos:\n17 | Prev:\n-1}
+| {DataPointer:\n6165232 | Data:\n0 | NextPointer:\n6165480 | Next:\n19 | PhysPos:\n18 | Prev:\n-1}
+| {DataPointer:\n6165236 | Data:\n0 | NextPointer:\n6165484 | Next:\n20 | PhysPos:\n19 | Prev:\n-1}
+| {DataPointer:\n6165240 | Data:\n0 | NextPointer:\n6165488 | Next:\n21 | PhysPos:\n20 | Prev:\n-1}
+| {DataPointer:\n6165244 | Data:\n0 | NextPointer:\n6165492 | Next:\n-2 | PhysPos:\n21 | Prev:\n-1}
+| {DataPointer:\n6165248 | Data:\n7 | NextPointer:\n6165496 | Next:\n23 | PhysPos:\n22 | Prev:\n-1}
+| {DataPointer:\n6165252 | Data:\n6 | NextPointer:\n6165500 | Next:\n24 | PhysPos:\n23 | Prev:\n22}
+| {DataPointer:\n6165256 | Data:\n5 | NextPointer:\n6165504 | Next:\n25 | PhysPos:\n24 | Prev:\n23}
+| {DataPointer:\n6165260 | Data:\n4 | NextPointer:\n6165508 | Next:\n26 | PhysPos:\n25 | Prev:\n24}
+| {DataPointer:\n6165264 | Data:\n3 | NextPointer:\n6165512 | Next:\n27 | PhysPos:\n26 | Prev:\n25}
+| {DataPointer:\n6165268 | Data:\n2 | NextPointer:\n6165516 | Next:\n28 | PhysPos:\n27 | Prev:\n26}
+| {DataPointer:\n6165272 | Data:\n1 | NextPointer:\n6165520 | Next:\n29 | PhysPos:\n28 | Prev:\n27}
+| {DataPointer:\n6165276 | Data:\n0 | NextPointer:\n6165524 | Next:\n30 | PhysPos:\n29 | Prev:\n28}
+| {DataPointer:\n6165280 | Data:\n10 | NextPointer:\n6165528 | Next:\n31 | PhysPos:\n30 | Prev:\n29}
+| {DataPointer:\n6165284 | Data:\n50 | NextPointer:\n6165532 | Next:\n32 | PhysPos:\n31 | Prev:\n32}
+| {DataPointer:\n6165288 | Data:\n20 | NextPointer:\n6165536 | Next:\n33 | PhysPos:\n32 | Prev:\n33}
+| {DataPointer:\n6165292 | Data:\n30 | NextPointer:\n6165540 | Next:\n34 | PhysPos:\n33 | Prev:\n34}
+| {DataPointer:\n6165296 | Data:\n40 | NextPointer:\n6165544 | Next:\n35 | PhysPos:\n34 | Prev:\n35}
+| {DataPointer:\n6165300 | Data:\n50 | NextPointer:\n6165548 | Next:\n36 | PhysPos:\n35 | Prev:\n36}
+| {DataPointer:\n6165304 | Data:\n10 | NextPointer:\n6165552 | Next:\n37 | PhysPos:\n36 | Prev:\n37}
+| {DataPointer:\n6165308 | Data:\n20 | NextPointer:\n6165556 | Next:\n38 | PhysPos:\n37 | Prev:\n38}
+| {DataPointer:\n6165312 | Data:\n30 | NextPointer:\n6165560 | Next:\n45 | PhysPos:\n38 | Prev:\n39}
+| {DataPointer:\n6165316 | Data:\n40 | NextPointer:\n6165564 | Next:\n40 | PhysPos:\n39 | Prev:\n45}
+| {DataPointer:\n6165320 | Data:\n10 | NextPointer:\n6165568 | Next:\n41 | PhysPos:\n40 | Prev:\n41}
+| {DataPointer:\n6165324 | Data:\n20 | NextPointer:\n6165572 | Next:\n42 | PhysPos:\n41 | Prev:\n42}
+| {DataPointer:\n6165328 | Data:\n30 | NextPointer:\n6165576 | Next:\n43 | PhysPos:\n42 | Prev:\n43}
+| {DataPointer:\n6165332 | Data:\n40 | NextPointer:\n6165580 | Next:\n44 | PhysPos:\n43 | Prev:\n44}
+| {DataPointer:\n6165336 | Data:\n0 | NextPointer:\n6165584 | Next:\n-3 | PhysPos:\n44 | Prev:\n45}
+| {DataPointer:\n6165340 | Data:\n100 | NextPointer:\n6165588 | Next:\n39 | PhysPos:\n45 | Prev:\n38}
+| {DataPointer:\n6165344 | Data:\n150994953 | NextPointer:\n6165592 | Next:\n47 | PhysPos:\n46 | Prev:\n47}
+| {DataPointer:\n6165348 | Data:\n4517 | NextPointer:\n6165596 | Next:\n48 | PhysPos:\n47 | Prev:\n48}
+| {DataPointer:\n6165352 | Data:\n6164624 | NextPointer:\n6165600 | Next:\n49 | PhysPos:\n48 | Prev:\n49}
+| {DataPointer:\n6165356 | Data:\n6164760 | NextPointer:\n6165604 | Next:\n50 | PhysPos:\n49 | Prev:\n50}
+| {DataPointer:\n6165360 | Data:\n3 | NextPointer:\n6165608 | Next:\n51 | PhysPos:\n50 | Prev:\n51}
+| {DataPointer:\n6165364 | Data:\n4 | NextPointer:\n6165612 | Next:\n52 | PhysPos:\n51 | Prev:\n52}
+| {DataPointer:\n6165368 | Data:\n5 | NextPointer:\n6165616 | Next:\n53 | PhysPos:\n52 | Prev:\n53}
+| {DataPointer:\n6165372 | Data:\n6 | NextPointer:\n6165620 | Next:\n54 | PhysPos:\n53 | Prev:\n54}
+| {DataPointer:\n6165376 | Data:\n7 | NextPointer:\n6165624 | Next:\n55 | PhysPos:\n54 | Prev:\n55}
+| {DataPointer:\n6165380 | Data:\n8 | NextPointer:\n6165628 | Next:\n56 | PhysPos:\n55 | Prev:\n56}
+| {DataPointer:\n6165384 | Data:\n9 | NextPointer:\n6165632 | Next:\n57 | PhysPos:\n56 | Prev:\n57}
+| {DataPointer:\n6165388 | Data:\n10 | NextPointer:\n6165636 | Next:\n58 | PhysPos:\n57 | Prev:\n58}
+| {DataPointer:\n6165392 | Data:\n11 | NextPointer:\n6165640 | Next:\n59 | PhysPos:\n58 | Prev:\n59}
+| {DataPointer:\n6165396 | Data:\n12 | NextPointer:\n6165644 | Next:\n0 | PhysPos:\n59 | Prev:\n28}
+}"];
+Shild [shape=record,label="{ RCanary:\n421075226 | LCanary:\n421075226  | NormalCanary:\n421075226 | Sorted:\n0 } | { head:\n6165496 | tail:\n6165584 | LFree:\n6165592 | LFreeTail:\n6165492} | { *head:\n23 | *tail:\n-3 | *LFree:\n47 | *LFreeTail:\n-2}"];
+Shild->data
+}
