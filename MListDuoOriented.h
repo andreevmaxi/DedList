@@ -8,7 +8,7 @@
 #include <windows.h>
 #include <stdio.h>
 #ifdef _DEBUG
-    #define DEBMList_t( list ) MList_t list( #list )
+    #define DEBMDList_t( list ) MDList_t list( #list )
 
     #define DEB( code ) code
 #else
@@ -25,12 +25,13 @@ const int BeginNumOfMember = 15;
 
 const std::string DotPath = "\"C:\\Program Files (x86)\\Graphviz2.38\\bin\\dot.exe\"";
 
-struct MList_t
+struct MDList_t
     {
     DEB(int LCanary);
     ListElem_t* data;
 
     int* next;
+    int* prev;
     DEB(int NumOfDumps);
     int* head;
     int* LFree;
@@ -67,17 +68,17 @@ struct MList_t
     DEB(void LDUMP(int err));
 
     #ifdef _DEBUG
-    MList_t( std::string name );
+    MDList_t( std::string name );
     #else
-    MList_t();
+    MDList_t();
     #endif
-    ~MList_t();
+    ~MDList_t();
 
     DEB(int RCanary);
     };
 
 #ifdef _DEBUG
-MList_t::MList_t( std::string name )
+MDList_t::MDList_t( std::string name )
     {
     NumOfDumps = 0;
 
@@ -85,6 +86,7 @@ MList_t::MList_t( std::string name )
 
     data   = (ListElem_t*) calloc (BeginNumOfMember, sizeof(ListElem_t));
     next   = (int*) calloc (BeginNumOfMember, sizeof(int));
+    prev   = (int*) calloc (BeginNumOfMember, sizeof(int));
     head   = next + 4; // now we reserved 5 elems left from head
     tail   = next + 4; // has -3
     LFree   = tail + 1;
@@ -99,6 +101,7 @@ MList_t::MList_t( std::string name )
     for(int i = 0; i < LSize; ++i)
         {
         *(next + i) = -1;
+        *(prev + i) = -1;
         }
     for(int* i = (LFree + 1); i < (next + LSize); ++i)
         {
@@ -121,12 +124,13 @@ MList_t::MList_t( std::string name )
     return;
     }
 #else
-MList_t::MList_t()
+MDList_t::MDList_t()
     {
     LSize  = BeginNumOfMember;
 
     data   = (ListElem_t*) calloc (BeginNumOfMember, sizeof(ListElem_t));
     next   = (int*) calloc (BeginNumOfMember, sizeof(int));
+    prev   = (int*) calloc (BeginNumOfMember, sizeof(int));
     head   = next + 4; // now we reserved 5 elems left from head
     tail   = next + 4;
 
@@ -136,9 +140,11 @@ MList_t::MList_t()
     assert(tail != NULL);// than it needs to be if (...) {errnum = 124124125125; LDUMP}
     assert(LFree != NULL);
 
+
     for(int i = 0; i < LSize; ++i)
         {
         *(next + i) = -1;
+        *(prev + i) = -1;
         }
 
     for(int* i = (LFree + 1); i < (next + LSize); ++i)
@@ -160,7 +166,7 @@ MList_t::MList_t()
     }
 #endif
 
-bool MList_t::LResize()
+bool MDList_t::LResize()
     {
     int TmpHead = head - next;
     int TmpTail = tail - next;
@@ -209,33 +215,33 @@ bool MList_t::LResize()
     return 1;
     }
 
-int* MList_t::SearchingEmpty()
+int* MDList_t::SearchingEmpty()
     {
     if(LFree == (next - 3))
         {
-        MList_t::LResize();
+        MDList_t::LResize();
         }
     int* Ans = LFree;
     LFree = *LFree + next;
     return (Ans);
     }
 
-bool MList_t::PushBack(ListElem_t PushingElem)
+bool MDList_t::PushBack(ListElem_t PushingElem)
     {
-    DEB(MList_t::Verify());
+    DEB(MDList_t::Verify());
     if(*tail == -3)
         {
         *(data + (tail - next)) = PushingElem;
         if(sorted == 0)
             {
-            *tail = MList_t::SearchingEmpty() - next;
+            *tail = MDList_t::SearchingEmpty() - next;
             tail = *tail + next;
             *tail = -3;
             } else
             {
             if(tail - next + 2 == LSize)
                 {
-                MList_t::LResize();
+                MDList_t::LResize();
                 }
 
             *tail = tail - next + 1;
@@ -249,9 +255,9 @@ bool MList_t::PushBack(ListElem_t PushingElem)
     return 0;
     }
 
-bool MList_t::InsertAfter(ListElem_t PushingElem, int RawPos)
+bool MDList_t::InsertAfter(ListElem_t PushingElem, int RawPos)
     {
-    DEB(MList_t::Verify());
+    DEB(MDList_t::Verify());
     int Pos;
     if(RawPos == -1)
         {
@@ -279,7 +285,7 @@ bool MList_t::InsertAfter(ListElem_t PushingElem, int RawPos)
         }
     if(Pos + next == tail)
         {
-        MList_t::PushBack(PushingElem);
+        MDList_t::PushBack(PushingElem);
         return 1;
         }
     if(Pos == -1 && sorted == 1)
@@ -335,7 +341,7 @@ bool MList_t::InsertAfter(ListElem_t PushingElem, int RawPos)
         return 1;
         }
     sorted = 0;
-    int* NewElem = MList_t::SearchingEmpty();
+    int* NewElem = MDList_t::SearchingEmpty();
     *NewElem = *(next + Pos);
     *(next + Pos) = NewElem - next;
     *(data + (NewElem - next)) = PushingElem;
@@ -343,9 +349,9 @@ bool MList_t::InsertAfter(ListElem_t PushingElem, int RawPos)
     return 1;
     }
 
-bool MList_t::DeleteAfter(int Pos)
+bool MDList_t::DeleteAfter(int Pos)
     {
-    DEB(MList_t::Verify());
+    DEB(MDList_t::Verify());
     int NowPos = 0;
     int* NowElem = head;
     while (NowPos != Pos && *NowElem != -1)
@@ -374,9 +380,9 @@ bool MList_t::DeleteAfter(int Pos)
     return 1;
     }
 
-MList_t::~MList_t()
+MDList_t::~MDList_t()
     {
-    DEB(MList_t::Verify());
+    DEB(MDList_t::Verify());
     free(data);
     free(next);
 
@@ -385,9 +391,9 @@ MList_t::~MList_t()
     return;
     }
 
-ListElem_t MList_t::elem(int Pos)
+ListElem_t MDList_t::elem(int Pos)
     {
-    DEB(MList_t::Verify());
+    DEB(MDList_t::Verify());
     int NowPos = 0;
     int* NowElem = head;
 
@@ -408,9 +414,9 @@ ListElem_t MList_t::elem(int Pos)
     return *(data + (NowElem - next));
     }
 
-bool MList_t::ArrOfElems(ListElem_t* RetArr, int* PosOfElems, int SizeOfArrs)
+bool MDList_t::ArrOfElems(ListElem_t* RetArr, int* PosOfElems, int SizeOfArrs)
     {
-    DEB(MList_t::Verify());
+    DEB(MDList_t::Verify());
     std::sort(PosOfElems, (PosOfElems + SizeOfArrs) );
 
     if(sorted == 0)
@@ -450,9 +456,9 @@ bool MList_t::ArrOfElems(ListElem_t* RetArr, int* PosOfElems, int SizeOfArrs)
         }
     }
 
-bool MList_t::SortList()
+bool MDList_t::SortList()
     {
-    DEB(MList_t::Verify());
+    DEB(MDList_t::Verify());
     ListElem_t* TmpData = (ListElem_t*) calloc(LSize, sizeof(ListElem_t));
     int*        TmpNext =        (int*) calloc(LSize, sizeof(int));
 
@@ -496,14 +502,14 @@ bool MList_t::SortList()
     }
 
 #ifdef _DEBUG
-    bool MList_t::Verify()
+    bool MDList_t::Verify()
         {
         int err = 0;
 
         if(LCanary != RCanary || LCanary != NormCanary)
             {
             err = 5;
-            MList_t::LDUMP(err); // err 5 :: something went on list's memory!
+            MDList_t::LDUMP(err); // err 5 :: something went on list's memory!
             }
 
         int* NowElem = head;
@@ -514,7 +520,7 @@ bool MList_t::SortList()
             if(NowPos > LSize)
                 {
                 err = 1;
-                MList_t::LDUMP(err); // err 1 :: list is circled!!!
+                MDList_t::LDUMP(err); // err 1 :: list is circled!!!
                 }
             NowElem = *NowElem + next;
             ++NowPos;
@@ -526,7 +532,7 @@ bool MList_t::SortList()
             if(NowPos > LSize)
                 {
                 err = 6;
-                MList_t::LDUMP(err); // err 6 :: free is circled!!!
+                MDList_t::LDUMP(err); // err 6 :: free is circled!!!
                 }
             NowElem = *NowElem + next;
             ++NowPos;
@@ -536,13 +542,13 @@ bool MList_t::SortList()
             {
             //printf("Np and LS: %d %d\n", NowPos, LSize);
             err = 2;
-            MList_t::LDUMP(err); // err 2 :: list has gap!
+            MDList_t::LDUMP(err); // err 2 :: list has gap!
             }
 
         if(NowPos > LSize - 2)
             {
             err = 3;
-            MList_t::LDUMP(err); // err 3 :: list lost connection, how hz, but hz.
+            MDList_t::LDUMP(err); // err 3 :: list lost connection, how hz, but hz.
             }
 
         return 1; // if err 9 :: it's just printing the list
@@ -550,7 +556,7 @@ bool MList_t::SortList()
 #endif
 
 #ifdef _DEBUG
-    void MList_t::LDUMP(int err)
+    void MDList_t::LDUMP(int err)
         {
         FILE* LDot;
         std::string DTime;
@@ -763,26 +769,26 @@ bool MList_t::SortList()
         }
 #endif
 
-ListElem_t MList_t::rte(int RawPos)
+ListElem_t MDList_t::rte(int RawPos)
     {
-    DEB(MList_t::Verify());
+    DEB(MDList_t::Verify());
     return *(data + RawPos);
     }
 
 
-bool MList_t::InsertAfterRaw(ListElem_t PushingElem, int Pos)
+bool MDList_t::InsertAfterRaw(ListElem_t PushingElem, int Pos)
     {
-    DEB(MList_t::Verify());
+    DEB(MDList_t::Verify());
 
     if(Pos >= LSize)
         {
-        MList_t::PushBack(PushingElem);
+        MDList_t::PushBack(PushingElem);
         return 1;
         }
 
     if(Pos + next == tail)
         {
-        MList_t::PushBack(PushingElem);
+        MDList_t::PushBack(PushingElem);
         return 1;
         }
 
@@ -836,7 +842,7 @@ bool MList_t::InsertAfterRaw(ListElem_t PushingElem, int Pos)
         return 1;
         }
     sorted = 0;
-    int* NewElem = MList_t::SearchingEmpty();
+    int* NewElem = MDList_t::SearchingEmpty();
     *NewElem = *(next + Pos);
     *(next + Pos) = NewElem - next;
     *(data + (NewElem - next)) = PushingElem;
@@ -844,9 +850,9 @@ bool MList_t::InsertAfterRaw(ListElem_t PushingElem, int Pos)
     return 1;
     }
 
-bool MList_t::DeleteAfterRaw(int Pos)
+bool MDList_t::DeleteAfterRaw(int Pos)
     {
-    DEB(MList_t::Verify());
+    DEB(MDList_t::Verify());
     int* DeletingElem = 0;
     if(Pos == -1)
         {
