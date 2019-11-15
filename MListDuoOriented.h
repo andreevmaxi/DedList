@@ -63,6 +63,8 @@ struct MDList_t
 
     bool ArrOfElems(ListElem_t* RetArr, int* PosOfElems, int SizeOfArrs);
 
+    bool MDList_t::DeleteBeforeRaw(int Pos);
+
     DEB(bool Verify());
 
     DEB(void LDUMP(int err));
@@ -853,5 +855,48 @@ bool MDList_t::DeleteAfterRaw(int Pos)
         LFreeTail = DeletingElem;
         }
 
+    return 1;
+    }
+
+bool MDList_t::DeleteBeforeRaw(int Pos)
+    {
+    DEB(MDList_t::Verify());
+
+    int* DeletingElem = 0;
+    if(Pos == -1) // tail
+        {
+        DeletingElem = tail;
+        tail = *(prev + (tail - next)) + next;
+        *(prev + *tail) = -1;
+        *LFreeTail = DeletingElem - next;
+        *DeletingElem = -2;
+        LFreeTail = DeletingElem;
+        } else
+        {
+        DeletingElem = next + *(prev + Pos);
+        *(prev + Pos) = *(prev + (DeletingElem - next));
+        *(next + *(prev + Pos)) = Pos;
+        *(prev + (DeletingElem - next)) = -1;
+        *LFreeTail = DeletingElem - next;
+        *DeletingElem = -2;
+        LFreeTail = DeletingElem;
+        }
+
+    return 1;
+    }
+
+bool MDList_t::DeleteBefore(int Pos)
+    {
+    DEB(MDList_t::Verify());
+    int NowPos = 0;
+    int* NowElem = head;
+    while (NowPos != Pos && *NowElem != -1)
+        {
+        NowElem = next + (*NowElem);
+        ++NowPos;
+        }
+    Pos = NowPos;
+
+    MDList_t::DeleteBeforeRaw(Pos);
     return 1;
     }
