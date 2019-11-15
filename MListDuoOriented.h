@@ -333,19 +333,18 @@ bool MDList_t::InsertAfter(ListElem_t PushingElem, int RawPos)
                 {
                 if(*(next + i - LSize/2) != -1)
                     {
-                    *(TmpArr2 + i) = *(next + i - LSize/2) + (LSize/2);
+                    *(TmpArr3 + i) = *(next + i - LSize/2) + (LSize/2);
                     } else
                     {
-                    *(TmpArr2 + i) = *(next + i - LSize/2);
+                    *(TmpArr3 + i) = *(next + i - LSize/2);
                     }
                 }
-            *(TmpArr2 + TmpLFreeTail + (LSize/2)) = 0;
             for(int i = 1; i < (LSize/2); ++i)
                 {
-                *(TmpArr2 + i - 1) = i;
+                *(TmpArr3 + i) = -1;
                 }
-            *(TmpArr2 + (LSize/2) - 1) = - 2;
             free(prev);
+            prev = TmpArr3;
 
             head = next + TmpHead + (LSize/2);
             tail = next + TmpTail + (LSize/2);
