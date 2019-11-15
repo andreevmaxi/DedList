@@ -404,7 +404,7 @@ MDList_t::~MDList_t()
     DEB(MDList_t::Verify());
     free(data);
     free(next);
-
+    free(prev);
 
     LSize = -1; // it's like it's dead, like destructed you knawww
     return;
