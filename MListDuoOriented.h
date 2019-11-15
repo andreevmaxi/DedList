@@ -847,7 +847,6 @@ bool MDList_t::InsertAfterRaw(ListElem_t PushingElem, int Pos)
         MDList_t::PushBack(PushingElem);
         return 1;
         }
-
     if(Pos == -1 && sorted == 1)
         {
         if(head == next)
@@ -855,6 +854,8 @@ bool MDList_t::InsertAfterRaw(ListElem_t PushingElem, int Pos)
             int TmpHead = head - next;
             int TmpTail = tail - next;
             int TmpFree = LFree - next;
+            int TmpLFreeTail = LFreeTail - next;
+
             LSize *= 2;
             ListElem_t* TmpArr1 = (ListElem_t*) calloc(LSize, sizeof(ListElem_t));
 
@@ -876,7 +877,7 @@ bool MDList_t::InsertAfterRaw(ListElem_t PushingElem, int Pos)
                     *(TmpArr2 + i) = *(next + i - LSize/2);
                     }
                 }
-            *(TmpArr2 + (LFreeTail - next)) = 0;
+            *(TmpArr2 + TmpLFreeTail + (LSize/2)) = 0;
             for(int i = 1; i < (LSize/2); ++i)
                 {
                 *(TmpArr2 + i - 1) = i;
@@ -884,6 +885,25 @@ bool MDList_t::InsertAfterRaw(ListElem_t PushingElem, int Pos)
             *(TmpArr2 + (LSize/2) - 1) = - 2;
             free(next);
             next = TmpArr2;
+
+            int* TmpArr3 = (int*) calloc(LSize, sizeof(int));
+            for(int i = (LSize/2); i < LSize; ++i)
+                {
+                if(*(next + i - LSize/2) != -1)
+                    {
+                    *(TmpArr3 + i) = *(next + i - LSize/2) + (LSize/2);
+                    } else
+                    {
+                    *(TmpArr3 + i) = *(next + i - LSize/2);
+                    }
+                }
+            for(int i = 1; i < (LSize/2); ++i)
+                {
+                *(TmpArr3 + i) = -1;
+                }
+            free(prev);
+            prev = TmpArr3;
+
             head = next + TmpHead + (LSize/2);
             tail = next + TmpTail + (LSize/2);
             LFree = next + TmpFree + (LSize/2);
@@ -891,6 +911,7 @@ bool MDList_t::InsertAfterRaw(ListElem_t PushingElem, int Pos)
             }
         --head;
         *head = head + 1 - next;
+        *(prev + (head - next) + 1) = (head - next);
         --LFreeTail;
         *LFreeTail = -2;
         *(data + (head - next) )   = PushingElem;
@@ -900,7 +921,9 @@ bool MDList_t::InsertAfterRaw(ListElem_t PushingElem, int Pos)
     sorted = 0;
     int* NewElem = MDList_t::SearchingEmpty();
     *NewElem = *(next + Pos);
+    *(prev + (NewElem - next)) = Pos;
     *(next + Pos) = NewElem - next;
+    *(prev + *NewElem) = NewElem - next;
     *(data + (NewElem - next)) = PushingElem;
 
     return 1;
