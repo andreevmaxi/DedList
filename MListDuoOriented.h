@@ -384,27 +384,9 @@ bool MDList_t::DeleteAfter(int Pos)
         NowElem = next + (*NowElem);
         ++NowPos;
         }
+    Pos = NowPos;
 
-    int* DeletingElem = 0;
-    if(Pos == -1)
-        {
-        DeletingElem = head;
-        head = *head + next;
-        *(prev + (head - next)) = -1;
-        *LFreeTail = DeletingElem - next;
-        *DeletingElem = -2;
-        LFreeTail = DeletingElem;
-        } else
-        {
-        DeletingElem = next + *(next + Pos);
-        *(next + Pos) = *DeletingElem;
-        *(prev + *(next + Pos)) = Pos;
-        *(prev + (DeletingElem - next)) = -1;
-        *LFreeTail = DeletingElem - next;
-        *DeletingElem = -2;
-        LFreeTail = DeletingElem;
-        }
-
+    MDList_t::DeleteAfterRaw(Pos);
     return 1;
     }
 
