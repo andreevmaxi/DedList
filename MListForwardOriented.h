@@ -589,7 +589,7 @@ bool MList_t::SortList()
         tmp = DTime.find(':');
         while(tmp != std::string::npos)
             {
-            //DTime.erase(DTime.find(':'), 1);
+            //DTime.erase(DTime.find(   ':'), 1);
             DTime[DTime.find(':')] = '_';
             tmp = DTime.find(':');
             }
@@ -614,7 +614,6 @@ bool MList_t::SortList()
             CritStr += ErrStr;
             NewPath.replace(NewPath.rfind(CritStr), sizeof(CritStr), "LMems");
             }
-        NewPath += ".dot";
         LDot = fopen(NewPath.c_str(), "w");
         assert(LDot != NULL);
 
@@ -640,16 +639,62 @@ bool MList_t::SortList()
         DotDoData += ".png";
         std::system(DotDoData.c_str());
 
+        int NowPos = 0;
+        int* NowElem = (int*)3;
+        NewPath.replace(NewPath.rfind("LMems"), 5, "PhysModel");
+        NewPath += ".dot";
+
+        LDot = fopen(NewPath.c_str(), "w");
+        fprintf(LDot, "digraph G{\n");
+
+        fprintf(LDot, "subgraph clusterlist {\nstyle=filled;\ncolor=lightgrey;\n");
+        fprintf(LDot, "rankdir=LR;\n");
+        fprintf(LDot, "Model [shape=record,style=\"filled\",fillcolor=\"mediumpurple\",label=\"{{<%d>} | {ElemPointer:\\n%d | {PhysPosition\\n:%d | Data:\\n%d | Next:\\n%d}}}", NowPos, NowPos + next, NowPos, *(data + NowPos), *(next + NowPos));
+        ++NowPos;
+        while(NowPos < LSize)
+            {
+            fprintf(LDot, "| {{<%d>} | {ElemPointer:\\n%d | {PhysPosition\\n:%d | Data:\\n%d | Next:\\n%d}}}", NowPos, NowPos + next, NowPos, *(data + NowPos), *(next + NowPos));
+            ++NowPos;
+            }
+        fprintf(LDot, "\"];\n");
+        NowElem = head;
+        while(*NowElem != -3)
+            {
+            fprintf(LDot, "Model:<%d>->Model:<%d>[color=\"green\";style=\"bold\"];\n", NowElem - next, *NowElem);
+            NowElem = *NowElem + next;
+            }
+        NowElem = LFree;
+        while(*NowElem != -2)
+            {
+            fprintf(LDot, "Model:<%d>->Model:<%d>[color=\"blue\";style=\"bold\"];\n", NowElem - next, *NowElem);
+            NowElem = *NowElem + next;
+            }
+        fprintf(LDot, "label = \"List with name: %s\"}\n", LName.c_str());
+
+        fprintf(LDot, "}\n");
+        fclose(LDot);
+
+
+        std::string DotDoPhys;
+        DotDoPhys += DotPath;
+        DotDoPhys += " -Tpng ";
+        DotDoPhys += NewPath;
+        DotDoPhys += " -o ";
+        NewPath.erase(NewPath.rfind(".dot"));
+        DotDoPhys += NewPath;
+        DotDoPhys += ".png";
+        std::system(DotDoPhys.c_str());
+
         if(err == 9) // debug start of dump
             {
-            NewPath.replace(NewPath.rfind("LMems"), 5, "debug");
+            NewPath.replace(NewPath.rfind("PhysModel"), 9, "debug");
             } else
             {
             std::string CritStr = "crit_err_";
             char ErrStr[17];
             itoa(err, ErrStr, 10);
             CritStr += ErrStr;
-            NewPath.replace(NewPath.rfind("LMems"), 5, CritStr);
+            NewPath.replace(NewPath.rfind("PhysModel"), 9, CritStr);
             }
         NewPath += ".dot";
 
@@ -657,8 +702,8 @@ bool MList_t::SortList()
         fprintf(LDot, "digraph G{\n");
 
         fprintf(LDot, "subgraph clustermem {\nstyle=filled;\ncolor=powderblue;\n");
-        int NowPos = 0;
-        int* NowElem = LFree;
+        NowPos = 0;
+        NowElem = LFree;
         fprintf(LDot, "f%d [shape=record, label=\"FreePointer:\\n%d | {Position\\n:%d | Data:\\n%d | Next:\\n%d}\",style=\"filled\",fillcolor=\"gold4\"];\n", NowPos, NowElem, NowPos, *(data + (NowElem - next)), *NowElem);
         if(*NowElem != -2)
             {

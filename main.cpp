@@ -85,7 +85,7 @@ int main()
     for(int i = 0; i < test.LSize; ++i)
         {
         printf("%d %d\n", *(test.data + i), *(test.next + i));
-        }
+         }
     test.LDUMP(9);                                 //5
 
     printf("LFreeTail = %d\n", test.LFreeTail - test.next);

@@ -34,8 +34,8 @@ struct MList_t
     DEB(int NumOfDumps);
     int* head;
     int* LFree;
-    int* LFreeTail;
-    int* tail;        // to do fast "push back"
+    int* LFreeTail;   // has -2
+    int* tail;        // to do fast "push back"     has -3
     bool sorted;      // 1 when data is equal to array
     int LSize;
     DEB(std::string LName);
@@ -86,7 +86,7 @@ MList_t::MList_t( std::string name )
     data   = (ListElem_t*) calloc (BeginNumOfMember, sizeof(ListElem_t));
     next   = (int*) calloc (BeginNumOfMember, sizeof(int));
     head   = next + 4; // now we reserved 5 elems left from head
-    tail   = next + 4;
+    tail   = next + 4; // has -3
     LFree   = tail + 1;
 
     assert(data != NULL);
@@ -165,7 +165,7 @@ bool MList_t::LResize()
     int TmpHead = head - next;
     int TmpTail = tail - next;
     int TmpLFree = LFree - next;
-    int TmpLFreeTail = TM
+    int TmpLFreeTail = LFreeTail - next;
 
     LSize *= 2;
     next = (int*)        realloc(next, (LSize) * sizeof(int));
@@ -180,11 +180,12 @@ bool MList_t::LResize()
         }
     int* NowFree;
     int SecondFree;
+    LFreeTail = next + TmpLFreeTail;
+
     if(sorted == 1)
         {
         NowFree    = next + (LSize/2) - 1;
         SecondFree = *LFreeTail;
-        printf("%d piz", *LFreeTail);
         } else
         {
         NowFree = LFreeTail;
@@ -200,11 +201,11 @@ bool MList_t::LResize()
         } else
         {
         *(next + LSize - 1) = -2;
-        LFreeTail = next + LSize - 1;
         }
+    LFreeTail = next + LSize - 1;
     head = next + TmpHead;
     tail = next + TmpTail;
-
+    LFree = next + TmpLFree;
     return 1;
     }
 
@@ -232,7 +233,6 @@ bool MList_t::PushBack(ListElem_t PushingElem)
             *tail = -3;
             } else
             {
-            printf("push: %d\n", tail - next + 1);
             if(tail - next + 2 == LSize)
                 {
                 MList_t::LResize();
@@ -289,6 +289,8 @@ bool MList_t::InsertAfter(ListElem_t PushingElem, int RawPos)
             int TmpHead = head - next;
             int TmpTail = tail - next;
             int TmpFree = LFree - next;
+            int TmpLFreeTail = LFreeTail - next;
+
             LSize *= 2;
             ListElem_t* TmpArr1 = (ListElem_t*) calloc(LSize, sizeof(ListElem_t));
 
@@ -310,7 +312,8 @@ bool MList_t::InsertAfter(ListElem_t PushingElem, int RawPos)
                     *(TmpArr2 + i) = *(next + i - LSize/2);
                     }
                 }
-            *(TmpArr2 + (LFreeTail - next)) = 0;
+            printf("vot nash tail free: %d", TmpLFreeTail + (LSize/2));
+            *(TmpArr2 + TmpLFreeTail + (LSize/2)) = 0;
             for(int i = 1; i < (LSize/2); ++i)
                 {
                 *(TmpArr2 + i - 1) = i;
@@ -482,7 +485,7 @@ bool MList_t::SortList()
         ++i;
         }
     *(TmpNext + i - 1) = -2;
-
+    LFreeTail = TmpNext + i - 1;
     free(TmpD);
     free(TmpN);
 
@@ -586,7 +589,7 @@ bool MList_t::SortList()
         tmp = DTime.find(':');
         while(tmp != std::string::npos)
             {
-            //DTime.erase(DTime.find(':'), 1);
+            //DTime.erase(DTime.find(   ':'), 1);
             DTime[DTime.find(':')] = '_';
             tmp = DTime.find(':');
             }
@@ -611,7 +614,6 @@ bool MList_t::SortList()
             CritStr += ErrStr;
             NewPath.replace(NewPath.rfind(CritStr), sizeof(CritStr), "LMems");
             }
-        NewPath += ".dot";
         LDot = fopen(NewPath.c_str(), "w");
         assert(LDot != NULL);
 
@@ -637,16 +639,60 @@ bool MList_t::SortList()
         DotDoData += ".png";
         std::system(DotDoData.c_str());
 
+        int NowPos = 0;
+        int* NowElem = (int*)3;
+        NewPath.replace(NewPath.rfind("LMems"), 5, "PhysModel");
+        NewPath += ".dot";
+
+        LDot = fopen(NewPath.c_str(), "w");
+        fprintf(LDot, "digraph G{\n");
+
+        fprintf(LDot, "subgraph clusterlist {\nstyle=filled;\ncolor=lightgrey;\n");
+        fprintf(LDot, "Model [shape=record,style=\"filled\",fillcolor=\"gold2\",label=\"{<%d> ElemPointer:\\n%d | {PhysPosition\\n:%d | Data:\\n%d | Next:\\n%d}}", NowPos, NowPos + next, NowPos, *(data + NowPos), *(next + NowPos));
+        while(NowPos < LSize)
+            {
+            fprintf(LDot, "| {<%d> ElemPointer:\\n%d | {PhysPosition\\n:%d | Data:\\n%d | Next:\\n%d}}", NowPos, NowPos + next, NowPos, *(data + NowPos), *(next + NowPos));
+            ++NowPos;
+            }
+        fprintf(LDot, "\"];\n");
+        NowElem = head;
+        while(*NowElem != -3)
+            {
+            fprintf(LDot, "Model:<%d>->Model:<%d>[color=\"green\"];\n", NowElem - next, *NowElem);
+            NowElem = *NowElem + next;
+            }
+        NowElem = LFree;
+        while(*NowElem != -2)
+            {
+            fprintf(LDot, "Model:<%d>->Model:<%d>[color=\"blue\"];\n", NowElem - next, *NowElem);
+            NowElem = *NowElem + next;
+            }
+        fprintf(LDot, "label = \"List with name: %s\"}\n", LName.c_str());
+
+        fprintf(LDot, "}\n");
+        fclose(LDot);
+
+
+        std::string DotDoPhys;
+        DotDoPhys += DotPath;
+        DotDoPhys += " -Tpng ";
+        DotDoPhys += NewPath;
+        DotDoPhys += " -o ";
+        NewPath.erase(NewPath.rfind(".dot"));
+        DotDoPhys += NewPath;
+        DotDoPhys += ".png";
+        std::system(DotDoPhys.c_str());
+
         if(err == 9) // debug start of dump
             {
-            NewPath.replace(NewPath.rfind("LMems"), 5, "debug");
+            NewPath.replace(NewPath.rfind("PhysModel"), 9, "debug");
             } else
             {
             std::string CritStr = "crit_err_";
             char ErrStr[17];
             itoa(err, ErrStr, 10);
             CritStr += ErrStr;
-            NewPath.replace(NewPath.rfind("LMems"), 5, CritStr);
+            NewPath.replace(NewPath.rfind("PhysModel"), 9, CritStr);
             }
         NewPath += ".dot";
 
@@ -654,8 +700,8 @@ bool MList_t::SortList()
         fprintf(LDot, "digraph G{\n");
 
         fprintf(LDot, "subgraph clustermem {\nstyle=filled;\ncolor=powderblue;\n");
-        int NowPos = 0;
-        int* NowElem = LFree;
+        NowPos = 0;
+        NowElem = LFree;
         fprintf(LDot, "f%d [shape=record, label=\"FreePointer:\\n%d | {Position\\n:%d | Data:\\n%d | Next:\\n%d}\",style=\"filled\",fillcolor=\"gold4\"];\n", NowPos, NowElem, NowPos, *(data + (NowElem - next)), *NowElem);
         if(*NowElem != -2)
             {
