@@ -312,7 +312,6 @@ bool MList_t::InsertAfter(ListElem_t PushingElem, int RawPos)
                     *(TmpArr2 + i) = *(next + i - LSize/2);
                     }
                 }
-            printf("vot nash tail free: %d", TmpLFreeTail + (LSize/2));
             *(TmpArr2 + TmpLFreeTail + (LSize/2)) = 0;
             for(int i = 1; i < (LSize/2); ++i)
                 {

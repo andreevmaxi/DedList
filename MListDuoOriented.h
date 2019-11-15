@@ -319,7 +319,6 @@ bool MDList_t::InsertAfter(ListElem_t PushingElem, int RawPos)
                     *(TmpArr2 + i) = *(next + i - LSize/2);
                     }
                 }
-            printf("vot nash tail free: %d", TmpLFreeTail + (LSize/2));
             *(TmpArr2 + TmpLFreeTail + (LSize/2)) = 0;
             for(int i = 1; i < (LSize/2); ++i)
                 {
@@ -328,6 +327,26 @@ bool MDList_t::InsertAfter(ListElem_t PushingElem, int RawPos)
             *(TmpArr2 + (LSize/2) - 1) = - 2;
             free(next);
             next = TmpArr2;
+
+            int* TmpArr3 = (int*) calloc(LSize, sizeof(int));
+            for(int i = (LSize/2); i < LSize; ++i)
+                {
+                if(*(next + i - LSize/2) != -1)
+                    {
+                    *(TmpArr2 + i) = *(next + i - LSize/2) + (LSize/2);
+                    } else
+                    {
+                    *(TmpArr2 + i) = *(next + i - LSize/2);
+                    }
+                }
+            *(TmpArr2 + TmpLFreeTail + (LSize/2)) = 0;
+            for(int i = 1; i < (LSize/2); ++i)
+                {
+                *(TmpArr2 + i - 1) = i;
+                }
+            *(TmpArr2 + (LSize/2) - 1) = - 2;
+            free(prev);
+
             head = next + TmpHead + (LSize/2);
             tail = next + TmpTail + (LSize/2);
             LFree = next + TmpFree + (LSize/2);
