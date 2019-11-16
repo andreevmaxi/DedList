@@ -71,6 +71,14 @@ struct MDList_t
 
     bool DeleteElem(int Pos);
 
+    bool InsertElemRaw(ListElem_t PushingElem, int Pos);
+
+    bool InsertBeforeRaw(ListElem_t PushingElem, int Pos);
+
+    bool InsertElem(ListElem_t PushingElem, int Pos);
+
+    bool InsertBefore(ListElem_t PushingElem, int Pos);
+
     DEB(bool Verify());
 
     DEB(void LDUMP(int err));
@@ -754,6 +762,7 @@ bool MDList_t::InsertAfterRaw(ListElem_t PushingElem, int Pos)
 
     if(Pos + next == tail)
         {
+        printf("Ti daun");
         MDList_t::PushBack(PushingElem);
         return 1;
         }
@@ -990,5 +999,19 @@ bool MDList_t::DeleteElem(int Pos)
         }
 
     MDList_t::DeleteElemRaw(NowElem - next);
+    return 1;
+    }
+
+bool MDList_t::InsertElemRaw(ListElem_t PushingElem, int Pos)
+    {
+    DEB(MDList_t::Verify());
+    MDList_t::InsertAfterRaw(PushingElem, *(prev + Pos));
+    return 1;
+    }
+
+bool MDList_t::InsertBeforeRaw(ListElem_t PushingElem, int Pos)
+    {
+    DEB(MDList_t::Verify());
+    MDList_t::InsertElemRaw(PushingElem, *(prev + Pos));
     return 1;
     }
