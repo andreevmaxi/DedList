@@ -106,7 +106,8 @@ int main()
     test.DeleteAfter(5);
     test.LDUMP(9);      //10
 
-    test.InsertElem(30, 5);
+    test.InsertElem(300, 5);
+    test.InsertBefore(300, 5);
     test.LDUMP(9); //11
     return 0;
     }

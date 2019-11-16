@@ -1015,3 +1015,67 @@ bool MDList_t::InsertBeforeRaw(ListElem_t PushingElem, int Pos)
     MDList_t::InsertElemRaw(PushingElem, *(prev + Pos));
     return 1;
     }
+
+bool MDList_t::InsertElem(ListElem_t PushingElem, int RawPos)
+    {
+    DEB(MDList_t::Verify());
+    int Pos;
+    if(RawPos == -1)
+        {
+        Pos = -1;
+        } else
+        {
+        if(sorted == 1)
+            {
+            Pos = head - next + RawPos;
+            if(Pos > tail - next)
+                {
+                Pos = tail - next;
+                }
+            } else
+            {
+            int TmpP = 0;
+            int* NowElem = head;
+            while (TmpP != RawPos && *NowElem != -3)
+                {
+                NowElem = next + (*NowElem);
+                ++TmpP;
+                }
+            Pos = NowElem - next;
+            }
+        }
+    MDList_t::InsertElemRaw(PushingElem, Pos);
+    return 1;
+    }
+
+bool MDList_t::InsertBefore(ListElem_t PushingElem, int RawPos)
+    {
+    DEB(MDList_t::Verify());
+    int Pos;
+    if(RawPos == -1)
+        {
+        Pos = -1;
+        } else
+        {
+        if(sorted == 1)
+            {
+            Pos = head - next + RawPos;
+            if(Pos > tail - next)
+                {
+                Pos = tail - next;
+                }
+            } else
+            {
+            int TmpP = 0;
+            int* NowElem = head;
+            while (TmpP != RawPos && *NowElem != -3)
+                {
+                NowElem = next + (*NowElem);
+                ++TmpP;
+                }
+            Pos = NowElem - next;
+            }
+        }
+    MDList_t::InsertBeforeRaw(PushingElem, Pos);
+    return 1;
+    }
