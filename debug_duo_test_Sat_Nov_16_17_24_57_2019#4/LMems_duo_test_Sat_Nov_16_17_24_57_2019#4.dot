@@ -1,0 +1,20 @@
+digraph G{
+data [shape=record,label="{Memory of list: test} | {{DataPointer:\n3019160 | Data:\n10 | NextPointer:\n3019232 | Next:\n1 | PhysPos:\n0 | Prev:\n-1}
+| {DataPointer:\n3019164 | Data:\n50 | NextPointer:\n3019236 | Next:\n2 | PhysPos:\n1 | Prev:\n0}
+| {DataPointer:\n3019168 | Data:\n20 | NextPointer:\n3019240 | Next:\n3 | PhysPos:\n2 | Prev:\n1}
+| {DataPointer:\n3019172 | Data:\n30 | NextPointer:\n3019244 | Next:\n4 | PhysPos:\n3 | Prev:\n2}
+| {DataPointer:\n3019176 | Data:\n40 | NextPointer:\n3019248 | Next:\n5 | PhysPos:\n4 | Prev:\n3}
+| {DataPointer:\n3019180 | Data:\n50 | NextPointer:\n3019252 | Next:\n6 | PhysPos:\n5 | Prev:\n4}
+| {DataPointer:\n3019184 | Data:\n10 | NextPointer:\n3019256 | Next:\n7 | PhysPos:\n6 | Prev:\n5}
+| {DataPointer:\n3019188 | Data:\n20 | NextPointer:\n3019260 | Next:\n8 | PhysPos:\n7 | Prev:\n6}
+| {DataPointer:\n3019192 | Data:\n30 | NextPointer:\n3019264 | Next:\n9 | PhysPos:\n8 | Prev:\n7}
+| {DataPointer:\n3019196 | Data:\n40 | NextPointer:\n3019268 | Next:\n10 | PhysPos:\n9 | Prev:\n8}
+| {DataPointer:\n3019200 | Data:\n10 | NextPointer:\n3019272 | Next:\n11 | PhysPos:\n10 | Prev:\n9}
+| {DataPointer:\n3019204 | Data:\n20 | NextPointer:\n3019276 | Next:\n12 | PhysPos:\n11 | Prev:\n10}
+| {DataPointer:\n3019208 | Data:\n30 | NextPointer:\n3019280 | Next:\n13 | PhysPos:\n12 | Prev:\n11}
+| {DataPointer:\n3019212 | Data:\n0 | NextPointer:\n3019284 | Next:\n-3 | PhysPos:\n13 | Prev:\n12}
+| {DataPointer:\n3019216 | Data:\n0 | NextPointer:\n3019288 | Next:\n-2 | PhysPos:\n14 | Prev:\n-1}
+}"];
+Shild [shape=record,label="{ RCanary:\n421075226 | LCanary:\n421075226  | NormalCanary:\n421075226 | Sorted:\n1 } | { head:\n3019232 | tail:\n3019284 | LFree:\n3019288 | LFreeTail:\n3019288} | { *head:\n1 | *tail:\n-3 | *LFree:\n-2 | *LFreeTail:\n-2}"];
+Shild->data
+}

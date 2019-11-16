@@ -906,6 +906,7 @@ bool MDList_t::DeleteBefore(int Pos)
         ++NowPos;
         NowElem = prev + *NowElem;
         }
+    NowElem = prev + (tail - next);
     if(sorted == 0)
         {
         while (NowPos != Pos && *NowElem != -1)
@@ -918,6 +919,7 @@ bool MDList_t::DeleteBefore(int Pos)
         {
         NowPos = (head - next) + Pos;
         }
-    MDList_t::DeleteBeforeRaw(NowPos);
+    printf("LAstNowPos: %d\n", NowElem - prev);
+    MDList_t::DeleteBeforeRaw(NowElem - prev);
     return 1;
     }

@@ -657,7 +657,7 @@ bool MDList_t::SortList()
         fprintf(LDot, "subgraph clustermem {\nstyle=filled;\ncolor=powderblue;\n");
         NowPos = 0;
         NowElem = LFree;
-        fprintf(LDot, "f%d [shape=record, label=\"FreePointer:\\n%d | {Position\\n:%d | Data:\\n%d | Next:\\n%d | Prev:\\n%d}\",style=\"filled\",fillcolor=\"gold4\"];\n", NowPos, NowElem, NowPos, *(data + (NowElem - next)), *NowElem, *(prev + (NowElem - next)));
+        fprintf(LDot, "f%d [shape=record, label=\"{FreePointer:\\n%d | PhysPos:\\n%d } | {Position\\n:%d | Data:\\n%d | Next:\\n%d | Prev:\\n%d}\",style=\"filled\",fillcolor=\"gold4\"];\n", NowPos, NowElem, (NowElem - next), NowPos, *(data + (NowElem - next)), *NowElem, *(prev + (NowElem - next)));
         if(*NowElem != -2)
             {
             fprintf(LDot, "f%d->f%d\n", NowPos, (NowPos + 1));
@@ -666,12 +666,12 @@ bool MDList_t::SortList()
             }
         while(*NowElem != -2 && NowPos < LSize)
             {
-            fprintf(LDot, "f%d [shape=record, label=\"FreePointer:\\n%d | {Position\\n:%d | Data:\\n%d | Next:\\n%d}\",style=\"filled\",fillcolor=\"green4\"];\n", NowPos, NowElem, NowPos, *(data + (NowElem - next)), *NowElem);
+            fprintf(LDot, "f%d [shape=record, label=\"{FreePointer:\\n%d | PhysPos:\\n%d } | {Position\\n:%d | Data:\\n%d | Next:\\n%d}\",style=\"filled\",fillcolor=\"green4\"];\n", NowPos, NowElem, (NowElem - next), NowPos, *(data + (NowElem - next)), *NowElem);
             fprintf(LDot, "f%d->f%d\n", NowPos, (NowPos + 1));
             NowElem = *NowElem + next;
             ++NowPos;
             }
-        fprintf(LDot, "f%d [shape=record, label=\"FreePointer:\\n%d | {Position\\n:%d | Data:\\n%d | Next:\\n%d}\",style=\"filled\",fillcolor=\"slateblue4\"];\n", NowPos, NowElem, NowPos, *(data + (NowElem - next)), *NowElem);
+        fprintf(LDot, "f%d [shape=record, label=\"{FreePointer:\\n%d | PhysPos:\\n%d } | {Position\\n:%d | Data:\\n%d | Next:\\n%d}\",style=\"filled\",fillcolor=\"slateblue4\"];\n", NowPos, NowElem, (NowElem - next), NowPos, *(data + (NowElem - next)), *NowElem);
 
 
         fprintf(LDot, "label = \"Free memory of list: %s\"}\n", LName.c_str());
@@ -681,7 +681,7 @@ bool MDList_t::SortList()
         NowPos = 0;
         fprintf(LDot, "rankdir=LR;\n");
         fprintf(LDot, "subgraph clusterlist {\nstyle=filled;\ncolor=lightgrey;\n");
-        fprintf(LDot, "%d [shape=record, label=\"ElemPointer:\\n%d | {Position\\n:%d | Data:\\n%d | Next:\\n%d | Prev:\\n%d}\",style=\"filled\",fillcolor=\"gold2\"];\n", NowPos, NowElem, NowPos, *(data + (NowElem - next)), *NowElem, *(prev + (NowElem - next)));
+        fprintf(LDot, "%d [shape=record, label=\"{ElemPointer:\\n%d | PhysPos:\\n%d } | {Position\\n:%d | Data:\\n%d | Next:\\n%d | Prev:\\n%d}\",style=\"filled\",fillcolor=\"gold2\"];\n", NowPos, NowElem, (NowElem - next), NowPos, *(data + (NowElem - next)), *NowElem, *(prev + (NowElem - next)));
         if(*NowElem != -3)
             {
             if( (NowElem - next) == *(prev + *NowElem) )
@@ -696,7 +696,7 @@ bool MDList_t::SortList()
             }
         while(*NowElem != -3 && NowPos < LSize)
             {
-            fprintf(LDot, "%d [shape=record, label=\"ElemPointer:\\n%d | {Position\\n:%d | Data:\\n%d | Next:\\n%d | Prev:\\n%d}\",style=\"filled\",fillcolor=\"lawngreen\"];\n", NowPos, NowElem, NowPos, *(data + (NowElem - next)), *NowElem, *(prev + (NowElem - next)));
+            fprintf(LDot, "%d [shape=record, label=\"{ElemPointer:\\n%d | PhysPos:\\n%d }  | {Position\\n:%d | Data:\\n%d | Next:\\n%d | Prev:\\n%d}\",style=\"filled\",fillcolor=\"lawngreen\"];\n", NowPos, NowElem, (NowElem - next), NowPos, *(data + (NowElem - next)), *NowElem, *(prev + (NowElem - next)));
             if( (NowElem - next) == *(prev + *NowElem) )
                 {
                 fprintf(LDot, "%d->%d[dir=\"both\";style=\"bold\"];\n", NowPos, (NowPos + 1));
@@ -707,7 +707,7 @@ bool MDList_t::SortList()
             NowElem = *NowElem + next;
             ++NowPos;
             }
-        fprintf(LDot, "%d [shape=record, label=\"ElemPointer:\\n%d | {Position\\n:%d | Data:\\n%d | Next:\\n%d | Prev:\\n%d}\",style=\"filled\",fillcolor=\"royalblue1\"];\n", NowPos, NowElem, NowPos, *(data + (NowElem - next)), *NowElem, *(prev + (NowElem - next)));
+        fprintf(LDot, "%d [shape=record, label=\"{ElemPointer:\\n%d | PhysPos:\\n%d }  | {Position\\n:%d | Data:\\n%d | Next:\\n%d | Prev:\\n%d}\",style=\"filled\",fillcolor=\"royalblue1\"];\n", NowPos, NowElem, (NowElem - next), NowPos, *(data + (NowElem - next)), *NowElem, *(prev + (NowElem - next)));
         fprintf(LDot, "label = \"List with name: %s\"}\n", LName.c_str());
 
         fprintf(LDot, "}\n");
@@ -901,18 +901,24 @@ bool MDList_t::DeleteBefore(int Pos)
         {
         NowPos = 0;   //tyt drug chislo
         }
+    while(*NowElem != -1)
+        {
+        ++NowPos;
+        NowElem = prev + *NowElem;
+        }
     if(sorted == 0)
-        
+        {
         while (NowPos != Pos && *NowElem != -1)
             {
             NowElem = prev + (*NowElem);
-            ++NowPos;
+            --NowPos;
             printf("NowPos: %d\n", NowElem - prev);
             }
-            }else
+        }else
         {
         NowPos = (head - next) + Pos;
         }
+    
     MDList_t::DeleteBeforeRaw(NowPos);
     return 1;
     }
