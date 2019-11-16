@@ -1,0 +1,36 @@
+digraph G{
+subgraph clusterlist {
+style=filled;
+color=lightgrey;
+rankdir=LR;
+Model [shape=record,style="filled",fillcolor="mediumpurple",label="{{<0>} | {ElemPointer:\n5836816 | {PhysPosition\n:0 | Data:\n10 | Next:\n1 | Prev:\n-1}}}| {{<1>} | {ElemPointer:\n5836820 | {PhysPosition\n:1 | Data:\n50 | Next:\n2 | Prev:\n0}}}| {{<2>} | {ElemPointer:\n5836824 | {PhysPosition\n:2 | Data:\n20 | Next:\n3 | Prev:\n1}}}| {{<3>} | {ElemPointer:\n5836828 | {PhysPosition\n:3 | Data:\n30 | Next:\n4 | Prev:\n2}}}| {{<4>} | {ElemPointer:\n5836832 | {PhysPosition\n:4 | Data:\n40 | Next:\n5 | Prev:\n3}}}| {{<5>} | {ElemPointer:\n5836836 | {PhysPosition\n:5 | Data:\n50 | Next:\n6 | Prev:\n4}}}| {{<6>} | {ElemPointer:\n5836840 | {PhysPosition\n:6 | Data:\n10 | Next:\n7 | Prev:\n5}}}| {{<7>} | {ElemPointer:\n5836844 | {PhysPosition\n:7 | Data:\n20 | Next:\n8 | Prev:\n6}}}| {{<8>} | {ElemPointer:\n5836848 | {PhysPosition\n:8 | Data:\n30 | Next:\n9 | Prev:\n7}}}| {{<9>} | {ElemPointer:\n5836852 | {PhysPosition\n:9 | Data:\n40 | Next:\n10 | Prev:\n8}}}| {{<10>} | {ElemPointer:\n5836856 | {PhysPosition\n:10 | Data:\n10 | Next:\n11 | Prev:\n9}}}| {{<11>} | {ElemPointer:\n5836860 | {PhysPosition\n:11 | Data:\n20 | Next:\n12 | Prev:\n10}}}| {{<12>} | {ElemPointer:\n5836864 | {PhysPosition\n:12 | Data:\n30 | Next:\n13 | Prev:\n11}}}| {{<13>} | {ElemPointer:\n5836868 | {PhysPosition\n:13 | Data:\n40 | Next:\n14 | Prev:\n12}}}| {{<14>} | {ElemPointer:\n5836872 | {PhysPosition\n:14 | Data:\n0 | Next:\n-3 | Prev:\n13}}}| {{<15>} | {ElemPointer:\n5836876 | {PhysPosition\n:15 | Data:\n1702128489 | Next:\n16 | Prev:\n-1}}}| {{<16>} | {ElemPointer:\n5836880 | {PhysPosition\n:16 | Data:\n150994953 | Next:\n17 | Prev:\n-1}}}| {{<17>} | {ElemPointer:\n5836884 | {PhysPosition\n:17 | Data:\n4587 | Next:\n18 | Prev:\n-1}}}| {{<18>} | {ElemPointer:\n5836888 | {PhysPosition\n:18 | Data:\n5836944 | Next:\n19 | Prev:\n-1}}}| {{<19>} | {ElemPointer:\n5836892 | {PhysPosition\n:19 | Data:\n5837080 | Next:\n20 | Prev:\n-1}}}| {{<20>} | {ElemPointer:\n5836896 | {PhysPosition\n:20 | Data:\n3 | Next:\n21 | Prev:\n-1}}}| {{<21>} | {ElemPointer:\n5836900 | {PhysPosition\n:21 | Data:\n4 | Next:\n22 | Prev:\n-1}}}| {{<22>} | {ElemPointer:\n5836904 | {PhysPosition\n:22 | Data:\n5 | Next:\n23 | Prev:\n-1}}}| {{<23>} | {ElemPointer:\n5836908 | {PhysPosition\n:23 | Data:\n6 | Next:\n24 | Prev:\n-1}}}| {{<24>} | {ElemPointer:\n5836912 | {PhysPosition\n:24 | Data:\n7 | Next:\n25 | Prev:\n-1}}}| {{<25>} | {ElemPointer:\n5836916 | {PhysPosition\n:25 | Data:\n8 | Next:\n26 | Prev:\n-1}}}| {{<26>} | {ElemPointer:\n5836920 | {PhysPosition\n:26 | Data:\n9 | Next:\n27 | Prev:\n-1}}}| {{<27>} | {ElemPointer:\n5836924 | {PhysPosition\n:27 | Data:\n10 | Next:\n28 | Prev:\n-1}}}| {{<28>} | {ElemPointer:\n5836928 | {PhysPosition\n:28 | Data:\n11 | Next:\n29 | Prev:\n-1}}}| {{<29>} | {ElemPointer:\n5836932 | {PhysPosition\n:29 | Data:\n12 | Next:\n-2 | Prev:\n-1}}}"];
+Model:<0>->Model:<1>[color="green";style="bold";dir="both"];
+Model:<1>->Model:<2>[color="green";style="bold";dir="both"];
+Model:<2>->Model:<3>[color="green";style="bold";dir="both"];
+Model:<3>->Model:<4>[color="green";style="bold";dir="both"];
+Model:<4>->Model:<5>[color="green";style="bold";dir="both"];
+Model:<5>->Model:<6>[color="green";style="bold";dir="both"];
+Model:<6>->Model:<7>[color="green";style="bold";dir="both"];
+Model:<7>->Model:<8>[color="green";style="bold";dir="both"];
+Model:<8>->Model:<9>[color="green";style="bold";dir="both"];
+Model:<9>->Model:<10>[color="green";style="bold";dir="both"];
+Model:<10>->Model:<11>[color="green";style="bold";dir="both"];
+Model:<11>->Model:<12>[color="green";style="bold";dir="both"];
+Model:<12>->Model:<13>[color="green";style="bold";dir="both"];
+Model:<13>->Model:<14>[color="green";style="bold";dir="both"];
+Model:<15>->Model:<16>[color="blue";style="bold"];
+Model:<16>->Model:<17>[color="blue";style="bold"];
+Model:<17>->Model:<18>[color="blue";style="bold"];
+Model:<18>->Model:<19>[color="blue";style="bold"];
+Model:<19>->Model:<20>[color="blue";style="bold"];
+Model:<20>->Model:<21>[color="blue";style="bold"];
+Model:<21>->Model:<22>[color="blue";style="bold"];
+Model:<22>->Model:<23>[color="blue";style="bold"];
+Model:<23>->Model:<24>[color="blue";style="bold"];
+Model:<24>->Model:<25>[color="blue";style="bold"];
+Model:<25>->Model:<26>[color="blue";style="bold"];
+Model:<26>->Model:<27>[color="blue";style="bold"];
+Model:<27>->Model:<28>[color="blue";style="bold"];
+Model:<28>->Model:<29>[color="blue";style="bold"];
+label = "List with name: test"}
+}

@@ -99,9 +99,12 @@ int main()
         }
     test.LDUMP(9);             //7
     test.DeleteBefore(3);
-
-    test.LDUMP(9);       //8
     test.DeleteBefore(4);
-    test.LDUMP(9);       //9
+    test.LDUMP(9);       //8
+    test.DeleteElem(6);
+    test.LDUMP(9);      //9
+    test.DeleteAfter(5);
+
+    test.LDUMP(9);      //10
     return 0;
     }

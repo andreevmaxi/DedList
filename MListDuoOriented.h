@@ -67,6 +67,10 @@ struct MDList_t
 
     bool DeleteBefore(int Pos);
 
+    bool DeleteElemRaw(int Pos);
+
+    bool DeleteElem(int Pos);
+
     DEB(bool Verify());
 
     DEB(void LDUMP(int err));
@@ -300,13 +304,16 @@ bool MDList_t::DeleteAfter(int Pos)
     DEB(MDList_t::Verify());
     int NowPos = -1;
     int* NowElem = head;
-    while (NowPos != Pos && *NowElem != -3)
+    if(NowPos != Pos)
+    {
+        ++NowPos;
+        while (NowPos != Pos && *NowElem != -3)
         {
         NowElem = next + (*NowElem);
         ++NowPos;
         }
-
-    MDList_t::DeleteAfterRaw(NowPos);
+    }
+    MDList_t::DeleteAfterRaw(NowElem - next);
     return 1;
     }
 
@@ -942,10 +949,10 @@ bool MDList_t::DeleteElemRaw(int Pos)
     DEB(MDList_t::Verify());
 
     int* DeletingElem = 0;
+    DeletingElem = next + Pos;
 
     if(*(prev + Pos) == -1)
         {
-        DeletingElem = next + Pos;
         head = next + *DeletingElem;
         *(prev + *DeletingElem) = *(prev + Pos);
         *LFreeTail = Pos;
@@ -953,13 +960,35 @@ bool MDList_t::DeleteElemRaw(int Pos)
         LFreeTail = DeletingElem;
         return 1;
         }
-    DeletingElem = next + Pos;
+    if(*DeletingElem == -3)
+        {
+        tail = next + *(prev + Pos);
+        *(next + *(prev + Pos)) = *DeletingElem;
+        *LFreeTail = Pos;
+        *DeletingElem = -2;
+        LFreeTail = DeletingElem;
+        return 1;
+        }
     *(prev + *DeletingElem) = *(prev + Pos);
     *(next + *(prev + Pos)) = *DeletingElem;
     *(prev + Pos) = -1;
     *LFreeTail = Pos;
     *DeletingElem = -2;
     LFreeTail = DeletingElem;
+    return 1;
+    }
 
+bool MDList_t::DeleteElem(int Pos)
+    {
+    DEB(MDList_t::Verify());
+    int NowPos = 0;
+    int* NowElem = head;
+    while (NowPos != Pos && *NowElem != -3)
+        {
+        NowElem = next + (*NowElem);
+        ++NowPos;
+        }
+
+    MDList_t::DeleteElemRaw(NowElem - next);
     return 1;
     }

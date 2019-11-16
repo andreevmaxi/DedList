@@ -1,0 +1,129 @@
+digraph G{
+subgraph clustermem {
+style=filled;
+color=powderblue;
+f0 [shape=record, label="{FreePointer:\n5837912 | PhysPos:\n46 } | {Position\n:0 | Data:\n150994953 | Next:\n47 | Prev:\n-1}",style="filled",fillcolor="gold4"];
+f0->f1
+f1 [shape=record, label="{FreePointer:\n5837916 | PhysPos:\n47 } | {Position\n:1 | Data:\n4587 | Next:\n48}",style="filled",fillcolor="green4"];
+f1->f2
+f2 [shape=record, label="{FreePointer:\n5837920 | PhysPos:\n48 } | {Position\n:2 | Data:\n5836944 | Next:\n49}",style="filled",fillcolor="green4"];
+f2->f3
+f3 [shape=record, label="{FreePointer:\n5837924 | PhysPos:\n49 } | {Position\n:3 | Data:\n5837080 | Next:\n50}",style="filled",fillcolor="green4"];
+f3->f4
+f4 [shape=record, label="{FreePointer:\n5837928 | PhysPos:\n50 } | {Position\n:4 | Data:\n3 | Next:\n51}",style="filled",fillcolor="green4"];
+f4->f5
+f5 [shape=record, label="{FreePointer:\n5837932 | PhysPos:\n51 } | {Position\n:5 | Data:\n4 | Next:\n52}",style="filled",fillcolor="green4"];
+f5->f6
+f6 [shape=record, label="{FreePointer:\n5837936 | PhysPos:\n52 } | {Position\n:6 | Data:\n5 | Next:\n53}",style="filled",fillcolor="green4"];
+f6->f7
+f7 [shape=record, label="{FreePointer:\n5837940 | PhysPos:\n53 } | {Position\n:7 | Data:\n6 | Next:\n54}",style="filled",fillcolor="green4"];
+f7->f8
+f8 [shape=record, label="{FreePointer:\n5837944 | PhysPos:\n54 } | {Position\n:8 | Data:\n7 | Next:\n55}",style="filled",fillcolor="green4"];
+f8->f9
+f9 [shape=record, label="{FreePointer:\n5837948 | PhysPos:\n55 } | {Position\n:9 | Data:\n8 | Next:\n56}",style="filled",fillcolor="green4"];
+f9->f10
+f10 [shape=record, label="{FreePointer:\n5837952 | PhysPos:\n56 } | {Position\n:10 | Data:\n9 | Next:\n57}",style="filled",fillcolor="green4"];
+f10->f11
+f11 [shape=record, label="{FreePointer:\n5837956 | PhysPos:\n57 } | {Position\n:11 | Data:\n10 | Next:\n58}",style="filled",fillcolor="green4"];
+f11->f12
+f12 [shape=record, label="{FreePointer:\n5837960 | PhysPos:\n58 } | {Position\n:12 | Data:\n11 | Next:\n59}",style="filled",fillcolor="green4"];
+f12->f13
+f13 [shape=record, label="{FreePointer:\n5837964 | PhysPos:\n59 } | {Position\n:13 | Data:\n12 | Next:\n0}",style="filled",fillcolor="green4"];
+f13->f14
+f14 [shape=record, label="{FreePointer:\n5837728 | PhysPos:\n0 } | {Position\n:14 | Data:\n0 | Next:\n1}",style="filled",fillcolor="green4"];
+f14->f15
+f15 [shape=record, label="{FreePointer:\n5837732 | PhysPos:\n1 } | {Position\n:15 | Data:\n0 | Next:\n2}",style="filled",fillcolor="green4"];
+f15->f16
+f16 [shape=record, label="{FreePointer:\n5837736 | PhysPos:\n2 } | {Position\n:16 | Data:\n0 | Next:\n3}",style="filled",fillcolor="green4"];
+f16->f17
+f17 [shape=record, label="{FreePointer:\n5837740 | PhysPos:\n3 } | {Position\n:17 | Data:\n0 | Next:\n4}",style="filled",fillcolor="green4"];
+f17->f18
+f18 [shape=record, label="{FreePointer:\n5837744 | PhysPos:\n4 } | {Position\n:18 | Data:\n0 | Next:\n5}",style="filled",fillcolor="green4"];
+f18->f19
+f19 [shape=record, label="{FreePointer:\n5837748 | PhysPos:\n5 } | {Position\n:19 | Data:\n0 | Next:\n6}",style="filled",fillcolor="green4"];
+f19->f20
+f20 [shape=record, label="{FreePointer:\n5837752 | PhysPos:\n6 } | {Position\n:20 | Data:\n0 | Next:\n7}",style="filled",fillcolor="green4"];
+f20->f21
+f21 [shape=record, label="{FreePointer:\n5837756 | PhysPos:\n7 } | {Position\n:21 | Data:\n0 | Next:\n8}",style="filled",fillcolor="green4"];
+f21->f22
+f22 [shape=record, label="{FreePointer:\n5837760 | PhysPos:\n8 } | {Position\n:22 | Data:\n0 | Next:\n9}",style="filled",fillcolor="green4"];
+f22->f23
+f23 [shape=record, label="{FreePointer:\n5837764 | PhysPos:\n9 } | {Position\n:23 | Data:\n0 | Next:\n10}",style="filled",fillcolor="green4"];
+f23->f24
+f24 [shape=record, label="{FreePointer:\n5837768 | PhysPos:\n10 } | {Position\n:24 | Data:\n0 | Next:\n11}",style="filled",fillcolor="green4"];
+f24->f25
+f25 [shape=record, label="{FreePointer:\n5837772 | PhysPos:\n11 } | {Position\n:25 | Data:\n0 | Next:\n12}",style="filled",fillcolor="green4"];
+f25->f26
+f26 [shape=record, label="{FreePointer:\n5837776 | PhysPos:\n12 } | {Position\n:26 | Data:\n0 | Next:\n13}",style="filled",fillcolor="green4"];
+f26->f27
+f27 [shape=record, label="{FreePointer:\n5837780 | PhysPos:\n13 } | {Position\n:27 | Data:\n0 | Next:\n14}",style="filled",fillcolor="green4"];
+f27->f28
+f28 [shape=record, label="{FreePointer:\n5837784 | PhysPos:\n14 } | {Position\n:28 | Data:\n0 | Next:\n15}",style="filled",fillcolor="green4"];
+f28->f29
+f29 [shape=record, label="{FreePointer:\n5837788 | PhysPos:\n15 } | {Position\n:29 | Data:\n0 | Next:\n16}",style="filled",fillcolor="green4"];
+f29->f30
+f30 [shape=record, label="{FreePointer:\n5837792 | PhysPos:\n16 } | {Position\n:30 | Data:\n0 | Next:\n17}",style="filled",fillcolor="green4"];
+f30->f31
+f31 [shape=record, label="{FreePointer:\n5837796 | PhysPos:\n17 } | {Position\n:31 | Data:\n0 | Next:\n18}",style="filled",fillcolor="green4"];
+f31->f32
+f32 [shape=record, label="{FreePointer:\n5837800 | PhysPos:\n18 } | {Position\n:32 | Data:\n0 | Next:\n19}",style="filled",fillcolor="green4"];
+f32->f33
+f33 [shape=record, label="{FreePointer:\n5837804 | PhysPos:\n19 } | {Position\n:33 | Data:\n0 | Next:\n20}",style="filled",fillcolor="green4"];
+f33->f34
+f34 [shape=record, label="{FreePointer:\n5837808 | PhysPos:\n20 } | {Position\n:34 | Data:\n0 | Next:\n21}",style="filled",fillcolor="green4"];
+f34->f35
+f35 [shape=record, label="{FreePointer:\n5837812 | PhysPos:\n21 } | {Position\n:35 | Data:\n0 | Next:\n24}",style="filled",fillcolor="green4"];
+f35->f36
+f36 [shape=record, label="{FreePointer:\n5837824 | PhysPos:\n24 } | {Position\n:36 | Data:\n5 | Next:\n26}",style="filled",fillcolor="green4"];
+f36->f37
+f37 [shape=record, label="{FreePointer:\n5837832 | PhysPos:\n26 } | {Position\n:37 | Data:\n3 | Next:\n-2}",style="filled",fillcolor="slateblue4"];
+label = "Free memory of list: test"}
+rankdir=LR;
+subgraph clusterlist {
+style=filled;
+color=lightgrey;
+0 [shape=record, label="{ElemPointer:\n5837816 | PhysPos:\n22 } | {Position\n:0 | Data:\n7 | Next:\n23 | Prev:\n-1}",style="filled",fillcolor="gold2"];
+0->1[dir="both";style="bold"];
+1 [shape=record, label="{ElemPointer:\n5837820 | PhysPos:\n23 }  | {Position\n:1 | Data:\n6 | Next:\n25 | Prev:\n22}",style="filled",fillcolor="lawngreen"];
+1->2[dir="both";style="bold"];
+2 [shape=record, label="{ElemPointer:\n5837828 | PhysPos:\n25 }  | {Position\n:2 | Data:\n4 | Next:\n27 | Prev:\n23}",style="filled",fillcolor="lawngreen"];
+2->3[dir="both";style="bold"];
+3 [shape=record, label="{ElemPointer:\n5837836 | PhysPos:\n27 }  | {Position\n:3 | Data:\n2 | Next:\n28 | Prev:\n25}",style="filled",fillcolor="lawngreen"];
+3->4[dir="both";style="bold"];
+4 [shape=record, label="{ElemPointer:\n5837840 | PhysPos:\n28 }  | {Position\n:4 | Data:\n1 | Next:\n29 | Prev:\n27}",style="filled",fillcolor="lawngreen"];
+4->5[dir="both";style="bold"];
+5 [shape=record, label="{ElemPointer:\n5837844 | PhysPos:\n29 }  | {Position\n:5 | Data:\n0 | Next:\n30 | Prev:\n28}",style="filled",fillcolor="lawngreen"];
+5->6[dir="both";style="bold"];
+6 [shape=record, label="{ElemPointer:\n5837848 | PhysPos:\n30 }  | {Position\n:6 | Data:\n10 | Next:\n31 | Prev:\n29}",style="filled",fillcolor="lawngreen"];
+6->7[dir="both";style="bold"];
+7 [shape=record, label="{ElemPointer:\n5837852 | PhysPos:\n31 }  | {Position\n:7 | Data:\n50 | Next:\n32 | Prev:\n30}",style="filled",fillcolor="lawngreen"];
+7->8[dir="both";style="bold"];
+8 [shape=record, label="{ElemPointer:\n5837856 | PhysPos:\n32 }  | {Position\n:8 | Data:\n20 | Next:\n33 | Prev:\n31}",style="filled",fillcolor="lawngreen"];
+8->9[dir="both";style="bold"];
+9 [shape=record, label="{ElemPointer:\n5837860 | PhysPos:\n33 }  | {Position\n:9 | Data:\n30 | Next:\n34 | Prev:\n32}",style="filled",fillcolor="lawngreen"];
+9->10[dir="both";style="bold"];
+10 [shape=record, label="{ElemPointer:\n5837864 | PhysPos:\n34 }  | {Position\n:10 | Data:\n40 | Next:\n35 | Prev:\n33}",style="filled",fillcolor="lawngreen"];
+10->11[dir="both";style="bold"];
+11 [shape=record, label="{ElemPointer:\n5837868 | PhysPos:\n35 }  | {Position\n:11 | Data:\n50 | Next:\n36 | Prev:\n34}",style="filled",fillcolor="lawngreen"];
+11->12[dir="both";style="bold"];
+12 [shape=record, label="{ElemPointer:\n5837872 | PhysPos:\n36 }  | {Position\n:12 | Data:\n10 | Next:\n37 | Prev:\n35}",style="filled",fillcolor="lawngreen"];
+12->13[dir="both";style="bold"];
+13 [shape=record, label="{ElemPointer:\n5837876 | PhysPos:\n37 }  | {Position\n:13 | Data:\n20 | Next:\n38 | Prev:\n36}",style="filled",fillcolor="lawngreen"];
+13->14[dir="both";style="bold"];
+14 [shape=record, label="{ElemPointer:\n5837880 | PhysPos:\n38 }  | {Position\n:14 | Data:\n30 | Next:\n45 | Prev:\n37}",style="filled",fillcolor="lawngreen"];
+14->15[dir="both";style="bold"];
+15 [shape=record, label="{ElemPointer:\n5837908 | PhysPos:\n45 }  | {Position\n:15 | Data:\n100 | Next:\n39 | Prev:\n38}",style="filled",fillcolor="lawngreen"];
+15->16[dir="both";style="bold"];
+16 [shape=record, label="{ElemPointer:\n5837884 | PhysPos:\n39 }  | {Position\n:16 | Data:\n40 | Next:\n40 | Prev:\n45}",style="filled",fillcolor="lawngreen"];
+16->17[dir="both";style="bold"];
+17 [shape=record, label="{ElemPointer:\n5837888 | PhysPos:\n40 }  | {Position\n:17 | Data:\n10 | Next:\n41 | Prev:\n39}",style="filled",fillcolor="lawngreen"];
+17->18[dir="both";style="bold"];
+18 [shape=record, label="{ElemPointer:\n5837892 | PhysPos:\n41 }  | {Position\n:18 | Data:\n20 | Next:\n42 | Prev:\n40}",style="filled",fillcolor="lawngreen"];
+18->19[dir="both";style="bold"];
+19 [shape=record, label="{ElemPointer:\n5837896 | PhysPos:\n42 }  | {Position\n:19 | Data:\n30 | Next:\n43 | Prev:\n41}",style="filled",fillcolor="lawngreen"];
+19->20[dir="both";style="bold"];
+20 [shape=record, label="{ElemPointer:\n5837900 | PhysPos:\n43 }  | {Position\n:20 | Data:\n40 | Next:\n44 | Prev:\n42}",style="filled",fillcolor="lawngreen"];
+20->21[dir="both";style="bold"];
+21 [shape=record, label="{ElemPointer:\n5837904 | PhysPos:\n44 }  | {Position\n:21 | Data:\n0 | Next:\n-3 | Prev:\n43}",style="filled",fillcolor="royalblue1"];
+label = "List with name: test"}
+}
