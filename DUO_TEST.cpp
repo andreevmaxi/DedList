@@ -98,6 +98,10 @@ int main()
         printf("%d %d\n", *(test.data + i), *(test.next + i));
         }
     test.LDUMP(9);             //7
+    test.DeleteBefore(3);
 
+    test.LDUMP(9);       //8
+    test.DeleteBefore(4);
+    test.LDUMP(9);       //9
     return 0;
     }

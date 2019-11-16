@@ -1,0 +1,39 @@
+digraph G{
+subgraph clustermem {
+style=filled;
+color=powderblue;
+f0 [shape=record, label="{FreePointer:\n9703556 | PhysPos:\n11 } | {Position\n:0 | Data:\n0 | Next:\n12 | Prev:\n-1}",style="filled",fillcolor="gold4"];
+f0->f1
+f1 [shape=record, label="{FreePointer:\n9703560 | PhysPos:\n12 } | {Position\n:1 | Data:\n0 | Next:\n13}",style="filled",fillcolor="green4"];
+f1->f2
+f2 [shape=record, label="{FreePointer:\n9703564 | PhysPos:\n13 } | {Position\n:2 | Data:\n0 | Next:\n14}",style="filled",fillcolor="green4"];
+f2->f3
+f3 [shape=record, label="{FreePointer:\n9703568 | PhysPos:\n14 } | {Position\n:3 | Data:\n0 | Next:\n0}",style="filled",fillcolor="green4"];
+f3->f4
+f4 [shape=record, label="{FreePointer:\n9703512 | PhysPos:\n0 } | {Position\n:4 | Data:\n0 | Next:\n1}",style="filled",fillcolor="green4"];
+f4->f5
+f5 [shape=record, label="{FreePointer:\n9703516 | PhysPos:\n1 } | {Position\n:5 | Data:\n0 | Next:\n2}",style="filled",fillcolor="green4"];
+f5->f6
+f6 [shape=record, label="{FreePointer:\n9703520 | PhysPos:\n2 } | {Position\n:6 | Data:\n0 | Next:\n3}",style="filled",fillcolor="green4"];
+f6->f7
+f7 [shape=record, label="{FreePointer:\n9703524 | PhysPos:\n3 } | {Position\n:7 | Data:\n0 | Next:\n-2}",style="filled",fillcolor="slateblue4"];
+label = "Free memory of list: test"}
+rankdir=LR;
+subgraph clusterlist {
+style=filled;
+color=lightgrey;
+0 [shape=record, label="{ElemPointer:\n9703528 | PhysPos:\n4 } | {Position\n:0 | Data:\n10 | Next:\n9 | Prev:\n-1}",style="filled",fillcolor="gold2"];
+0->1[dir="both";style="bold"];
+1 [shape=record, label="{ElemPointer:\n9703548 | PhysPos:\n9 }  | {Position\n:1 | Data:\n50 | Next:\n5 | Prev:\n4}",style="filled",fillcolor="lawngreen"];
+1->2[dir="both";style="bold"];
+2 [shape=record, label="{ElemPointer:\n9703532 | PhysPos:\n5 }  | {Position\n:2 | Data:\n20 | Next:\n6 | Prev:\n9}",style="filled",fillcolor="lawngreen"];
+2->3[dir="both";style="bold"];
+3 [shape=record, label="{ElemPointer:\n9703536 | PhysPos:\n6 }  | {Position\n:3 | Data:\n30 | Next:\n7 | Prev:\n5}",style="filled",fillcolor="lawngreen"];
+3->4[dir="both";style="bold"];
+4 [shape=record, label="{ElemPointer:\n9703540 | PhysPos:\n7 }  | {Position\n:4 | Data:\n40 | Next:\n8 | Prev:\n6}",style="filled",fillcolor="lawngreen"];
+4->5[dir="both";style="bold"];
+5 [shape=record, label="{ElemPointer:\n9703544 | PhysPos:\n8 }  | {Position\n:5 | Data:\n50 | Next:\n10 | Prev:\n7}",style="filled",fillcolor="lawngreen"];
+5->6[dir="both";style="bold"];
+6 [shape=record, label="{ElemPointer:\n9703552 | PhysPos:\n10 }  | {Position\n:6 | Data:\n0 | Next:\n-3 | Prev:\n8}",style="filled",fillcolor="royalblue1"];
+label = "List with name: test"}
+}

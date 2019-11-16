@@ -3,21 +3,25 @@
 	<ActiveTarget name="Debug" />
 	<File name="MListForwardOriented.h" open="0" top="0" tabpos="1">
 		<Cursor position="12981" topLine="523" />
-		<BrowseMarks positions="" />
 		<Book_Marks positions="994,5153,5144" />
+	</File>
+	<File name="STRAIT_TEST.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="2355" topLine="81" />
+		<BrowseMarks positions="" />
+		<Book_Marks positions="" />
 	</File>
 	<File name="main.cpp" open="1" top="0" tabpos="1">
 		<Cursor position="286" topLine="10" />
 		<BrowseMarks positions="410" />
 		<Book_Marks positions="1636,1632" />
 	</File>
-	<File name="DUO_TEST.cpp" open="1" top="0" tabpos="0">
-		<Cursor position="0" topLine="0" />
+	<File name="DUO_TEST.cpp" open="1" top="0" tabpos="2">
+		<Cursor position="95" topLine="0" />
 		<BrowseMarks positions="" />
 		<Book_Marks positions="" />
 	</File>
-	<File name="MListDuoOriented.h" open="1" top="1" tabpos="0">
-		<Cursor position="0" topLine="0" />
+	<File name="MListDuoOriented.h" open="1" top="1" tabpos="1">
+		<Cursor position="26642" topLine="887" />
 		<BrowseMarks positions="" />
 		<Book_Marks positions="" />
 	</File>

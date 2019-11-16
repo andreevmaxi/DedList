@@ -63,6 +63,10 @@ struct MDList_t
 
     bool ArrOfElems(ListElem_t* RetArr, int* PosOfElems, int SizeOfArrs);
 
+    bool DeleteBeforeRaw(int Pos);
+
+    bool DeleteBefore(int Pos);
+
     DEB(bool Verify());
 
     DEB(void LDUMP(int err));
@@ -176,7 +180,7 @@ bool MDList_t::LResize()
     LSize *= 2;
     next = (int*)        realloc(next, (LSize) * sizeof(int));
     data = (ListElem_t*) realloc(data, (LSize) * sizeof(ListElem_t));
-    prev = (int*)        realloc(next, (LSize) * sizeof(int));
+    prev = (int*)        realloc(prev, (LSize) * sizeof(int));
     assert(next != NULL);
     assert(data != NULL);
 
@@ -294,16 +298,15 @@ bool MDList_t::InsertAfter(ListElem_t PushingElem, int RawPos)
 bool MDList_t::DeleteAfter(int Pos)
     {
     DEB(MDList_t::Verify());
-    int NowPos = 0;
+    int NowPos = -1;
     int* NowElem = head;
-    while (NowPos != Pos && *NowElem != -1)
+    while (NowPos != Pos && *NowElem != -3)
         {
         NowElem = next + (*NowElem);
         ++NowPos;
         }
-    Pos = NowPos;
 
-    MDList_t::DeleteAfterRaw(Pos);
+    MDList_t::DeleteAfterRaw(NowPos);
     return 1;
     }
 
@@ -657,30 +660,18 @@ bool MDList_t::SortList()
         fprintf(LDot, "f%d [shape=record, label=\"FreePointer:\\n%d | {Position\\n:%d | Data:\\n%d | Next:\\n%d | Prev:\\n%d}\",style=\"filled\",fillcolor=\"gold4\"];\n", NowPos, NowElem, NowPos, *(data + (NowElem - next)), *NowElem, *(prev + (NowElem - next)));
         if(*NowElem != -2)
             {
-            if( (NowElem - next) == *(prev + *NowElem) )
-                {
-                fprintf(LDot, "f%d->f%d[dir=\"both\"];\n", NowPos, (NowPos + 1));
-                } else
-                {
-                fprintf(LDot, "f%d->f%d\n", NowPos, (NowPos + 1));
-                }
+            fprintf(LDot, "f%d->f%d\n", NowPos, (NowPos + 1));
             NowElem = *NowElem + next;
             ++NowPos;
             }
         while(*NowElem != -2 && NowPos < LSize)
             {
-            fprintf(LDot, "f%d [shape=record, label=\"FreePointer:\\n%d | {Position\\n:%d | Data:\\n%d | Next:\\n%d}\",style=\"filled\",fillcolor=\"green4\"];\n", NowPos, NowElem, NowPos, *(data + (NowElem - next)), *NowElem, *(prev + (NowElem - next)));
-            if( (NowElem - next) == *(prev + *NowElem) )
-                {
-                fprintf(LDot, "f%d->f%d[dir=\"both\"];\n", NowPos, (NowPos + 1));
-                } else
-                {
-                fprintf(LDot, "f%d->f%d\n", NowPos, (NowPos + 1));
-                }
+            fprintf(LDot, "f%d [shape=record, label=\"FreePointer:\\n%d | {Position\\n:%d | Data:\\n%d | Next:\\n%d}\",style=\"filled\",fillcolor=\"green4\"];\n", NowPos, NowElem, NowPos, *(data + (NowElem - next)), *NowElem);
+            fprintf(LDot, "f%d->f%d\n", NowPos, (NowPos + 1));
             NowElem = *NowElem + next;
             ++NowPos;
             }
-        fprintf(LDot, "f%d [shape=record, label=\"FreePointer:\\n%d | {Position\\n:%d | Data:\\n%d | Next:\\n%d}\",style=\"filled\",fillcolor=\"slateblue4\"];\n", NowPos, NowElem, NowPos, *(data + (NowElem - next)), *NowElem, *(prev + (NowElem - next)));
+        fprintf(LDot, "f%d [shape=record, label=\"FreePointer:\\n%d | {Position\\n:%d | Data:\\n%d | Next:\\n%d}\",style=\"filled\",fillcolor=\"slateblue4\"];\n", NowPos, NowElem, NowPos, *(data + (NowElem - next)), *NowElem);
 
 
         fprintf(LDot, "label = \"Free memory of list: %s\"}\n", LName.c_str());
@@ -690,21 +681,33 @@ bool MDList_t::SortList()
         NowPos = 0;
         fprintf(LDot, "rankdir=LR;\n");
         fprintf(LDot, "subgraph clusterlist {\nstyle=filled;\ncolor=lightgrey;\n");
-        fprintf(LDot, "%d [shape=record, label=\"ElemPointer:\\n%d | {Position\\n:%d | Data:\\n%d | Next:\\n%d}\",style=\"filled\",fillcolor=\"gold2\"];\n", NowPos, NowElem, NowPos, *(data + (NowElem - next)), *NowElem);
+        fprintf(LDot, "%d [shape=record, label=\"ElemPointer:\\n%d | {Position\\n:%d | Data:\\n%d | Next:\\n%d | Prev:\\n%d}\",style=\"filled\",fillcolor=\"gold2\"];\n", NowPos, NowElem, NowPos, *(data + (NowElem - next)), *NowElem, *(prev + (NowElem - next)));
         if(*NowElem != -3)
             {
-            fprintf(LDot, "%d->%d\n", NowPos, (NowPos + 1));
+            if( (NowElem - next) == *(prev + *NowElem) )
+                {
+                fprintf(LDot, "%d->%d[dir=\"both\";style=\"bold\"];\n", NowPos, (NowPos + 1));
+                } else
+                {
+                fprintf(LDot, "%d->%d[color=\"red\"];\n", NowPos, (NowPos + 1));
+                }
             NowElem = *NowElem + next;
             ++NowPos;
             }
         while(*NowElem != -3 && NowPos < LSize)
             {
-            fprintf(LDot, "%d [shape=record, label=\"ElemPointer:\\n%d | {Position\\n:%d | Data:\\n%d | Next:\\n%d}\",style=\"filled\",fillcolor=\"lawngreen\"];\n", NowPos, NowElem, NowPos, *(data + (NowElem - next)), *NowElem);
-            fprintf(LDot, "%d->%d\n", NowPos, (NowPos + 1));
+            fprintf(LDot, "%d [shape=record, label=\"ElemPointer:\\n%d | {Position\\n:%d | Data:\\n%d | Next:\\n%d | Prev:\\n%d}\",style=\"filled\",fillcolor=\"lawngreen\"];\n", NowPos, NowElem, NowPos, *(data + (NowElem - next)), *NowElem, *(prev + (NowElem - next)));
+            if( (NowElem - next) == *(prev + *NowElem) )
+                {
+                fprintf(LDot, "%d->%d[dir=\"both\";style=\"bold\"];\n", NowPos, (NowPos + 1));
+                } else
+                {
+                fprintf(LDot, "%d->%d[color=\"red\"];\n", NowPos, (NowPos + 1));
+                }
             NowElem = *NowElem + next;
             ++NowPos;
             }
-        fprintf(LDot, "%d [shape=record, label=\"ElemPointer:\\n%d | {Position\\n:%d | Data:\\n%d | Next:\\n%d}\",style=\"filled\",fillcolor=\"royalblue1\"];\n", NowPos, NowElem, NowPos, *(data + (NowElem - next)), *NowElem);
+        fprintf(LDot, "%d [shape=record, label=\"ElemPointer:\\n%d | {Position\\n:%d | Data:\\n%d | Next:\\n%d | Prev:\\n%d}\",style=\"filled\",fillcolor=\"royalblue1\"];\n", NowPos, NowElem, NowPos, *(data + (NowElem - next)), *NowElem, *(prev + (NowElem - next)));
         fprintf(LDot, "label = \"List with name: %s\"}\n", LName.c_str());
 
         fprintf(LDot, "}\n");
@@ -789,12 +792,12 @@ bool MDList_t::InsertAfterRaw(ListElem_t PushingElem, int Pos)
             int* TmpArr3 = (int*) calloc(LSize, sizeof(int));
             for(int i = (LSize/2); i < LSize; ++i)
                 {
-                if(*(next + i - LSize/2) != -1)
+                if(*(prev + i - LSize/2) != -1)
                     {
-                    *(TmpArr3 + i) = *(next + i - LSize/2) + (LSize/2);
+                    *(TmpArr3 + i) = *(prev + i - LSize/2) + (LSize/2);
                     } else
                     {
-                    *(TmpArr3 + i) = *(next + i - LSize/2);
+                    *(TmpArr3 + i) = *(prev + i - LSize/2);
                     }
                 }
             for(int i = 1; i < (LSize/2); ++i)
@@ -853,5 +856,63 @@ bool MDList_t::DeleteAfterRaw(int Pos)
         LFreeTail = DeletingElem;
         }
 
+    return 1;
+    }
+
+bool MDList_t::DeleteBeforeRaw(int Pos)
+    {
+    DEB(MDList_t::Verify());
+
+    int* DeletingElem = 0;
+    if(Pos == -1) // tail
+        {
+        DeletingElem = tail;
+        tail = *(prev + (tail - next)) + next;
+        *(prev + *tail) = -1;
+        *LFreeTail = DeletingElem - next;
+        *DeletingElem = -2;
+        LFreeTail = DeletingElem;
+        } else
+        {
+        printf("%d dap\n",*(prev + Pos));
+        DeletingElem = next + *(prev + Pos);
+        *(prev + Pos) = *(prev + (DeletingElem - next));
+        *(next + *(prev + Pos)) = Pos;
+        *(prev + (DeletingElem - next)) = -1;
+        *LFreeTail = DeletingElem - next;
+        *DeletingElem = -2;
+        LFreeTail = DeletingElem;
+        }
+
+    return 1;
+    }
+
+bool MDList_t::DeleteBefore(int Pos)
+    {
+    DEB(MDList_t::Verify());
+    int NowPos = -1;
+
+    int* NowElem = prev + (tail - next);
+    if(Pos == -1)
+        {
+        MDList_t::DeleteBeforeRaw(NowPos);
+        return 1;
+        } else
+        {
+        NowPos = 0;   //tyt drug chislo
+        }
+    if(sorted == 0)
+        
+        while (NowPos != Pos && *NowElem != -1)
+            {
+            NowElem = prev + (*NowElem);
+            ++NowPos;
+            printf("NowPos: %d\n", NowElem - prev);
+            }
+            }else
+        {
+        NowPos = (head - next) + Pos;
+        }
+    MDList_t::DeleteBeforeRaw(NowPos);
     return 1;
     }
