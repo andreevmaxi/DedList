@@ -874,7 +874,6 @@ bool MDList_t::DeleteBeforeRaw(int Pos)
         LFreeTail = DeletingElem;
         } else
         {
-        printf("%d dap\n",*(prev + Pos));
         DeletingElem = next + *(prev + Pos);
         *(prev + Pos) = *(prev + (DeletingElem - next));
         *(next + *(prev + Pos)) = Pos;
@@ -913,13 +912,32 @@ bool MDList_t::DeleteBefore(int Pos)
             {
             NowElem = prev + (*NowElem);
             --NowPos;
-            printf("NowPos: %d\n", NowElem - prev);
             }
         }else
         {
         NowPos = (head - next) + Pos;
         }
-    printf("LAstNowPos: %d\n", NowElem - prev);
     MDList_t::DeleteBeforeRaw(NowElem - prev);
+    return 1;
+    }
+
+bool MDList_t::DeleteElemRaw(int Pos)
+    {
+    DEB(MDList_t::Verify());
+
+    int* DeletingElem = 0;
+
+    if(prev + Pos == -1)
+        {
+
+        }
+    DeletingElem = next + Pos;
+    *(prev + *DeletingElem) = *(prev + Pos);
+    *(next + *(prev + Pos)) = *DeletingElem;
+    *(prev + Pos) = -1;
+    *LFreeTail = Pos;
+    *DeletingElem = -2;
+    LFreeTail = DeletingElem;
+
     return 1;
     }
