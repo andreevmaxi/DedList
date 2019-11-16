@@ -848,9 +848,18 @@ bool MDList_t::DeleteAfterRaw(int Pos)
         } else
         {
         DeletingElem = next + *(next + Pos);
-        *(next + Pos) = *DeletingElem;
-        *(prev + *(next + Pos)) = Pos;
-        *(prev + (DeletingElem - next)) = -1;
+        if( *(DeletingElem) == -3)
+            {
+            tail = next + Pos;
+            *tail = -3;
+            *(prev + Pos) = *(prev + (DeletingElem - next));
+            *(prev + (DeletingElem - next)) = -1;
+            } else
+            {
+            *(next + Pos) = *DeletingElem;
+            *(prev + *(next + Pos)) = Pos;
+            *(prev + (DeletingElem - next)) = -1;
+            }
         *LFreeTail = DeletingElem - next;
         *DeletingElem = -2;
         LFreeTail = DeletingElem;
@@ -875,9 +884,16 @@ bool MDList_t::DeleteBeforeRaw(int Pos)
         } else
         {
         DeletingElem = next + *(prev + Pos);
-        *(prev + Pos) = *(prev + (DeletingElem - next));
-        *(next + *(prev + Pos)) = Pos;
-        *(prev + (DeletingElem - next)) = -1;
+        if( *(prev + (DeletingElem - next)) == -1)
+            {
+            head = next + *DeletingElem;
+            *(prev + Pos) = *(prev + (DeletingElem - next));
+            } else
+            {
+            *(prev + Pos) = *(prev + (DeletingElem - next));
+            *(next + *(prev + Pos)) = Pos;
+            *(prev + (DeletingElem - next)) = -1;
+            }
         *LFreeTail = DeletingElem - next;
         *DeletingElem = -2;
         LFreeTail = DeletingElem;
@@ -927,9 +943,15 @@ bool MDList_t::DeleteElemRaw(int Pos)
 
     int* DeletingElem = 0;
 
-    if(prev + Pos == -1)
+    if(*(prev + Pos) == -1)
         {
-
+        DeletingElem = next + Pos;
+        head = next + *DeletingElem;
+        *(prev + *DeletingElem) = *(prev + Pos);
+        *LFreeTail = Pos;
+        *DeletingElem = -2;
+        LFreeTail = DeletingElem;
+        return 1;
         }
     DeletingElem = next + Pos;
     *(prev + *DeletingElem) = *(prev + Pos);

@@ -843,9 +843,10 @@ bool MList_t::InsertAfterRaw(ListElem_t PushingElem, int Pos)
     return 1;
     }
 
-bool MList_t::DeleteAfterRaw(int Pos)
+bool MDList_t::DeleteAfterRaw(int Pos)
     {
-    DEB(MList_t::Verify());
+    DEB(MDList_t::Verify());
+
     int* DeletingElem = 0;
     if(Pos == -1)
         {
@@ -857,11 +858,15 @@ bool MList_t::DeleteAfterRaw(int Pos)
         } else
         {
         DeletingElem = next + *(next + Pos);
-        *(next + Pos) = *DeletingElem;
+        if( *(DeletingElem) == -3)
+            {
+            tail = next + Pos;
+            *tail = -3;
+            } else
+            {
+            *(next + Pos) = *DeletingElem;
+            }
         *LFreeTail = DeletingElem - next;
         *DeletingElem = -2;
         LFreeTail = DeletingElem;
         }
-
-    return 1;
-    }
