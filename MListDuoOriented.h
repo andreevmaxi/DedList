@@ -14,7 +14,7 @@
 #else
     #define DEB( code )
 
-    #define InitDEB( list )
+    #define DEBMDList_t( list )
 #endif
 
 const int NormCanary = -230 - 230 * 256 - 230 * 256 * 256 - 230 * 256 * 256 * 256;
