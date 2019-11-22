@@ -14,7 +14,7 @@
 #else
     #define DEB( code )
 
-    #define InitDEB( list )
+    #define DEBMDList_t( list )
 #endif
 
 const int NormCanary = -230 - 230 * 256 - 230 * 256 * 256 - 230 * 256 * 256 * 256;
@@ -55,7 +55,7 @@ struct MDList_t
 
     bool DeleteAfterRaw(int Pos);
 
-    ListElem_t rte(int RawPos); // raw position to element
+    ListElem_t at(int RawPos); // raw position to element
 
     ListElem_t elem(int Pos);
 
@@ -66,6 +66,18 @@ struct MDList_t
     bool DeleteBeforeRaw(int Pos);
 
     bool DeleteBefore(int Pos);
+
+    bool DeleteElemRaw(int Pos);
+
+    bool DeleteElem(int Pos);
+
+    bool InsertElemRaw(ListElem_t PushingElem, int Pos);
+
+    bool InsertBeforeRaw(ListElem_t PushingElem, int Pos);
+
+    bool InsertElem(ListElem_t PushingElem, int Pos);
+
+    bool InsertBefore(ListElem_t PushingElem, int Pos);
 
     DEB(bool Verify());
 
@@ -80,6 +92,15 @@ struct MDList_t
 
     DEB(int RCanary);
     };
+/**
+    \brief Constructor of MDList_t
+    \author andreevmaxi
+	\version 1.0
+	\date november  2019 year
+	\copyright korobcom
+    \details This is function that constracte our list
+    \param[in] name string variable of name of our list
+*/
 
 #ifdef _DEBUG
 MDList_t::MDList_t( std::string name )
@@ -169,6 +190,15 @@ MDList_t::MDList_t()
     return;
     }
 #endif
+/**
+    \brief LResize of MDList_t
+    \author andreevmaxi
+	\version 1.0
+	\date november  2019 year
+	\copyright korobcom
+    \details This is function that resizes our list
+    \return 1 if ok, 0 if bad
+*/
 
 bool MDList_t::LResize()
     {
@@ -220,6 +250,15 @@ bool MDList_t::LResize()
     return 1;
     }
 
+/**
+    \brief SearchingEmpty in MDList_t
+    \author andreevmaxi
+	\version 1.0
+	\date november  2019 year
+	\copyright korobcom
+    \details This is function that searches new free elem in our list
+    \return 1 if ok, 0 if bad
+*/
 int* MDList_t::SearchingEmpty()
     {
     if(LFree == (next - 3))
@@ -231,6 +270,16 @@ int* MDList_t::SearchingEmpty()
     return (Ans);
     }
 
+/**
+    \brief PushBack of MDList_t
+    \author andreevmaxi
+	\version 1.0
+	\date november  2019 year
+	\copyright korobcom
+    \details This is function that pushbackes in our list
+    \return 1 if ok, 0 if bad
+    \param[in] PushingElem element that pushes back in list
+*/
 bool MDList_t::PushBack(ListElem_t PushingElem)
     {
     DEB(MDList_t::Verify());
@@ -263,6 +312,17 @@ bool MDList_t::PushBack(ListElem_t PushingElem)
     return 0;
     }
 
+/**
+    \brief InsertAfter in MDList_t
+    \author andreevmaxi
+	\version 1.0
+	\date november  2019 year
+	\copyright korobcom
+    \details This is function that inserts new elem after logic position of given elem in our list
+    \return 1 if ok, 0 if bad
+    \param[in] PushingElem Data of pushing element
+    \param[in] Logic position of element after that is inserting new elem
+*/
 bool MDList_t::InsertAfter(ListElem_t PushingElem, int RawPos)
     {
     DEB(MDList_t::Verify());
@@ -295,21 +355,41 @@ bool MDList_t::InsertAfter(ListElem_t PushingElem, int RawPos)
     return 1;
     }
 
+/**
+    \brief DeleteAfter in MDList_t
+    \author andreevmaxi
+	\version 1.0
+	\date november  2019 year
+	\copyright korobcom
+    \details This is function that delete an elem after logic position of given elem in our list
+    \return 1 if ok, 0 if bad
+    \param[in] Pos Logic position of element after that is deleting elem
+*/
 bool MDList_t::DeleteAfter(int Pos)
     {
     DEB(MDList_t::Verify());
     int NowPos = -1;
     int* NowElem = head;
-    while (NowPos != Pos && *NowElem != -3)
+    if(NowPos != Pos)
+    {
+        ++NowPos;
+        while (NowPos != Pos && *NowElem != -3)
         {
         NowElem = next + (*NowElem);
         ++NowPos;
         }
-
-    MDList_t::DeleteAfterRaw(NowPos);
-    return 1;
+    }
+    return MDList_t::DeleteAfterRaw(NowElem - next);
     }
 
+/**
+    \brief Destrucktor in MDList_t
+    \author andreevmaxi
+	\version 1.0
+	\date november  2019 year
+	\copyright korobcom
+    \details This is function that destruckts our list
+*/
 MDList_t::~MDList_t()
     {
     DEB(MDList_t::Verify());
@@ -321,6 +401,16 @@ MDList_t::~MDList_t()
     return;
     }
 
+/**
+    \brief elem in MDList_t
+    \author andreevmaxi
+	\version 1.0
+	\date november  2019 year
+	\copyright korobcom
+    \details This is function that returns elem of our list
+    \return element of logic position
+    \param[in] Pos Logic position of element
+*/
 ListElem_t MDList_t::elem(int Pos)
     {
     DEB(MDList_t::Verify());
@@ -344,6 +434,16 @@ ListElem_t MDList_t::elem(int Pos)
     return *(data + (NowElem - next));
     }
 
+/**
+    \brief ArrOfElems in MDList_t
+    \author andreevmaxi
+	\version 1.0
+	\date november 2019 year
+	\copyright korobcom
+    \details This is function that returns array of elems of our list
+    \return 1 if ok, 0 if bad
+    \param[out] RetArr 
+*/
 bool MDList_t::ArrOfElems(ListElem_t* RetArr, int* PosOfElems, int SizeOfArrs)
     {
     DEB(MDList_t::Verify());
@@ -728,7 +828,7 @@ bool MDList_t::SortList()
         }
 #endif
 
-ListElem_t MDList_t::rte(int RawPos)
+ListElem_t MDList_t::at(int RawPos)
     {
     DEB(MDList_t::Verify());
     return *(data + RawPos);
@@ -848,9 +948,18 @@ bool MDList_t::DeleteAfterRaw(int Pos)
         } else
         {
         DeletingElem = next + *(next + Pos);
-        *(next + Pos) = *DeletingElem;
-        *(prev + *(next + Pos)) = Pos;
-        *(prev + (DeletingElem - next)) = -1;
+        if( *(DeletingElem) == -3)
+            {
+            tail = next + Pos;
+            *tail = -3;
+            *(prev + Pos) = *(prev + (DeletingElem - next));
+            *(prev + (DeletingElem - next)) = -1;
+            } else
+            {
+            *(next + Pos) = *DeletingElem;
+            *(prev + *(next + Pos)) = Pos;
+            *(prev + (DeletingElem - next)) = -1;
+            }
         *LFreeTail = DeletingElem - next;
         *DeletingElem = -2;
         LFreeTail = DeletingElem;
@@ -877,8 +986,8 @@ bool MDList_t::DeleteBeforeRaw(int Pos)
         DeletingElem = next + *(prev + Pos);
         if( *(prev + (DeletingElem - next)) == -1)
             {
-            head = *DeletingElem;
-            
+            head = next + *DeletingElem;
+            *(prev + Pos) = *(prev + (DeletingElem - next));
             } else
             {
             *(prev + Pos) = *(prev + (DeletingElem - next));
@@ -933,10 +1042,10 @@ bool MDList_t::DeleteElemRaw(int Pos)
     DEB(MDList_t::Verify());
 
     int* DeletingElem = 0;
+    DeletingElem = next + Pos;
 
     if(*(prev + Pos) == -1)
         {
-        DeletingElem = next + Pos;
         head = next + *DeletingElem;
         *(prev + *DeletingElem) = *(prev + Pos);
         *LFreeTail = Pos;
@@ -944,13 +1053,113 @@ bool MDList_t::DeleteElemRaw(int Pos)
         LFreeTail = DeletingElem;
         return 1;
         }
-    DeletingElem = next + Pos;
+    if(*DeletingElem == -3)
+        {
+        tail = next + *(prev + Pos);
+        *(next + *(prev + Pos)) = *DeletingElem;
+        *LFreeTail = Pos;
+        *DeletingElem = -2;
+        LFreeTail = DeletingElem;
+        return 1;
+        }
     *(prev + *DeletingElem) = *(prev + Pos);
     *(next + *(prev + Pos)) = *DeletingElem;
     *(prev + Pos) = -1;
     *LFreeTail = Pos;
     *DeletingElem = -2;
     LFreeTail = DeletingElem;
+    return 1;
+    }
 
+bool MDList_t::DeleteElem(int Pos)
+    {
+    DEB(MDList_t::Verify());
+    int NowPos = 0;
+    int* NowElem = head;
+    while (NowPos != Pos && *NowElem != -3)
+        {
+        NowElem = next + (*NowElem);
+        ++NowPos;
+        }
+
+    MDList_t::DeleteElemRaw(NowElem - next);
+    return 1;
+    }
+
+bool MDList_t::InsertElemRaw(ListElem_t PushingElem, int Pos)
+    {
+    DEB(MDList_t::Verify());
+    MDList_t::InsertAfterRaw(PushingElem, *(prev + Pos));
+    return 1;
+    }
+
+bool MDList_t::InsertBeforeRaw(ListElem_t PushingElem, int Pos)
+    {
+    DEB(MDList_t::Verify());
+    MDList_t::InsertElemRaw(PushingElem, *(prev + Pos));
+    return 1;
+    }
+
+bool MDList_t::InsertElem(ListElem_t PushingElem, int RawPos)
+    {
+    DEB(MDList_t::Verify());
+    int Pos;
+    if(RawPos == -1)
+        {
+        Pos = -1;
+        } else
+        {
+        if(sorted == 1)
+            {
+            Pos = head - next + RawPos;
+            if(Pos > tail - next)
+                {
+                Pos = tail - next;
+                }
+            } else
+            {
+            int TmpP = 0;
+            int* NowElem = head;
+            while (TmpP != RawPos && *NowElem != -3)
+                {
+                NowElem = next + (*NowElem);
+                ++TmpP;
+                }
+            Pos = NowElem - next;
+            }
+        }
+    MDList_t::InsertElemRaw(PushingElem, Pos);
+    return 1;
+    }
+
+bool MDList_t::InsertBefore(ListElem_t PushingElem, int RawPos)
+    {
+    DEB(MDList_t::Verify());
+    int Pos;
+    if(RawPos == -1)
+        {
+        Pos = -1;
+        } else
+        {
+        if(sorted == 1)
+            {
+            Pos = head - next + RawPos;
+            if(Pos > tail - next)
+                {
+                Pos = tail - next;
+                }
+            } else
+            {
+            int TmpP = 0;
+            int* NowElem = head;
+            while (TmpP != RawPos && *NowElem != -3)
+                {
+                NowElem = next + (*NowElem);
+                ++TmpP;
+                }
+            Pos = NowElem - next;
+            }
+        }
+    MDList_t::InsertBeforeRaw(PushingElem, Pos);
     return 1;
     }

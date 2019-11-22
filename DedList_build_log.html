@@ -4,11 +4,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
 <body>
 <tt>
-Build started on: <u>16-11-2019 at 18:32.57</u><br />
-Build ended on: <u>16-11-2019 at 18:32.58</u><p />
+Build started on: <u>21-11-2019 at 22:31.09</u><br />
+Build ended on: <u>21-11-2019 at 22:31.15</u><p />
 <b>-------------- Build: Debug in DedList (compiler: GNU GCC Compiler - Strict + Fast (SINGLE FILES ONLY))---------------</b><br />
-mingw32-g++.exe "C:\Users\Maksim\Documents\GitHub\DedList\DUO_TEST.cpp" -o bin\Debug\DedList.exe -mconsole  -Wall -fexceptions  -g  -Wshadow -Winit-self -Wredundant-decls -Wcast-align -Wundef -Wfloat-equal -Winline -Wunreachable-code -Wmissing-declarations -Wmissing-include-dirs -Wswitch-enum -Wswitch-default -Weffc++ -Wmain -Wextra -Wall -g -pipe -fexceptions -Wcast-qual -Wconversion -Wctor-dtor-privacy -Wempty-body -Wformat-security -Wformat=2 -Wignored-qualifiers -Wlogical-op -Wmissing-field-initializers -Wnon-virtual-dtor -Woverloaded-virtual -Wpointer-arith -Wsign-promo -Wstack-usage=8192 -Wstrict-aliasing -Wstrict-null-sentinel -Wtype-limits -Wwrite-strings -D_EJUDGE_CLIENT_SIDE -D_EJC -D__slowpoke -D_VORONEZH -D_DEBUG<br />
-In file included from C:\Users\Maksim\Documents\GitHub\DedList\DUO_TEST.cpp:2:0:<br />
+mingw32-g++.exe "C:\Users\Maksim\Documents\GitHub\DedList\MListDuoOriented.h" -o bin\Debug\DedList.exe -mconsole  -Wall -fexceptions  -g  -Wshadow -Winit-self -Wredundant-decls -Wcast-align -Wundef -Wfloat-equal -Winline -Wunreachable-code -Wmissing-declarations -Wmissing-include-dirs -Wswitch-enum -Wswitch-default -Weffc++ -Wmain -Wextra -Wall -g -pipe -fexceptions -Wcast-qual -Wconversion -Wctor-dtor-privacy -Wempty-body -Wformat-security -Wformat=2 -Wignored-qualifiers -Wlogical-op -Wmissing-field-initializers -Wnon-virtual-dtor -Woverloaded-virtual -Wpointer-arith -Wsign-promo -Wstack-usage=8192 -Wstrict-aliasing -Wstrict-null-sentinel -Wtype-limits -Wwrite-strings -D_EJUDGE_CLIENT_SIDE -D_EJC -D__slowpoke -D_VORONEZH -D_DEBUG<br />
 <font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListDuoOriented.h:20:79: warning: integer overflow in expression [-Woverflow]</font><br />
  const int NormCanary = -230 - 230 * 256 - 230 * 256 * 256 - 230 * 256 * 256 * 256;<br />
                                                                                ^<br />
@@ -44,7 +43,6 @@ C:\Users\Maksim\Documents\GitHub\DedList\MListDuoOriented.h: In member function 
 <font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListDuoOriented.h:551:35: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]</font><br />
          while(tmp != std::string::npos)<br />
                                    ^<br />
-In file included from C:\Users\Maksim\Documents\GitHub\DedList\DUO_TEST.cpp:2:0:<br />
 <font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListDuoOriented.h:584:198: warning: format '%d' expects argument of type 'int', but argument 4 has type 'ListElem_t* {aka int*}' [-Wformat=]</font><br />
          fprintf(LDot, "{Memory of list: %s} | {{DataPointer:\\n%d | Data:\\n%d | NextPointer:\\n%d | Next:\\n%d | PhysPos:\\n0 | Prev:\\n%d}\n", LName.c_str(), data, *(data), next, *(next), *(prev));<br />
                                                                                                                                                                                                       ^<br />
@@ -53,7 +51,6 @@ In file included from C:\Users\Maksim\Documents\GitHub\DedList\DUO_TEST.cpp:2:0:
              fprintf(LDot, "| {DataPointer:\\n%d | Data:\\n%d | NextPointer:\\n%d | Next:\\n%d | PhysPos:\\n%d | Prev:\\n%d}\n", data + i, *(data + i), next + i, *(next + i), i, *(prev + i));<br />
                                                                                                                                                                                              ^<br />
 <font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListDuoOriented.h:587:189: warning: format '%d' expects argument of type 'int', but argument 5 has type 'int*' [-Wformat=]</font><br />
-In file included from C:\Users\Maksim\Documents\GitHub\DedList\DUO_TEST.cpp:2:0:<br />
 <font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListDuoOriented.h:590:357: warning: format '%d' expects argument of type 'int', but argument 7 has type 'int*' [-Wformat=]</font><br />
          fprintf(LDot, "Shild [shape=record,label=\"{ RCanary:\\n%d | LCanary:\\n%d  | NormalCanary:\\n%d | Sorted:\\n%d } | { head:\\n%d | tail:\\n%d | LFree:\\n%d | LFreeTail:\\n%d} | { *head:\\n%d | *tail:\\n%d | *LFree:\\n%d | *LFreeTail:\\n%d}\"];\n", RCanary, LCanary, NormCanary, sorted, head, tail, LFree, LFreeTail, *head, *tail, *LFree, *LFreeTail);<br />
                                                                                                                                                                                                                                                                                                                                                                      ^<br />
@@ -84,13 +81,9 @@ In file included from C:\Users\Maksim\Documents\GitHub\DedList\DUO_TEST.cpp:2:0:
 <font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListDuoOriented.h:725:303: warning: format '%d' expects argument of type 'int', but argument 4 has type 'int*' [-Wformat=]</font><br />
          fprintf(LDot, "%d [shape=record, label=\"{ElemPointer:\\n%d | PhysPos:\\n%d }  | {Position\\n:%d | Data:\\n%d | Next:\\n%d | Prev:\\n%d}\",style=\"filled\",fillcolor=\"royalblue1\"];\n", NowPos, NowElem, (NowElem - next), NowPos, *(data + (NowElem - next)), *NowElem, *(prev + (NowElem - next)));<br />
                                                                                                                                                                                                                                                                                                                ^<br />
-In file included from C:\Users\Maksim\Documents\GitHub\DedList\DUO_TEST.cpp:2:0:<br />
-<font color="#0000ff">C:\Users\Maksim\Documents\GitHub\DedList\MListDuoOriented.h:557:29: warning: 'LDot' may be used uninitialized in this function [-Wmaybe-uninitialized]</font><br />
-         assert(LDot != NULL);<br />
-                             ^<br />
-Output size is 524,99 KB<br />
-<font color="#0000ff">Process terminated with status 0 (0 minutes, 1 seconds)</font><br />
-<font color="#0000ff">0 errors, 37 warnings (0 minutes, 1 seconds)</font><br />
+Output size is 32,21 MB<br />
+<font color="#0000ff">Process terminated with status 0 (0 minutes, 6 seconds)</font><br />
+<font color="#0000ff">0 errors, 36 warnings (0 minutes, 6 seconds)</font><br />
 </tt>
 </body>
 </html>

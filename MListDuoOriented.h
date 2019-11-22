@@ -55,7 +55,7 @@ struct MDList_t
 
     bool DeleteAfterRaw(int Pos);
 
-    ListElem_t rte(int RawPos); // raw position to element
+    ListElem_t at(int RawPos); // raw position to element
 
     ListElem_t elem(int Pos);
 
@@ -92,6 +92,15 @@ struct MDList_t
 
     DEB(int RCanary);
     };
+/**
+    \brief Constructor of MDList_t
+    \author andreevmaxi
+	\version 1.0
+	\date november  2019 year
+	\copyright korobcom
+    \details This is function that constracte our list
+    \param[in] name string variable of name of our list
+*/
 
 #ifdef _DEBUG
 MDList_t::MDList_t( std::string name )
@@ -110,7 +119,7 @@ MDList_t::MDList_t( std::string name )
     assert(data != NULL);
     assert(next != NULL);
     assert(head != NULL);
-    assert(tail != NULL);// than it needs to be if (...) {errnum = 124124125125; LDUMP}
+    assert(tail != NULL);
     assert(LFree != NULL);
 
 
@@ -181,6 +190,15 @@ MDList_t::MDList_t()
     return;
     }
 #endif
+/**
+    \brief LResize of MDList_t
+    \author andreevmaxi
+	\version 1.0
+	\date november  2019 year
+	\copyright korobcom
+    \details This is function that resizes our list
+    \return 1 if ok, 0 if bad
+*/
 
 bool MDList_t::LResize()
     {
@@ -232,6 +250,15 @@ bool MDList_t::LResize()
     return 1;
     }
 
+/**
+    \brief SearchingEmpty in MDList_t
+    \author andreevmaxi
+	\version 1.0
+	\date november  2019 year
+	\copyright korobcom
+    \details This is function that searches new free elem in our list
+    \return 1 if ok, 0 if bad
+*/
 int* MDList_t::SearchingEmpty()
     {
     if(LFree == (next - 3))
@@ -243,6 +270,16 @@ int* MDList_t::SearchingEmpty()
     return (Ans);
     }
 
+/**
+    \brief PushBack of MDList_t
+    \author andreevmaxi
+	\version 1.0
+	\date november  2019 year
+	\copyright korobcom
+    \details This is function that pushbackes in our list
+    \return 1 if ok, 0 if bad
+    \param[in] PushingElem element that pushes back in list
+*/
 bool MDList_t::PushBack(ListElem_t PushingElem)
     {
     DEB(MDList_t::Verify());
@@ -275,6 +312,17 @@ bool MDList_t::PushBack(ListElem_t PushingElem)
     return 0;
     }
 
+/**
+    \brief InsertAfter in MDList_t
+    \author andreevmaxi
+	\version 1.0
+	\date november  2019 year
+	\copyright korobcom
+    \details This is function that inserts new elem after logic position of given elem in our list
+    \return 1 if ok, 0 if bad
+    \param[in] PushingElem Data of pushing element
+    \param[in] Logic position of element after that is inserting new elem
+*/
 bool MDList_t::InsertAfter(ListElem_t PushingElem, int RawPos)
     {
     DEB(MDList_t::Verify());
@@ -307,6 +355,16 @@ bool MDList_t::InsertAfter(ListElem_t PushingElem, int RawPos)
     return 1;
     }
 
+/**
+    \brief DeleteAfter in MDList_t
+    \author andreevmaxi
+	\version 1.0
+	\date november  2019 year
+	\copyright korobcom
+    \details This is function that delete an elem after logic position of given elem in our list
+    \return 1 if ok, 0 if bad
+    \param[in] Pos Logic position of element after that is deleting elem
+*/
 bool MDList_t::DeleteAfter(int Pos)
     {
     DEB(MDList_t::Verify());
@@ -321,10 +379,17 @@ bool MDList_t::DeleteAfter(int Pos)
         ++NowPos;
         }
     }
-    MDList_t::DeleteAfterRaw(NowElem - next);
-    return 1;
+    return MDList_t::DeleteAfterRaw(NowElem - next);
     }
 
+/**
+    \brief Destrucktor in MDList_t
+    \author andreevmaxi
+	\version 1.0
+	\date november  2019 year
+	\copyright korobcom
+    \details This is function that destruckts our list
+*/
 MDList_t::~MDList_t()
     {
     DEB(MDList_t::Verify());
@@ -336,6 +401,16 @@ MDList_t::~MDList_t()
     return;
     }
 
+/**
+    \brief elem in MDList_t
+    \author andreevmaxi
+	\version 1.0
+	\date november  2019 year
+	\copyright korobcom
+    \details This is function that returns elem of our list
+    \return element of logic position
+    \param[in] Pos Logic position of element
+*/
 ListElem_t MDList_t::elem(int Pos)
     {
     DEB(MDList_t::Verify());
@@ -359,6 +434,18 @@ ListElem_t MDList_t::elem(int Pos)
     return *(data + (NowElem - next));
     }
 
+/**
+    \brief ArrOfElems in MDList_t
+    \author andreevmaxi
+	\version 1.0
+	\date november 2019 year
+	\copyright korobcom
+    \details This is function that returns array of elems of our list
+    \return 1 if ok, 0 if bad
+    \param[out] RetArr pointer on array of returning elements
+    \param[in] PosOfElems pointer on array of returning elements
+    \param[in] SizeOfArrs size of our arrays
+*/
 bool MDList_t::ArrOfElems(ListElem_t* RetArr, int* PosOfElems, int SizeOfArrs)
     {
     DEB(MDList_t::Verify());
@@ -401,6 +488,15 @@ bool MDList_t::ArrOfElems(ListElem_t* RetArr, int* PosOfElems, int SizeOfArrs)
         }
     }
 
+/**
+    \brief SortList in MDList_t
+    \author andreevmaxi
+	\version 1.0
+	\date november 2019 year
+	\copyright korobcom
+    \details This is function that sorts our list
+    \return 1 if ok, 0 if bad
+*/
 bool MDList_t::SortList()
     {
     DEB(MDList_t::Verify());
@@ -456,6 +552,16 @@ bool MDList_t::SortList()
     return 1;
     }
 
+
+/**
+    \brief Verify in MDList_t
+    \author andreevmaxi
+	\version 1.0
+	\date november 2019 year
+	\copyright korobcom
+    \details This is function that verifies our list
+    \return 1 if ok, 0 if bad
+*/
 #ifdef _DEBUG
     bool MDList_t::Verify()
         {
@@ -463,8 +569,8 @@ bool MDList_t::SortList()
 
         if(LCanary != RCanary || LCanary != NormCanary)
             {
-            err = 5;
-            MDList_t::LDUMP(err); // err 5 :: something went on list's memory!
+            err = 4;
+            MDList_t::LDUMP(err); // err 4 :: something went on list's memory!
             }
 
         int* NowElem = head;
@@ -486,8 +592,8 @@ bool MDList_t::SortList()
             {
             if(NowPos > LSize)
                 {
-                err = 6;
-                MDList_t::LDUMP(err); // err 6 :: free is circled!!!
+                err = 5;
+                MDList_t::LDUMP(err); // err 5 :: free is circled!!!
                 }
             NowElem = *NowElem + next;
             ++NowPos;
@@ -510,6 +616,22 @@ bool MDList_t::SortList()
         }
 #endif
 
+/**
+    \brief LDump in MDList_t
+    \author andreevmaxi
+	\version 1.0
+	\date november 2019 year
+	\copyright korobcom
+    \details This is function that verifies our list
+    err 1 :: list is circled!!!
+    err 2 :: list has gap!
+    err 3 :: list lost connection, how hz, but hz.
+    err 4 :: something went on list's memory!
+    err 5 :: free is circled!!!
+
+    err 9 :: it's just printing the list
+    \param[in] err it's number of your error
+*/
 #ifdef _DEBUG
     void MDList_t::LDUMP(int err)
         {
@@ -579,7 +701,22 @@ bool MDList_t::SortList()
         assert(LDot != NULL);
 
 
-        fprintf(LDot, "digraph G{\n");
+        fprintf(LDot, "digraph /**
+    \brief LDump in MList_t
+    \author andreevmaxi
+	\version 1.0
+	\date november 2019 year
+	\copyright korobcom
+    \details This is function that verifies our list
+    err 1 :: list is circled!!!
+    err 2 :: list has gap!
+    err 3 :: list lost connection, how hz, but hz.
+    err 4 :: something went on list's memory!
+    err 5 :: free is circled!!!
+
+    err 9 :: it's just printing the list
+    \param[in] err it's number of your error
+*/G{\n");
         fprintf(LDot, "data [shape=record,label=\"");
         fprintf(LDot, "{Memory of list: %s} | {{DataPointer:\\n%d | Data:\\n%d | NextPointer:\\n%d | Next:\\n%d | PhysPos:\\n0 | Prev:\\n%d}\n", LName.c_str(), data, *(data), next, *(next), *(prev));
         for(int i = 1; i < LSize; ++i)
@@ -743,13 +880,31 @@ bool MDList_t::SortList()
         }
 #endif
 
-ListElem_t MDList_t::rte(int RawPos)
+/**
+    \brief at in MDList_t
+    \author andreevmaxi
+	\version 1.0
+	\date november 2019 year
+	\copyright korobcom
+    \details This is function that gives element from our list by physical position
+    \param[in] RawPos physical position of our elem
+*/
+ListElem_t MDList_t::at(int RawPos)
     {
     DEB(MDList_t::Verify());
     return *(data + RawPos);
     }
 
-
+/**
+    \brief InsertAfterRaw in MDList_t
+    \author andreevmaxi
+	\version 1.0
+	\date november 2019 year
+	\copyright korobcom
+    \details This is function that inserts an element in our list after physical position
+    \param[in] RawPos physical position after what we insert elem
+    \param[in] PushingElem our element
+*/
 bool MDList_t::InsertAfterRaw(ListElem_t PushingElem, int Pos)
     {
     DEB(MDList_t::Verify());
@@ -762,7 +917,6 @@ bool MDList_t::InsertAfterRaw(ListElem_t PushingElem, int Pos)
 
     if(Pos + next == tail)
         {
-        printf("Ti daun");
         MDList_t::PushBack(PushingElem);
         return 1;
         }
@@ -848,6 +1002,15 @@ bool MDList_t::InsertAfterRaw(ListElem_t PushingElem, int Pos)
     return 1;
     }
 
+/**
+    \brief DeleteAfterRaw in MDList_t
+    \author andreevmaxi
+	\version 1.0
+	\date november 2019 year
+	\copyright korobcom
+    \details This is function that delete an element in our list after physical position
+    \param[in] RawPos physical position after what we delete elem
+*/
 bool MDList_t::DeleteAfterRaw(int Pos)
     {
     DEB(MDList_t::Verify());
@@ -884,6 +1047,15 @@ bool MDList_t::DeleteAfterRaw(int Pos)
     return 1;
     }
 
+/**
+    \brief DeleteBeforeRaw in MDList_t
+    \author andreevmaxi
+	\version 1.0
+	\date november 2019 year
+	\copyright korobcom
+    \details This is function that deletes an element in our list before physical position
+    \param[in] RawPos physical position before what we delete elem
+*/
 bool MDList_t::DeleteBeforeRaw(int Pos)
     {
     DEB(MDList_t::Verify());
@@ -918,6 +1090,15 @@ bool MDList_t::DeleteBeforeRaw(int Pos)
     return 1;
     }
 
+/**
+    \brief DeleteBefore in MDList_t
+    \author andreevmaxi
+	\version 1.0
+	\date november 2019 year
+	\copyright korobcom
+    \details This is function that delete an element in our list after logic position
+    \param[in] Pos logic position after what we insert elem
+*/
 bool MDList_t::DeleteBefore(int Pos)
     {
     DEB(MDList_t::Verify());
@@ -953,6 +1134,15 @@ bool MDList_t::DeleteBefore(int Pos)
     return 1;
     }
 
+/**
+    \brief DeleteElemRaw in MDList_t
+    \author andreevmaxi
+	\version 1.0
+	\date november 2019 year
+	\copyright korobcom
+    \details This is function that deletes an element in our list on physical position
+    \param[in] RawPos physical position what we delete elem
+*/
 bool MDList_t::DeleteElemRaw(int Pos)
     {
     DEB(MDList_t::Verify());
@@ -987,6 +1177,15 @@ bool MDList_t::DeleteElemRaw(int Pos)
     return 1;
     }
 
+/**
+    \brief DeleteElem in MDList_t
+    \author andreevmaxi
+	\version 1.0
+	\date november 2019 year
+	\copyright korobcom
+    \details This is function that deletes an element in our list on logic position
+    \param[in] Pos logic position what we delete elem
+*/
 bool MDList_t::DeleteElem(int Pos)
     {
     DEB(MDList_t::Verify());
@@ -1002,6 +1201,16 @@ bool MDList_t::DeleteElem(int Pos)
     return 1;
     }
 
+/**
+    \brief InsertElemRaw in MDList_t
+    \author andreevmaxi
+	\version 1.0
+	\date november 2019 year
+	\copyright korobcom
+    \details This is function that inserts an element in our list on physical position
+    \param[in] RawPos physical position where we insert elem
+    \param[in] PushingElem our element
+*/
 bool MDList_t::InsertElemRaw(ListElem_t PushingElem, int Pos)
     {
     DEB(MDList_t::Verify());
@@ -1009,6 +1218,16 @@ bool MDList_t::InsertElemRaw(ListElem_t PushingElem, int Pos)
     return 1;
     }
 
+/**
+    \brief InsertBeforeRaw in MDList_t
+    \author andreevmaxi
+	\version 1.0
+	\date november 2019 year
+	\copyright korobcom
+    \details This is function that inserts an element in our list before physical position
+    \param[in] RawPos physical position before what we insert elem
+    \param[in] PushingElem our element
+*/
 bool MDList_t::InsertBeforeRaw(ListElem_t PushingElem, int Pos)
     {
     DEB(MDList_t::Verify());
@@ -1016,6 +1235,16 @@ bool MDList_t::InsertBeforeRaw(ListElem_t PushingElem, int Pos)
     return 1;
     }
 
+/**
+    \brief InsertElem in MDList_t
+    \author andreevmaxi
+	\version 1.0
+	\date november 2019 year
+	\copyright korobcom
+    \details This is function that inserts an element in our list on logic position
+    \param[in] RawPos logic position after where we insert elem
+    \param[in] PushingElem our element
+*/
 bool MDList_t::InsertElem(ListElem_t PushingElem, int RawPos)
     {
     DEB(MDList_t::Verify());
@@ -1048,6 +1277,16 @@ bool MDList_t::InsertElem(ListElem_t PushingElem, int RawPos)
     return 1;
     }
 
+/**
+    \brief InsertBefore in MDList_t
+    \author andreevmaxi
+	\version 1.0
+	\date november 2019 year
+	\copyright korobcom
+    \details This is function that inserts an element in our list before logic position
+    \param[in] RawPos logic position before where we insert elem
+    \param[in] PushingElem our element
+*/
 bool MDList_t::InsertBefore(ListElem_t PushingElem, int RawPos)
     {
     DEB(MDList_t::Verify());

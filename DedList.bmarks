@@ -1,18 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <BrowseTracker_layout_file>
 	<ActiveTarget name="Debug" />
-	<File name="DUO_TEST.cpp" open="0" top="0" tabpos="2">
-		<Cursor position="2466" topLine="74" />
-		<BrowseMarks positions="2251" />
-		<Book_Marks positions="" />
-	</File>
-	<File name="MListDuoOriented.h" open="0" top="0" tabpos="1">
-		<Cursor position="29438" topLine="1005" />
-		<BrowseMarks positions="" />
-		<Book_Marks positions="" />
-	</File>
 	<File name="MListForwardOriented.h" open="0" top="0" tabpos="1">
-		<Cursor position="8682" topLine="336" />
+		<Cursor position="28430" topLine="993" />
 		<BrowseMarks positions="" />
 		<Book_Marks positions="994,5153,5144" />
 	</File>
@@ -23,5 +13,14 @@
 		<Cursor position="286" topLine="10" />
 		<BrowseMarks positions="410" />
 		<Book_Marks positions="1636,1632" />
+	</File>
+	<File name="DUO_TEST.cpp" open="0" top="0" tabpos="2">
+		<Cursor position="2466" topLine="74" />
+		<BrowseMarks positions="2251" />
+	</File>
+	<File name="MListDuoOriented.h" open="0" top="0" tabpos="1">
+		<Cursor position="37472" topLine="1297" />
+		<BrowseMarks positions="" />
+		<Book_Marks positions="" />
 	</File>
 </BrowseTracker_layout_file>

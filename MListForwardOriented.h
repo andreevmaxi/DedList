@@ -54,7 +54,7 @@ struct MList_t
 
     bool DeleteAfterRaw(int Pos);
 
-    ListElem_t rte(int RawPos); // raw position to element
+    ListElem_t at(int RawPos); // raw position to element
 
     ListElem_t elem(int Pos);
 
@@ -75,6 +75,15 @@ struct MList_t
 
     DEB(int RCanary);
     };
+/**
+    \brief Constructor of MList_t
+    \author andreevmaxi
+	\version 1.0
+	\date november  2019 year
+	\copyright korobcom
+    \details This is function that constracte our list
+    \param[in] name string variable of name of our list
+*/
 
 #ifdef _DEBUG
 MList_t::MList_t( std::string name )
@@ -92,7 +101,7 @@ MList_t::MList_t( std::string name )
     assert(data != NULL);
     assert(next != NULL);
     assert(head != NULL);
-    assert(tail != NULL);// than it needs to be if (...) {errnum = 124124125125; LDUMP}
+    assert(tail != NULL);
     assert(LFree != NULL);
 
 
@@ -160,6 +169,16 @@ MList_t::MList_t()
     }
 #endif
 
+/**
+    \brief LResize of MList_t
+    \author andreevmaxi
+	\version 1.0
+	\date november  2019 year
+	\copyright korobcom
+    \details This is function that resizes our list
+    \return 1 if ok, 0 if bad
+*/
+
 bool MList_t::LResize()
     {
     int TmpHead = head - next;
@@ -209,6 +228,15 @@ bool MList_t::LResize()
     return 1;
     }
 
+/**
+    \brief SearchingEmpty in MList_t
+    \author andreevmaxi
+	\version 1.0
+	\date november  2019 year
+	\copyright korobcom
+    \details This is function that searches new free elem in our list
+    \return pointer on free elem
+*/
 int* MList_t::SearchingEmpty()
     {
     if(LFree == (next - 3))
@@ -220,6 +248,16 @@ int* MList_t::SearchingEmpty()
     return (Ans);
     }
 
+/**
+    \brief PushBack of MList_t
+    \author andreevmaxi
+	\version 1.0
+	\date november  2019 year
+	\copyright korobcom
+    \details This is function that pushbackes in our list
+    \return 1 if ok, 0 if bad
+    \param[in] PushingElem element that pushes back in list
+*/
 bool MList_t::PushBack(ListElem_t PushingElem)
     {
     DEB(MList_t::Verify());
@@ -249,6 +287,17 @@ bool MList_t::PushBack(ListElem_t PushingElem)
     return 0;
     }
 
+/**
+    \brief InsertAfter in MList_t
+    \author andreevmaxi
+	\version 1.0
+	\date november  2019 year
+	\copyright korobcom
+    \details This is function that inserts new elem after logic position of given elem in our list
+    \return 1 if ok, 0 if bad
+    \param[in] PushingElem Data of pushing element
+    \param[in] RawPos Logic position of element after that is inserting new elem
+*/
 bool MList_t::InsertAfter(ListElem_t PushingElem, int RawPos)
     {
     DEB(MList_t::Verify());
@@ -342,6 +391,16 @@ bool MList_t::InsertAfter(ListElem_t PushingElem, int RawPos)
     return 1;
     }
 
+/**
+    \brief DeleteAfter in MList_t
+    \author andreevmaxi
+	\version 1.0
+	\date november  2019 year
+	\copyright korobcom
+    \details This is function that delete an elem after logic position of given elem in our list
+    \return 1 if ok, 0 if baaaad aaasss
+    \param[in] Pos Logic position of element after that is deleting elem
+*/
 bool MList_t::DeleteAfter(int Pos)
     {
     DEB(MList_t::Verify());
@@ -373,6 +432,14 @@ bool MList_t::DeleteAfter(int Pos)
     return 1;
     }
 
+/**
+    \brief Destrucktor in MList_t
+    \author andreevmaxi
+	\version 1.0
+	\date november  2019 year
+	\copyright korobcom
+    \details This is function that destruckts our list
+*/
 MList_t::~MList_t()
     {
     DEB(MList_t::Verify());
@@ -384,6 +451,16 @@ MList_t::~MList_t()
     return;
     }
 
+/**
+    \brief elem in MList_t
+    \author andreevmaxi
+	\version 1.0
+	\date november  2019 year
+	\copyright korobcom
+    \details This is function that returns elem of our list
+    \return element of logic position
+    \param[in] Pos Logic position of element
+*/
 ListElem_t MList_t::elem(int Pos)
     {
     DEB(MList_t::Verify());
@@ -407,6 +484,18 @@ ListElem_t MList_t::elem(int Pos)
     return *(data + (NowElem - next));
     }
 
+/**
+    \brief ArrOfElems in MList_t
+    \author andreevmaxi
+	\version 1.0
+	\date november 2019 year
+	\copyright korobcom
+    \details This is function that returns array of elems of our list
+    \return 1 if ok, 0 if bad
+    \param[out] RetArr pointer on array of returning elements
+    \param[in] PosOfElems pointer on array of returning elements
+    \param[in] SizeOfArrs size of our arrays
+*/
 bool MList_t::ArrOfElems(ListElem_t* RetArr, int* PosOfElems, int SizeOfArrs)
     {
     DEB(MList_t::Verify());
@@ -449,6 +538,15 @@ bool MList_t::ArrOfElems(ListElem_t* RetArr, int* PosOfElems, int SizeOfArrs)
         }
     }
 
+/**
+    \brief SortList in MList_t
+    \author andreevmaxi
+	\version 1.0
+	\date november 2019 year
+	\copyright korobcom
+    \details This is function that sorts our list
+    \return 1 if ok, 0 if bad
+*/
 bool MList_t::SortList()
     {
     DEB(MList_t::Verify());
@@ -493,6 +591,15 @@ bool MList_t::SortList()
 
     return 1;
     }
+/**
+    \brief Verify in MList_t
+    \author andreevmaxi
+	\version 1.0
+	\date november 2019 year
+	\copyright korobcom
+    \details This is function that verifies our list
+    \return 1 if ok, 0 if bad
+*/
 
 #ifdef _DEBUG
     bool MList_t::Verify()
@@ -501,8 +608,8 @@ bool MList_t::SortList()
 
         if(LCanary != RCanary || LCanary != NormCanary)
             {
-            err = 5;
-            MList_t::LDUMP(err); // err 5 :: something went on list's memory!
+            err = 4;
+            MList_t::LDUMP(err); // err 4 :: something went on list's memory!
             }
 
         int* NowElem = head;
@@ -524,8 +631,8 @@ bool MList_t::SortList()
             {
             if(NowPos > LSize)
                 {
-                err = 6;
-                MList_t::LDUMP(err); // err 6 :: free is circled!!!
+                err = 5;
+                MList_t::LDUMP(err); // err 5 :: free is circled!!!
                 }
             NowElem = *NowElem + next;
             ++NowPos;
@@ -548,6 +655,22 @@ bool MList_t::SortList()
         }
 #endif
 
+/**
+    \brief LDump in MList_t
+    \author andreevmaxi
+	\version 1.0
+	\date november 2019 year
+	\copyright korobcom
+    \details This is function that verifies our list
+    err 1 :: list is circled!!!
+    err 2 :: list has gap!
+    err 3 :: list lost connection, how hz, but hz.
+    err 4 :: something went on list's memory!
+    err 5 :: free is circled!!!
+
+    err 9 :: it's just printing the list
+    \param[in] err it's number of your error
+*/
 #ifdef _DEBUG
     void MList_t::LDUMP(int err)
         {
@@ -762,13 +885,31 @@ bool MList_t::SortList()
         }
 #endif
 
-ListElem_t MList_t::rte(int RawPos)
+/**
+    \brief at in MList_t
+    \author andreevmaxi
+	\version 1.0
+	\date november 2019 year
+	\copyright korobcom
+    \details This is function that gives element from our list by physical position
+    \param[in] RawPos physical position of our elem
+*/
+ListElem_t MList_t::at(int RawPos)
     {
     DEB(MList_t::Verify());
     return *(data + RawPos);
     }
 
-
+/**
+    \brief InsertAfterRaw in MList_t
+    \author andreevmaxi
+	\version 1.0
+	\date november 2019 year
+	\copyright korobcom
+    \details This is function that inserts an element in our list after physical position
+    \param[in] RawPos physical position after what we insert elem
+    \param[in] PushingElem our element
+*/
 bool MList_t::InsertAfterRaw(ListElem_t PushingElem, int Pos)
     {
     DEB(MList_t::Verify());
@@ -843,6 +984,15 @@ bool MList_t::InsertAfterRaw(ListElem_t PushingElem, int Pos)
     return 1;
     }
 
+/**
+    \brief DeleteAfterRaw in MList_t
+    \author andreevmaxi
+	\version 1.0
+	\date november 2019 year
+	\copyright korobcom
+    \details This is function that delete an element in our list after physical position
+    \param[in] RawPos physical position after what we delete elem
+*/
 bool MDList_t::DeleteAfterRaw(int Pos)
     {
     DEB(MDList_t::Verify());
