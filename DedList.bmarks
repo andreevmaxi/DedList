@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <BrowseTracker_layout_file>
 	<ActiveTarget name="Debug" />
-	<File name="MListForwardOriented.h" open="0" top="0" tabpos="1">
-		<Cursor position="28430" topLine="993" />
-		<BrowseMarks positions="" />
-		<Book_Marks positions="994,5153,5144" />
-	</File>
 	<File name="STRAIT_TEST.cpp" open="0" top="0" tabpos="0">
 		<Cursor position="2355" topLine="81" />
 	</File>
@@ -20,7 +15,9 @@
 	</File>
 	<File name="MListDuoOriented.h" open="0" top="0" tabpos="1">
 		<Cursor position="37472" topLine="1297" />
-		<BrowseMarks positions="" />
-		<Book_Marks positions="" />
+	</File>
+	<File name="MListForwardOriented.h" open="0" top="0" tabpos="1">
+		<Cursor position="28430" topLine="993" />
+		<Book_Marks positions="994,5153,5144" />
 	</File>
 </BrowseTracker_layout_file>

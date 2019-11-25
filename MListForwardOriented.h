@@ -205,7 +205,8 @@ bool MList_t::LResize()
         {
         NowFree    = next + (LSize/2) - 1;
         SecondFree = *LFreeTail;
-        } else
+        }
+    else
         {
         NowFree = LFreeTail;
         }
@@ -217,7 +218,8 @@ bool MList_t::LResize()
     if(sorted == 1)
         {
         *(next + LSize - 1) = SecondFree;
-        } else
+        }
+    else
         {
         *(next + LSize - 1) = -2;
         }
@@ -269,7 +271,8 @@ bool MList_t::PushBack(ListElem_t PushingElem)
             *tail = MList_t::SearchingEmpty() - next;
             tail = *tail + next;
             *tail = -3;
-            } else
+            }
+        else
             {
             if(tail - next + 2 == LSize)
                 {
@@ -305,7 +308,8 @@ bool MList_t::InsertAfter(ListElem_t PushingElem, int RawPos)
     if(RawPos == -1)
         {
         Pos = -1;
-        } else
+        }
+    else
         {
         if(sorted == 1)
             {
@@ -314,7 +318,8 @@ bool MList_t::InsertAfter(ListElem_t PushingElem, int RawPos)
                 {
                 Pos = tail - next;
                 }
-            } else
+            }
+        else
             {
             int TmpP = 0;
             int* NowElem = head;
@@ -356,7 +361,8 @@ bool MList_t::InsertAfter(ListElem_t PushingElem, int RawPos)
                 if(*(next + i - LSize/2) != -1 && *(next + i - LSize/2) != -2 && *(next + i - LSize/2) != -3)
                     {
                     *(TmpArr2 + i) = *(next + i - LSize/2) + (LSize/2);
-                    } else
+                    }
+                else
                     {
                     *(TmpArr2 + i) = *(next + i - LSize/2);
                     }
@@ -420,7 +426,8 @@ bool MList_t::DeleteAfter(int Pos)
         *LFreeTail = DeletingElem - next;
         *DeletingElem = -2;
         LFreeTail = DeletingElem;
-        } else
+        }
+    else
         {
         DeletingElem = next + *(next + Pos);
         *(next + Pos) = *DeletingElem;
@@ -474,7 +481,8 @@ ListElem_t MList_t::elem(int Pos)
             NowElem = next + (*NowElem);
             ++NowPos;
             }
-        }else
+        }
+    else
         {
         if(head + Pos < tail)
             {
@@ -519,11 +527,13 @@ bool MList_t::ArrOfElems(ListElem_t* RetArr, int* PosOfElems, int SizeOfArrs)
         if(NowRet == SizeOfArrs - 1)
             {
             return 1; // printed all elems
-            } else
+            }
+        else
             {
             return 0; // didn't find something
             }
-        } else
+        }
+    else
         {
         int NowPos = 0;
         for(int i = 0; i < SizeOfArrs; ++i)
@@ -682,7 +692,8 @@ bool MList_t::SortList()
         if(err == 9)
             {
             DTime = "debug";
-            } else
+            }
+        else
             {
             std::string CritStr = "crit_err_";
             char ErrStr[17];
@@ -728,7 +739,8 @@ bool MList_t::SortList()
         if(err == 9) // debug start of dump
             {
             NewPath.replace(NewPath.rfind("debug"), 5, "LMems");
-            } else
+            }
+        else
             {
             std::string CritStr = "crit_err_";
             char ErrStr[17];
@@ -810,7 +822,8 @@ bool MList_t::SortList()
         if(err == 9) // debug start of dump
             {
             NewPath.replace(NewPath.rfind("PhysModel"), 9, "debug");
-            } else
+            }
+        else
             {
             std::string CritStr = "crit_err_";
             char ErrStr[17];
@@ -949,7 +962,8 @@ bool MList_t::InsertAfterRaw(ListElem_t PushingElem, int Pos)
                 if(*(next + i - LSize/2) != -1 && *(next + i - LSize/2) != -2 && *(next + i - LSize/2) != -3)
                     {
                     *(TmpArr2 + i) = *(next + i - LSize/2) + (LSize/2);
-                    } else
+                    }
+                else
                     {
                     *(TmpArr2 + i) = *(next + i - LSize/2);
                     }
@@ -1005,14 +1019,16 @@ bool MDList_t::DeleteAfterRaw(int Pos)
         *LFreeTail = DeletingElem - next;
         *DeletingElem = -2;
         LFreeTail = DeletingElem;
-        } else
+        }
+    else
         {
         DeletingElem = next + *(next + Pos);
         if( *(DeletingElem) == -3)
             {
             tail = next + Pos;
             *tail = -3;
-            } else
+            }
+        else
             {
             *(next + Pos) = *DeletingElem;
             }
