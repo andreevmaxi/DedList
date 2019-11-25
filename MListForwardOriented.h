@@ -1007,9 +1007,9 @@ bool MList_t::InsertAfterRaw(ListElem_t PushingElem, int Pos)
     \details This is function that delete an element in our list after physical position
     \param[in] RawPos physical position after what we delete elem
 */
-bool MDList_t::DeleteAfterRaw(int Pos)
+bool MList_t::DeleteAfterRaw(int Pos)
     {
-    DEB(MDList_t::Verify());
+    DEB(MList_t::Verify());
 
     int* DeletingElem = 0;
     if(Pos == -1)
@@ -1036,3 +1036,4 @@ bool MDList_t::DeleteAfterRaw(int Pos)
         *DeletingElem = -2;
         LFreeTail = DeletingElem;
         }
+    }

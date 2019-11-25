@@ -1,0 +1,35 @@
+digraph G{
+    data [shape=record,label="    {Memory of list: test} | {{DataPointer:\n6492568 | Data:\n10 | NextPointer:\n6492176 | Next:\n1 | PhysPos:\n0 | Prev:\n-1}
+    | {DataPointer:\n6492572 | Data:\n50 | NextPointer:\n6492180 | Next:\n2 | PhysPos:\n1 | Prev:\n0}
+    | {DataPointer:\n6492576 | Data:\n20 | NextPointer:\n6492184 | Next:\n3 | PhysPos:\n2 | Prev:\n1}
+    | {DataPointer:\n6492580 | Data:\n30 | NextPointer:\n6492188 | Next:\n4 | PhysPos:\n3 | Prev:\n2}
+    | {DataPointer:\n6492584 | Data:\n40 | NextPointer:\n6492192 | Next:\n5 | PhysPos:\n4 | Prev:\n3}
+    | {DataPointer:\n6492588 | Data:\n50 | NextPointer:\n6492196 | Next:\n6 | PhysPos:\n5 | Prev:\n4}
+    | {DataPointer:\n6492592 | Data:\n10 | NextPointer:\n6492200 | Next:\n7 | PhysPos:\n6 | Prev:\n5}
+    | {DataPointer:\n6492596 | Data:\n20 | NextPointer:\n6492204 | Next:\n8 | PhysPos:\n7 | Prev:\n6}
+    | {DataPointer:\n6492600 | Data:\n30 | NextPointer:\n6492208 | Next:\n9 | PhysPos:\n8 | Prev:\n7}
+    | {DataPointer:\n6492604 | Data:\n40 | NextPointer:\n6492212 | Next:\n10 | PhysPos:\n9 | Prev:\n8}
+    | {DataPointer:\n6492608 | Data:\n10 | NextPointer:\n6492216 | Next:\n11 | PhysPos:\n10 | Prev:\n9}
+    | {DataPointer:\n6492612 | Data:\n20 | NextPointer:\n6492220 | Next:\n12 | PhysPos:\n11 | Prev:\n10}
+    | {DataPointer:\n6492616 | Data:\n30 | NextPointer:\n6492224 | Next:\n13 | PhysPos:\n12 | Prev:\n11}
+    | {DataPointer:\n6492620 | Data:\n40 | NextPointer:\n6492228 | Next:\n14 | PhysPos:\n13 | Prev:\n12}
+    | {DataPointer:\n6492624 | Data:\n0 | NextPointer:\n6492232 | Next:\n-3 | PhysPos:\n14 | Prev:\n13}
+    | {DataPointer:\n6492628 | Data:\n1702128489 | NextPointer:\n6492236 | Next:\n16 | PhysPos:\n15 | Prev:\n-1}
+    | {DataPointer:\n6492632 | Data:\n150994953 | NextPointer:\n6492240 | Next:\n17 | PhysPos:\n16 | Prev:\n-1}
+    | {DataPointer:\n6492636 | Data:\n10696 | NextPointer:\n6492244 | Next:\n18 | PhysPos:\n17 | Prev:\n-1}
+    | {DataPointer:\n6492640 | Data:\n6492304 | NextPointer:\n6492248 | Next:\n19 | PhysPos:\n18 | Prev:\n-1}
+    | {DataPointer:\n6492644 | Data:\n6492440 | NextPointer:\n6492252 | Next:\n20 | PhysPos:\n19 | Prev:\n-1}
+    | {DataPointer:\n6492648 | Data:\n3 | NextPointer:\n6492256 | Next:\n21 | PhysPos:\n20 | Prev:\n-1}
+    | {DataPointer:\n6492652 | Data:\n4 | NextPointer:\n6492260 | Next:\n22 | PhysPos:\n21 | Prev:\n-1}
+    | {DataPointer:\n6492656 | Data:\n5 | NextPointer:\n6492264 | Next:\n23 | PhysPos:\n22 | Prev:\n-1}
+    | {DataPointer:\n6492660 | Data:\n6 | NextPointer:\n6492268 | Next:\n24 | PhysPos:\n23 | Prev:\n-1}
+    | {DataPointer:\n6492664 | Data:\n7 | NextPointer:\n6492272 | Next:\n25 | PhysPos:\n24 | Prev:\n-1}
+    | {DataPointer:\n6492668 | Data:\n8 | NextPointer:\n6492276 | Next:\n26 | PhysPos:\n25 | Prev:\n-1}
+    | {DataPointer:\n6492672 | Data:\n9 | NextPointer:\n6492280 | Next:\n27 | PhysPos:\n26 | Prev:\n-1}
+    | {DataPointer:\n6492676 | Data:\n10 | NextPointer:\n6492284 | Next:\n28 | PhysPos:\n27 | Prev:\n-1}
+    | {DataPointer:\n6492680 | Data:\n11 | NextPointer:\n6492288 | Next:\n29 | PhysPos:\n28 | Prev:\n-1}
+    | {DataPointer:\n6492684 | Data:\n12 | NextPointer:\n6492292 | Next:\n-2 | PhysPos:\n29 | Prev:\n-1}
+}"];
+     Shild [shape=record,label="{ RCanary:\n421075226 | LCanary:\n421075226  | NormalCanary:\n421075226 | Sorted:\n1 } | { head:\n6492176 | tail:\n6492232 | LFree:\n6492236 | LFreeTail:\n6492292} | { *head:\n1 | *tail:\n-3 | *LFree:\n16 | *LFreeTail:\n-2}"];
+     Shild->data
+}

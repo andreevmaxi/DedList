@@ -17,7 +17,7 @@ int main()
     test.InsertAfter(50, 5);
 
     printf("sort: %d\n", test.sorted);
-    printf("%d\n\n", test.elem(3));
+    printf("%d\n\n", test.at(3));
     int n = 3;
     int* mass = (int*) calloc(n, sizeof(int));
     int* args = (int*) calloc(n, sizeof(int));
@@ -98,12 +98,12 @@ int main()
         printf("%d %d\n", *(test.data + i), *(test.next + i));
         }
     test.LDUMP(9);             //7
-    test.DeleteBefore(3);
-    test.DeleteBefore(4);
+    test.DeleteElem(4);
+    test.DeleteElem(5);
     test.LDUMP(9);       //8
     test.DeleteElem(6);
     test.LDUMP(9);      //9
-    test.DeleteAfter(5);
+    test.DeleteElem(6);
     test.LDUMP(9);      //10
 
     test.InsertElem(300, 5);
